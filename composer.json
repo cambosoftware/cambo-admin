@@ -1,0 +1,60 @@
+{
+    "name": "cambosoftware/cambo-admin",
+    "description": "A complete Laravel backoffice package with Vue.js components, authentication, roles, permissions, and more.",
+    "keywords": [
+        "laravel",
+        "admin",
+        "backoffice",
+        "vue",
+        "inertia",
+        "crud",
+        "dashboard"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CamboSoftware",
+            "email": "contact@cambosoftware.com",
+            "homepage": "https://cambosoftware.com"
+        }
+    ],
+    "homepage": "https://github.com/cambosoftware/cambo-admin",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0|^12.0",
+        "inertiajs/inertia-laravel": "^1.0|^2.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0",
+        "phpunit/phpunit": "^10.0"
+    },
+    "suggest": {
+        "barryvdh/laravel-dompdf": "Required for PDF exports",
+        "maatwebsite/excel": "Required for Excel exports"
+    },
+    "autoload": {
+        "psr-4": {
+            "CamboSoftware\\CamboAdmin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CamboSoftware\\CamboAdmin\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CamboSoftware\\CamboAdmin\\CamboAdminServiceProvider"
+            ],
+            "aliases": {
+                "Cambo": "CamboSoftware\\CamboAdmin\\Facades\\Cambo"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

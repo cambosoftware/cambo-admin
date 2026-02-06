@@ -1,0 +1,17 @@
+{
+  "name": "cambo-admin-docs",
+  "version": "1.0.0",
+  "description": "Documentation for CamboAdmin Laravel Package",
+  "scripts": {
+    "docs:dev": "vuepress dev",
+    "docs:build": "vuepress build"
+  },
+  "devDependencies": {
+    "vuepress": "^2.0.0-rc.0",
+    "@vuepress/bundler-vite": "^2.0.0-rc.0",
+    "@vuepress/theme-default": "^2.0.0-rc.0",
+    "@vuepress/plugin-search": "^2.0.0-rc.0",
+    "@vuepress/plugin-prismjs": "^2.0.0-rc.0",
+    "vue": "^3.4.0"
+  }
+}
