@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// All auth routes need the 'web' middleware for session handling
+Route::middleware('web')->group(function () {
+
 // Guest routes
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisterController::class, 'create'])
@@ -115,3 +118,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('sessions', [SessionController::class, 'destroyOthers'])
         ->name('sessions.destroy-others');
 });
+
+}); // End of 'web' middleware group
