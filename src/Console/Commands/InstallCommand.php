@@ -273,6 +273,7 @@ class InstallCommand extends Command
         $this->updateUserModel();
         $this->updateViteConfig();
         $this->updateTailwindConfig();
+        $this->updatePackageJson();
         $this->updateAppJs();
 
         $this->info('✓ Configuration files updated');
@@ -317,34 +318,43 @@ class InstallCommand extends Command
     {
         $vitePath = base_path('vite.config.js');
 
-        if (!$this->files->exists($vitePath)) {
-            return;
-        }
+        // Always create a complete vite.config.js for Vue + Inertia
+        $viteConfig = <<<'JS'
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/vite';
 
-        $content = $this->files->get($vitePath);
-
-        // Check if alias is already set
-        if (Str::contains($content, "'@': ")) {
-            return;
-        }
-
-        // Add alias configuration
-        $aliasConfig = <<<'JS'
-        resolve: {
-            alias: {
-                '@': '/resources/js',
-            },
+export default defineConfig({
+    resolve: {
+        alias: {
+            '@': '/resources/js',
         },
+    },
+    plugins: [
+        laravel({
+            input: ['resources/css/app.css', 'resources/js/app.js'],
+            refresh: true,
+        }),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    base: null,
+                    includeAbsolute: false,
+                },
+            },
+        }),
+        tailwindcss(),
+    ],
+    server: {
+        watch: {
+            ignored: ['**/storage/framework/views/**'],
+        },
+    },
+});
 JS;
 
-        if (Str::contains($content, 'plugins:')) {
-            $content = preg_replace(
-                '/(plugins:\s*\[)/',
-                $aliasConfig . "\n        $1",
-                $content
-            );
-            $this->files->put($vitePath, $content);
-        }
+        $this->files->put($vitePath, $viteConfig);
     }
 
     protected function updateTailwindConfig(): void
@@ -370,6 +380,41 @@ JS;
         );
 
         $this->files->put($tailwindPath, $content);
+    }
+
+    protected function updatePackageJson(): void
+    {
+        $packagePath = base_path('package.json');
+
+        if (!$this->files->exists($packagePath)) {
+            return;
+        }
+
+        $package = json_decode($this->files->get($packagePath), true);
+
+        // Required dev dependencies for Vue + Inertia + Tailwind
+        $requiredDevDependencies = [
+            '@inertiajs/vue3' => '^2.0',
+            '@vitejs/plugin-vue' => '^5.0',
+            'vue' => '^3.5',
+        ];
+
+        // Merge dependencies
+        foreach ($requiredDevDependencies as $dep => $version) {
+            if (!isset($package['devDependencies'][$dep])) {
+                $package['devDependencies'][$dep] = $version;
+            }
+        }
+
+        // Sort devDependencies alphabetically
+        ksort($package['devDependencies']);
+
+        $this->files->put(
+            $packagePath,
+            json_encode($package, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n"
+        );
+
+        $this->info('✓ package.json updated with Vue dependencies');
     }
 
     protected function updateAppJs(): void
