@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notification;
+use CamboSoftware\CamboAdmin\Models\Notification;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

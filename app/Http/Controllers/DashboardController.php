@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DashboardLayout;
-use App\Models\DashboardWidget;
-use App\Models\WidgetType;
+use CamboSoftware\CamboAdmin\Models\DashboardLayout;
+use CamboSoftware\CamboAdmin\Models\DashboardWidget;
+use CamboSoftware\CamboAdmin\Models\WidgetType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MediaFile;
-use App\Models\MediaFolder;
+use CamboSoftware\CamboAdmin\Models\MediaFile;
+use CamboSoftware\CamboAdmin\Models\MediaFolder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
