@@ -121,6 +121,9 @@ php artisan cambo:install --no-migrate
 # Skip seeder execution
 php artisan cambo:install --no-seed
 
+# Skip database configuration check
+php artisan cambo:install --no-db-setup
+
 # Force overwrite existing files
 php artisan cambo:install --force
 
@@ -130,6 +133,20 @@ php artisan cambo:install --no-interaction
 # Combine options
 php artisan cambo:install --full --no-seed --force
 ```
+
+### Database Configuration
+
+The installer automatically checks your database connection before running migrations. If the connection fails, you'll be prompted to configure your database interactively:
+
+1. **Choose database type**: MySQL, PostgreSQL, or SQLite
+2. **Enter credentials**: Host, port, database name, username, password
+3. **Auto-create database**: If the database doesn't exist, the installer can create it for you
+
+The installer updates your `.env` file with the provided credentials.
+
+::: tip
+Use `--no-db-setup` if your database is already configured and you want to skip the connection check.
+:::
 
 ## Step 3: Install Frontend Dependencies
 
