@@ -393,6 +393,114 @@ $user->hasAnyPermission(['users.create', 'users.edit']);
 $user->getAllPermissions();
 ```
 
+## Development Guidelines (IMPORTANT)
+
+When developing new pages or components, follow these rules to avoid common issues:
+
+### URLs and Routes
+
+```php
+// WRONG - Named routes may not be defined
+return redirect()->route('roles.index');
+
+// CORRECT - Use direct URLs with /admin prefix
+return redirect('/admin/roles');
+```
+
+### User Model References
+
+```php
+// WRONG - Will fail because User class doesn't exist in package namespace
+public function users(): BelongsToMany
+{
+    return $this->belongsToMany(User::class);
+}
+
+// CORRECT - Use config with fallback
+public function users(): BelongsToMany
+{
+    $userModel = config('cambo-admin.models.user') ?? \App\Models\User::class;
+    return $this->belongsToMany($userModel, 'user_role');
+}
+```
+
+### Dropdown Components in Overflow Containers
+
+When a dropdown might be inside a container with `overflow: hidden/auto/scroll`, use Teleport:
+
+```vue
+<Teleport to="body">
+    <div v-if="open" class="fixed z-50" :style="dropdownStyle">
+        <!-- dropdown content -->
+    </div>
+</Teleport>
+```
+
+### Checkbox with Array v-model
+
+Checkbox supports both Boolean and Array modes:
+
+```vue
+<!-- Boolean mode -->
+<Checkbox v-model="isActive" label="Active" />
+
+<!-- Array mode for checkbox groups -->
+<Checkbox
+    v-for="perm in permissions"
+    :key="perm.slug"
+    v-model="selectedPermissions"
+    :value="perm.slug"
+    :label="perm.name"
+/>
+```
+
+### Component Slots
+
+Always check component source for supported slots. Common mistake:
+
+```vue
+<!-- WRONG - DescriptionList doesn't have #items slot -->
+<DescriptionList>
+    <template #items>...</template>
+</DescriptionList>
+
+<!-- CORRECT - Use default slot -->
+<DescriptionList>
+    <div class="py-3">...</div>
+</DescriptionList>
+```
+
+### Dark Mode
+
+Always add dark mode classes:
+
+```vue
+<!-- WRONG -->
+<span class="text-gray-900">Text</span>
+
+<!-- CORRECT -->
+<span class="text-gray-900 dark:text-gray-100">Text</span>
+```
+
+### Permission Data Format
+
+Permissions from the database are objects, not strings:
+
+```javascript
+// WRONG - Permissions are objects with slug property
+const form = useForm({
+    permissions: props.role.permissions  // [{id, name, slug}, ...]
+})
+
+// CORRECT - Extract slugs
+const initialPermissions = (props.role.permissions || [])
+    .map(p => typeof p === 'string' ? p : p.slug)
+
+const form = useForm({
+    permissions: initialPermissions  // ['perm-1', 'perm-2', ...]
+})
+```
+
 ## Full Documentation
 
 For complete documentation with all component props, events, and slots, visit:
