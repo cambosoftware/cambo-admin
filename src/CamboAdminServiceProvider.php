@@ -108,10 +108,9 @@ class CamboAdminServiceProvider extends ServiceProvider
                 __DIR__ . '/../resources/lang/' => resource_path('lang'),
             ], 'cambo-admin-lang');
 
-            // Auth Controllers
+            // Controllers
             $this->publishes([
-                __DIR__ . '/../app/Http/Controllers/Auth/' => app_path('Http/Controllers/Auth'),
-                __DIR__ . '/../app/Http/Controllers/ProfileController.php' => app_path('Http/Controllers/ProfileController.php'),
+                __DIR__ . '/../app/Http/Controllers/' => app_path('Http/Controllers'),
             ], 'cambo-admin-controllers');
 
             // All assets
@@ -125,8 +124,7 @@ class CamboAdminServiceProvider extends ServiceProvider
                 __DIR__ . '/../resources/js/Plugins/' => resource_path('js/Plugins'),
                 __DIR__ . '/../resources/views/' => resource_path('views'),
                 __DIR__ . '/../resources/lang/' => resource_path('lang'),
-                __DIR__ . '/../app/Http/Controllers/Auth/' => app_path('Http/Controllers/Auth'),
-                __DIR__ . '/../app/Http/Controllers/ProfileController.php' => app_path('Http/Controllers/ProfileController.php'),
+                __DIR__ . '/../app/Http/Controllers/' => app_path('Http/Controllers'),
             ], 'cambo-admin');
         }
     }
