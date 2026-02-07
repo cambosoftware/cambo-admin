@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use CamboSoftware\CamboAdmin\Models\DashboardLayout;
 use CamboSoftware\CamboAdmin\Models\DashboardWidget;
 use CamboSoftware\CamboAdmin\Models\WidgetType;
+use CamboSoftware\CamboAdmin\Models\Role;
+use CamboSoftware\CamboAdmin\Models\MediaFile;
+use CamboSoftware\CamboAdmin\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -49,6 +52,7 @@ class DashboardController extends Controller
             ],
             'widgets' => $widgets,
             'stats' => $stats,
+            'modules' => config('cambo-admin.modules', []),
             'editMode' => $request->boolean('edit'),
         ]);
     }
@@ -199,11 +203,27 @@ class DashboardController extends Controller
      */
     protected function getStats(): array
     {
-        return [
-            'users' => User::count(),
-            'orders' => 567, // Demo data
-            'revenue' => 45678,
-            'products' => 89,
+        $stats = [
+            'users_count' => User::count(),
         ];
+
+        // Add roles count if module is enabled
+        if (config('cambo-admin.modules.roles', true)) {
+            $stats['roles_count'] = class_exists(Role::class) ? Role::count() : 0;
+        }
+
+        // Add media count if module is enabled
+        if (config('cambo-admin.modules.media', true)) {
+            $stats['media_count'] = class_exists(MediaFile::class) ? MediaFile::count() : 0;
+        }
+
+        // Add notifications count if module is enabled
+        if (config('cambo-admin.modules.notifications', true)) {
+            $stats['notifications_count'] = class_exists(Notification::class)
+                ? Notification::where('read_at', null)->count()
+                : 0;
+        }
+
+        return $stats;
     }
 }
