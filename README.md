@@ -4,8 +4,19 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/cambosoftware/cambo-admin.svg?style=flat-square)](https://packagist.org/packages/cambosoftware/cambo-admin)
 [![Tests](https://github.com/cambosoftware/cambo-admin/actions/workflows/tests.yml/badge.svg)](https://github.com/cambosoftware/cambo-admin/actions)
 [![License](https://img.shields.io/packagist/l/cambosoftware/cambo-admin.svg?style=flat-square)](https://packagist.org/packages/cambosoftware/cambo-admin)
+[![Documentation](https://img.shields.io/badge/docs-cambo--admin.cambosoftware.com-blue.svg?style=flat-square)](https://cambo-admin.cambosoftware.com)
 
 A complete Laravel backoffice package with 150+ Vue.js components, authentication, roles & permissions, and more. Build beautiful admin panels in minutes.
+
+## Documentation
+
+**Full documentation is available at [cambo-admin.cambosoftware.com](https://cambo-admin.cambosoftware.com)**
+
+- [Getting Started](https://cambo-admin.cambosoftware.com/guide/)
+- [Installation Guide](https://cambo-admin.cambosoftware.com/guide/installation)
+- [Configuration](https://cambo-admin.cambosoftware.com/guide/configuration)
+- [Components Reference](https://cambo-admin.cambosoftware.com/components/)
+- [API Reference](https://cambo-admin.cambosoftware.com/api/)
 
 ## Features
 
