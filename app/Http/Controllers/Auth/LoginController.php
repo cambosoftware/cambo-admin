@@ -58,7 +58,7 @@ class LoginController extends Controller
             return redirect()->route('two-factor.challenge');
         }
 
-        return redirect()->intended(route('dashboard'));
+        return redirect()->intended(route('cambo.dashboard'));
     }
 
     /**
