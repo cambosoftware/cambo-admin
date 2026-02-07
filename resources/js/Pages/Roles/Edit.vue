@@ -24,11 +24,14 @@ const props = defineProps({
     }
 })
 
+// Extract permission slugs from the role's permissions (which may be objects or strings)
+const initialPermissions = (props.role.permissions || []).map(p => typeof p === 'string' ? p : p.slug)
+
 const form = useForm({
     name: props.role.name,
     slug: props.role.slug,
     description: props.role.description || '',
-    permissions: props.role.permissions || []
+    permissions: initialPermissions
 })
 
 const submit = () => {

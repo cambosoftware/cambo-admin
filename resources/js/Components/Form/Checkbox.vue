@@ -3,8 +3,12 @@ import { computed } from 'vue'
 
 const props = defineProps({
     modelValue: {
-        type: Boolean,
+        type: [Boolean, Array],
         default: false
+    },
+    value: {
+        type: [String, Number, Boolean, Object],
+        default: null
     },
     label: {
         type: String,
@@ -37,6 +41,17 @@ const emit = defineEmits(['update:modelValue', 'change'])
 
 const hasError = computed(() => !!props.error)
 
+// Check if we're in array mode (checkbox group)
+const isArrayMode = computed(() => Array.isArray(props.modelValue))
+
+// Check if this checkbox is checked
+const isChecked = computed(() => {
+    if (isArrayMode.value) {
+        return props.modelValue.includes(props.value)
+    }
+    return props.modelValue
+})
+
 const boxSize = computed(() => {
     const sizes = { sm: 'h-3.5 w-3.5', md: 'h-4 w-4', lg: 'h-5 w-5' }
     return sizes[props.size]
@@ -49,9 +64,23 @@ const labelSize = computed(() => {
 
 const toggle = () => {
     if (props.disabled) return
-    const val = !props.modelValue
-    emit('update:modelValue', val)
-    emit('change', val)
+
+    let newValue
+
+    if (isArrayMode.value) {
+        // Array mode: add/remove value from array
+        if (isChecked.value) {
+            newValue = props.modelValue.filter(v => v !== props.value)
+        } else {
+            newValue = [...props.modelValue, props.value]
+        }
+    } else {
+        // Boolean mode: toggle true/false
+        newValue = !props.modelValue
+    }
+
+    emit('update:modelValue', newValue)
+    emit('change', newValue)
 }
 </script>
 
@@ -67,16 +96,16 @@ const toggle = () => {
             :class="[
                 'relative flex-shrink-0 rounded border flex items-center justify-center transition-colors',
                 boxSize,
-                modelValue || indeterminate
+                isChecked || indeterminate
                     ? 'bg-indigo-600 border-indigo-600'
                     : hasError
-                        ? 'border-red-300 bg-white'
-                        : 'border-gray-300 bg-white',
+                        ? 'border-red-300 bg-white dark:border-red-600 dark:bg-gray-800'
+                        : 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800',
                 !disabled ? 'cursor-pointer' : ''
             ]"
             @click="toggle"
             role="checkbox"
-            :aria-checked="indeterminate ? 'mixed' : modelValue"
+            :aria-checked="indeterminate ? 'mixed' : isChecked"
             tabindex="0"
             @keydown.space.prevent="toggle"
         >
@@ -84,7 +113,7 @@ const toggle = () => {
             <svg
                 :class="[
                     'h-3 w-3 text-white transition-opacity duration-150',
-                    modelValue && !indeterminate ? 'opacity-100' : 'opacity-0'
+                    isChecked && !indeterminate ? 'opacity-100' : 'opacity-0'
                 ]"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -104,10 +133,10 @@ const toggle = () => {
 
         <!-- Label -->
         <span v-if="label || description || $slots.default" class="leading-none" @click="toggle">
-            <span :class="['font-medium text-gray-900', labelSize]">
+            <span :class="['font-medium text-gray-900 dark:text-gray-100', labelSize]">
                 <slot>{{ label }}</slot>
             </span>
-            <span v-if="description" class="block text-xs text-gray-500 mt-1">
+            <span v-if="description" class="block text-xs text-gray-500 dark:text-gray-400 mt-1">
                 {{ description }}
             </span>
         </span>
