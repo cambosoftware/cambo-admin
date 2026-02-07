@@ -395,7 +395,7 @@ JS;
         // Required dev dependencies for Vue + Inertia + Tailwind
         $requiredDevDependencies = [
             '@inertiajs/vue3' => '^2.0',
-            '@vitejs/plugin-vue' => '^5.0',
+            '@vitejs/plugin-vue' => '^6.0',
             'vue' => '^3.5',
         ];
 
