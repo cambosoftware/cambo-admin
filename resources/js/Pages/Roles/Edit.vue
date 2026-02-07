@@ -32,7 +32,7 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.put(`/roles/${props.role.id}`)
+    form.put(`/admin/roles/${props.role.id}`)
 }
 
 const toggleGroup = (group, perms) => {
@@ -64,7 +64,7 @@ const isGroupPartial = (perms) => {
             :subtitle="role.name"
         >
             <template #actions>
-                <Link href="/roles">
+                <Link href="/admin/roles">
                     <Button variant="secondary">Retour</Button>
                 </Link>
             </template>
@@ -150,7 +150,7 @@ const isGroupPartial = (perms) => {
 
             <!-- Submit -->
             <div class="mt-6 flex justify-end gap-3">
-                <Link href="/roles">
+                <Link href="/admin/roles">
                     <Button variant="secondary">Annuler</Button>
                 </Link>
                 <Button type="submit" variant="primary" :loading="form.processing">

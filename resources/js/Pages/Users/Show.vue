@@ -32,7 +32,7 @@ const statusVariant = (status) => {
 }
 
 const deleteUser = () => {
-    router.delete(`/users/${props.user.id}`, {
+    router.delete(`/admin/users/${props.user.id}`, {
         onSuccess: () => {
             deleteModal.value = false
         }
@@ -44,10 +44,10 @@ const deleteUser = () => {
     <AdminLayout :title="user.name">
         <PageHeader :title="user.name" :subtitle="`Détails de l'utilisateur #${user.id}`">
             <template #breadcrumbs>
-                <BackButton href="/users" />
+                <BackButton href="/admin/users" />
             </template>
             <template #actions>
-                <Button :href="`/users/${user.id}/edit`" variant="secondary" :icon="PencilIcon">
+                <Button :href="`/admin/users/${user.id}/edit`" variant="secondary" :icon="PencilIcon">
                     Modifier
                 </Button>
                 <Button variant="danger" :icon="TrashIcon" @click="deleteModal = true">

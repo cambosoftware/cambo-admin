@@ -26,7 +26,7 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.post('/roles')
+    form.post('/admin/roles')
 }
 
 const toggleGroup = (group, perms) => {

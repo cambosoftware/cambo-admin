@@ -29,7 +29,7 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.post('/users')
+    form.post('/admin/users')
 }
 </script>
 
@@ -37,7 +37,7 @@ const submit = () => {
     <AdminLayout title="Nouvel utilisateur">
         <PageHeader title="Nouvel utilisateur" subtitle="Créez un nouvel utilisateur">
             <template #breadcrumbs>
-                <BackButton href="/users" />
+                <BackButton href="/admin/users" />
             </template>
         </PageHeader>
 
@@ -106,7 +106,7 @@ const submit = () => {
 
                         <!-- Actions -->
                         <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                            <Button href="/users" variant="secondary">
+                            <Button href="/admin/users" variant="secondary">
                                 Annuler
                             </Button>
                             <Button

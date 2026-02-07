@@ -37,7 +37,7 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.put(`/users/${props.user.id}`)
+    form.put(`/admin/users/${props.user.id}`)
 }
 </script>
 
@@ -45,7 +45,7 @@ const submit = () => {
     <AdminLayout title="Modifier l'utilisateur">
         <PageHeader :title="user.name" subtitle="Modifiez les informations de l'utilisateur">
             <template #breadcrumbs>
-                <BackButton href="/users" />
+                <BackButton href="/admin/users" />
             </template>
         </PageHeader>
 
@@ -143,7 +143,7 @@ const submit = () => {
 
                         <!-- Actions -->
                         <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
-                            <Button href="/users" variant="secondary">
+                            <Button href="/admin/users" variant="secondary">
                                 Annuler
                             </Button>
                             <Button

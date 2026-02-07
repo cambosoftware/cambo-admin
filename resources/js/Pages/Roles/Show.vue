@@ -35,7 +35,7 @@ const hasPermission = (slug) => {
             :subtitle="role.description || 'Aucune description'"
         >
             <template #actions>
-                <Link :href="`/roles/${role.id}/edit`">
+                <Link :href="`/admin/roles/${role.id}/edit`">
                     <Button variant="primary" :icon-left="PencilIcon">
                         Modifier
                     </Button>

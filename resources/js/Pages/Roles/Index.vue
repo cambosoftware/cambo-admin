@@ -39,7 +39,7 @@ const deleteModal = ref(false)
 const roleToDelete = ref(null)
 
 const doSearch = () => {
-    router.get('/roles', { search: search.value }, {
+    router.get('/admin/roles', { search: search.value }, {
         preserveState: true,
         replace: true,
     })
@@ -51,7 +51,7 @@ const confirmDelete = (role) => {
 }
 
 const deleteRole = () => {
-    router.delete(`/roles/${roleToDelete.value.id}`, {
+    router.delete(`/admin/roles/${roleToDelete.value.id}`, {
         onSuccess: () => {
             deleteModal.value = false
             roleToDelete.value = null
@@ -60,7 +60,7 @@ const deleteRole = () => {
 }
 
 const setDefault = (role) => {
-    router.post(`/roles/${role.id}/set-default`)
+    router.post(`/admin/roles/${role.id}/set-default`)
 }
 </script>
 
@@ -141,10 +141,10 @@ const setDefault = (role) => {
                                     </Button>
                                 </template>
 
-                                <DropdownItem :href="`/roles/${role.id}`" :icon="EyeIcon">
+                                <DropdownItem :href="`/admin/roles/${role.id}`" :icon="EyeIcon">
                                     Voir
                                 </DropdownItem>
-                                <DropdownItem :href="`/roles/${role.id}/edit`" :icon="PencilIcon">
+                                <DropdownItem :href="`/admin/roles/${role.id}/edit`" :icon="PencilIcon">
                                     Modifier
                                 </DropdownItem>
                                 <DropdownItem

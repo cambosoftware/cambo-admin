@@ -43,7 +43,7 @@ const userToDelete = ref(null)
 
 // Methods
 const handleSearch = (value) => {
-    router.get('/users', { search: value, sort: sort.value, direction: sortDir.value }, {
+    router.get('/admin/users', { search: value, sort: sort.value, direction: sortDir.value }, {
         preserveState: true,
         replace: true
     })
@@ -52,14 +52,14 @@ const handleSearch = (value) => {
 const handleSort = ({ column, direction }) => {
     sort.value = column
     sortDir.value = direction
-    router.get('/users', { search: search.value, sort: column, direction }, {
+    router.get('/admin/users', { search: search.value, sort: column, direction }, {
         preserveState: true,
         replace: true
     })
 }
 
 const handlePageChange = (page) => {
-    router.get('/users', { ...props.filters, page }, {
+    router.get('/admin/users', { ...props.filters, page }, {
         preserveState: true,
         replace: true
     })
@@ -72,7 +72,7 @@ const confirmDelete = (user) => {
 
 const deleteUser = () => {
     if (userToDelete.value) {
-        router.delete(`/users/${userToDelete.value.id}`, {
+        router.delete(`/admin/users/${userToDelete.value.id}`, {
             onSuccess: () => {
                 deleteModal.value = false
                 userToDelete.value = null
@@ -96,7 +96,7 @@ const statusVariant = (status) => {
     <AdminLayout title="Utilisateurs">
         <PageHeader title="Utilisateurs" subtitle="Gérez les utilisateurs de votre application">
             <template #actions>
-                <Button :href="'/users/create'" variant="primary" :icon="PlusIcon">
+                <Button :href="'/admin/users/create'" variant="primary" :icon="PlusIcon">
                     Nouvel utilisateur
                 </Button>
             </template>
@@ -193,10 +193,10 @@ const statusVariant = (status) => {
                                             <EllipsisVerticalIcon class="h-5 w-5 text-gray-500" />
                                         </button>
                                     </template>
-                                    <DropdownItem :href="`/users/${user.id}`" :icon="EyeIcon">
+                                    <DropdownItem :href="`/admin/users/${user.id}`" :icon="EyeIcon">
                                         Voir
                                     </DropdownItem>
-                                    <DropdownItem :href="`/users/${user.id}/edit`" :icon="PencilIcon">
+                                    <DropdownItem :href="`/admin/users/${user.id}/edit`" :icon="PencilIcon">
                                         Modifier
                                     </DropdownItem>
                                     <DropdownDivider />
@@ -214,7 +214,7 @@ const statusVariant = (status) => {
                                 description="Commencez par créer votre premier utilisateur."
                                 class="py-12"
                             >
-                                <Button :href="'/users/create'" variant="primary" :icon="PlusIcon">
+                                <Button :href="'/admin/users/create'" variant="primary" :icon="PlusIcon">
                                     Nouvel utilisateur
                                 </Button>
                             </EmptyState>
