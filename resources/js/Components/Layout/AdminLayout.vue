@@ -3,6 +3,7 @@ import { ref, provide, computed, onMounted } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import Sidebar from './Sidebar.vue'
 import Navbar from './Navbar.vue'
+import DefaultSidebarMenu from './DefaultSidebarMenu.vue'
 
 // Tailwind safelist: lg:ml-16 lg:ml-64 lg:mr-16 lg:mr-64 lg:pt-14
 
@@ -176,7 +177,9 @@ provide('currentUser', user)
                 <slot name="sidebar-header" />
             </template>
             <template #menu>
-                <slot name="sidebar-menu" />
+                <slot name="sidebar-menu">
+                    <DefaultSidebarMenu />
+                </slot>
             </template>
             <template #footer>
                 <slot name="sidebar-footer" />
