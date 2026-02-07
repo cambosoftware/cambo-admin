@@ -6,8 +6,6 @@ import SidebarItem from '@/Components/Layout/SidebarItem.vue'
 import SidebarDivider from '@/Components/Layout/SidebarDivider.vue'
 import PageHeader from '@/Components/Layout/PageHeader.vue'
 import Card from '@/Components/Containers/Card.vue'
-import CardGrid from '@/Components/Containers/CardGrid.vue'
-import StatCard from '@/Components/Stats/StatCard.vue'
 import {
     HomeIcon,
     UsersIcon,
@@ -30,6 +28,10 @@ const user = computed(() => page.props.auth?.user)
 // Helper to check if module is enabled
 const isModuleEnabled = (module) => modules.value[module] !== false
 
+// Get current path for active state
+const currentPath = computed(() => page.url || window.location.pathname)
+const isActive = (path) => currentPath.value.startsWith(path)
+
 // Define props for customization
 defineProps({
     title: {
@@ -47,8 +49,8 @@ defineProps({
             <SidebarItem
                 label="Dashboard"
                 :icon="HomeIcon"
-                :href="route('cambo.dashboard')"
-                :active="route().current('cambo.dashboard')"
+                href="/admin"
+                :active="currentPath === '/admin' || currentPath === '/admin/'"
             />
 
             <SidebarDivider v-if="isModuleEnabled('users') || isModuleEnabled('roles')" label="Administration" />
@@ -58,8 +60,8 @@ defineProps({
                 v-if="isModuleEnabled('users')"
                 label="Users"
                 :icon="UsersIcon"
-                :href="route('cambo.users.index')"
-                :active="route().current('cambo.users.*')"
+                href="/admin/users"
+                :active="isActive('/admin/users')"
             />
 
             <!-- Roles -->
@@ -67,8 +69,8 @@ defineProps({
                 v-if="isModuleEnabled('roles')"
                 label="Roles"
                 :icon="ShieldCheckIcon"
-                :href="route('cambo.roles.index')"
-                :active="route().current('cambo.roles.*')"
+                href="/admin/roles"
+                :active="isActive('/admin/roles')"
             />
 
             <SidebarDivider v-if="isModuleEnabled('media') || isModuleEnabled('notifications') || isModuleEnabled('activity-log')" label="Content" />
@@ -78,8 +80,8 @@ defineProps({
                 v-if="isModuleEnabled('media')"
                 label="Media"
                 :icon="FolderIcon"
-                :href="route('cambo.media.index')"
-                :active="route().current('cambo.media.*')"
+                href="/admin/media"
+                :active="isActive('/admin/media')"
             />
 
             <!-- Notifications -->
@@ -87,8 +89,8 @@ defineProps({
                 v-if="isModuleEnabled('notifications')"
                 label="Notifications"
                 :icon="BellIcon"
-                :href="route('cambo.notifications.index')"
-                :active="route().current('cambo.notifications.*')"
+                href="/admin/notifications"
+                :active="isActive('/admin/notifications')"
             />
 
             <!-- Activity Log -->
@@ -96,8 +98,8 @@ defineProps({
                 v-if="isModuleEnabled('activity-log')"
                 label="Activity Log"
                 :icon="ClockIcon"
-                :href="route('cambo.activity-log.index')"
-                :active="route().current('cambo.activity-log.*')"
+                href="/admin/activity-log"
+                :active="isActive('/admin/activity-log')"
             />
 
             <SidebarDivider v-if="isModuleEnabled('settings') || isModuleEnabled('import-export') || isModuleEnabled('i18n') || isModuleEnabled('themes')" label="Settings" />
@@ -107,8 +109,8 @@ defineProps({
                 v-if="isModuleEnabled('import-export')"
                 label="Import/Export"
                 :icon="ArrowDownTrayIcon"
-                :href="route('cambo.import-export.index')"
-                :active="route().current('cambo.import-export.*')"
+                href="/admin/import-export"
+                :active="isActive('/admin/import-export')"
             />
 
             <!-- Translations -->
@@ -116,8 +118,8 @@ defineProps({
                 v-if="isModuleEnabled('i18n')"
                 label="Translations"
                 :icon="LanguageIcon"
-                :href="route('cambo.translations.index')"
-                :active="route().current('cambo.translations.*')"
+                href="/admin/translations"
+                :active="isActive('/admin/translations')"
             />
 
             <!-- Themes -->
@@ -125,8 +127,8 @@ defineProps({
                 v-if="isModuleEnabled('themes')"
                 label="Themes"
                 :icon="SwatchIcon"
-                :href="route('cambo.themes.index')"
-                :active="route().current('cambo.themes.*')"
+                href="/admin/themes"
+                :active="isActive('/admin/themes')"
             />
 
             <!-- Settings -->
@@ -134,8 +136,8 @@ defineProps({
                 v-if="isModuleEnabled('settings')"
                 label="Settings"
                 :icon="Cog6ToothIcon"
-                :href="route('cambo.settings.index')"
-                :active="route().current('cambo.settings.*')"
+                href="/admin/settings"
+                :active="isActive('/admin/settings')"
             />
         </template>
 
@@ -147,43 +149,71 @@ defineProps({
         </PageHeader>
 
         <!-- Stats Grid -->
-        <CardGrid :cols="4" class="mb-8">
-            <StatCard
-                v-if="isModuleEnabled('users')"
-                title="Total Users"
-                :value="stats.users_count || 0"
-                :icon="UsersIcon"
-                color="primary"
-            />
-            <StatCard
-                v-if="isModuleEnabled('roles')"
-                title="Roles"
-                :value="stats.roles_count || 0"
-                :icon="ShieldCheckIcon"
-                color="success"
-            />
-            <StatCard
-                v-if="isModuleEnabled('media')"
-                title="Media Files"
-                :value="stats.media_count || 0"
-                :icon="FolderIcon"
-                color="warning"
-            />
-            <StatCard
-                v-if="isModuleEnabled('notifications')"
-                title="Notifications"
-                :value="stats.notifications_count || 0"
-                :icon="BellIcon"
-                color="info"
-            />
-        </CardGrid>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+            <div v-if="isModuleEnabled('users')" class="relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 p-6 shadow-lg">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-white/10"></div>
+                <div class="relative">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-blue-100">Total Users</p>
+                            <p class="mt-2 text-3xl font-bold text-white">{{ (stats.users_count || 0).toLocaleString() }}</p>
+                        </div>
+                        <div class="rounded-lg bg-white/20 p-3">
+                            <UsersIcon class="h-8 w-8 text-white" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isModuleEnabled('roles')" class="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 p-6 shadow-lg">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-white/10"></div>
+                <div class="relative">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-emerald-100">Roles</p>
+                            <p class="mt-2 text-3xl font-bold text-white">{{ (stats.roles_count || 0).toLocaleString() }}</p>
+                        </div>
+                        <div class="rounded-lg bg-white/20 p-3">
+                            <ShieldCheckIcon class="h-8 w-8 text-white" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isModuleEnabled('media')" class="relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 p-6 shadow-lg">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-white/10"></div>
+                <div class="relative">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-amber-100">Media Files</p>
+                            <p class="mt-2 text-3xl font-bold text-white">{{ (stats.media_count || 0).toLocaleString() }}</p>
+                        </div>
+                        <div class="rounded-lg bg-white/20 p-3">
+                            <FolderIcon class="h-8 w-8 text-white" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isModuleEnabled('notifications')" class="relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 p-6 shadow-lg">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-white/10"></div>
+                <div class="relative">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-purple-100">Notifications</p>
+                            <p class="mt-2 text-3xl font-bold text-white">{{ (stats.notifications_count || 0).toLocaleString() }}</p>
+                        </div>
+                        <div class="rounded-lg bg-white/20 p-3">
+                            <BellIcon class="h-8 w-8 text-white" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Quick Actions -->
         <Card title="Quick Actions" class="mb-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
                 <Link
                     v-if="isModuleEnabled('users')"
-                    :href="route('cambo.users.create')"
+                    href="/admin/users/create"
                     class="flex flex-col items-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
                     <UsersIcon class="h-8 w-8 text-indigo-500 mb-2" />
@@ -191,7 +221,7 @@ defineProps({
                 </Link>
                 <Link
                     v-if="isModuleEnabled('roles')"
-                    :href="route('cambo.roles.create')"
+                    href="/admin/roles/create"
                     class="flex flex-col items-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
                     <ShieldCheckIcon class="h-8 w-8 text-green-500 mb-2" />
@@ -199,7 +229,7 @@ defineProps({
                 </Link>
                 <Link
                     v-if="isModuleEnabled('media')"
-                    :href="route('cambo.media.index')"
+                    href="/admin/media"
                     class="flex flex-col items-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
                     <FolderIcon class="h-8 w-8 text-amber-500 mb-2" />
@@ -207,7 +237,7 @@ defineProps({
                 </Link>
                 <Link
                     v-if="isModuleEnabled('settings')"
-                    :href="route('cambo.settings.index')"
+                    href="/admin/settings"
                     class="flex flex-col items-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
                     <Cog6ToothIcon class="h-8 w-8 text-gray-500 mb-2" />

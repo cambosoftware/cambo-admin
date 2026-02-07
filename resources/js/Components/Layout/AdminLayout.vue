@@ -1,5 +1,5 @@
 <script setup>
-import { ref, provide, computed } from 'vue'
+import { ref, provide, computed, onMounted } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import Sidebar from './Sidebar.vue'
 import Navbar from './Navbar.vue'
@@ -22,15 +22,15 @@ const props = defineProps({
     // Sidebar options
     sidebarCollapsible: {
         type: Boolean,
-        default: true  // Can be collapsed
+        default: null  // null = use config
     },
     sidebarCollapsedByDefault: {
         type: Boolean,
-        default: true  // Starts collapsed
+        default: null  // null = use config
     },
     sidebarExpandOnHover: {
         type: Boolean,
-        default: true  // Expand on hover (vs button)
+        default: null  // null = use config
     },
     sidebarMode: {
         type: String,
@@ -42,6 +42,11 @@ const props = defineProps({
         default: 'left',
         validator: (value) => ['left', 'right', 'top'].includes(value)
     },
+    sidebarTheme: {
+        type: String,
+        default: null,  // null = use config
+        validator: (value) => value === null || ['dark', 'light', 'colorful'].includes(value)
+    },
     // Show separate navbar (useful when sidebar is on left/right)
     showNavbar: {
         type: Boolean,
@@ -49,10 +54,33 @@ const props = defineProps({
     }
 })
 
+// Get config from server
+const sidebarConfig = computed(() => page.props.config?.sidebar || {})
+
+// Computed sidebar options with config fallback
+const effectiveSidebarCollapsible = computed(() =>
+    props.sidebarCollapsible !== null ? props.sidebarCollapsible : (sidebarConfig.value.collapsible ?? true)
+)
+const effectiveSidebarCollapsedByDefault = computed(() =>
+    props.sidebarCollapsedByDefault !== null ? props.sidebarCollapsedByDefault : (sidebarConfig.value.collapsed_by_default ?? true)
+)
+const effectiveSidebarExpandOnHover = computed(() =>
+    props.sidebarExpandOnHover !== null ? props.sidebarExpandOnHover : (sidebarConfig.value.expand_on_hover ?? true)
+)
+const effectiveSidebarTheme = computed(() =>
+    props.sidebarTheme || sidebarConfig.value.theme || 'light'
+)
+
 // Sidebar state - respects collapsible and default props
-const sidebarCollapsed = ref(props.sidebarCollapsible && props.sidebarCollapsedByDefault)
+const sidebarCollapsed = ref(true) // Will be updated after mount
 const sidebarMobileOpen = ref(false)
-const sidebarVisuallyCollapsed = ref(props.sidebarCollapsible && props.sidebarCollapsedByDefault)
+const sidebarVisuallyCollapsed = ref(true) // Will be updated after mount
+
+// Initialize sidebar state on mount
+onMounted(() => {
+    sidebarCollapsed.value = effectiveSidebarCollapsible.value && effectiveSidebarCollapsedByDefault.value
+    sidebarVisuallyCollapsed.value = sidebarCollapsed.value
+})
 
 // Update visual state when sidebar emits change
 const onSidebarVisualStateChange = (isCollapsed) => {
@@ -91,7 +119,7 @@ provide('sidebarMobileOpen', sidebarMobileOpen)
 
 // Toggle functions
 const toggleSidebar = () => {
-    if (props.sidebarCollapsible) {
+    if (effectiveSidebarCollapsible.value) {
         sidebarCollapsed.value = !sidebarCollapsed.value
     }
 }
@@ -135,10 +163,11 @@ provide('currentUser', user)
         <Sidebar
             :collapsed="sidebarCollapsed"
             :mobile-open="sidebarMobileOpen"
-            :collapsible="sidebarCollapsible"
-            :expand-on-hover="sidebarExpandOnHover"
+            :collapsible="effectiveSidebarCollapsible"
+            :expand-on-hover="effectiveSidebarExpandOnHover"
             :mode="sidebarMode"
             :position="sidebarPosition"
+            :theme="effectiveSidebarTheme"
             @toggle="toggleSidebar"
             @close-mobile="closeMobileSidebar"
             @visual-state-change="onSidebarVisualStateChange"

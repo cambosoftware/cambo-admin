@@ -556,6 +556,7 @@ class InstallCommand extends Command
         $this->updateUserModel();
         $this->updateViteConfig();
         $this->updateTailwindConfig();
+        $this->updateAppCss();
         $this->updatePackageJson();
         $this->updateAppJs();
         $this->createInertiaMiddleware();
@@ -666,6 +667,33 @@ JS;
         );
 
         $this->files->put($tailwindPath, $content);
+    }
+
+    protected function updateAppCss(): void
+    {
+        $cssPath = resource_path('css/app.css');
+
+        // Ensure directory exists
+        $this->files->ensureDirectoryExists(resource_path('css'));
+
+        $cssContent = <<<'CSS'
+@import 'tailwindcss';
+
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.vue';
+
+/* Force dark mode to use class selector instead of prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+CSS;
+
+        $this->files->put($cssPath, $cssContent);
+        $this->info('✓ app.css created with Tailwind 4 configuration');
     }
 
     protected function updatePackageJson(): void
@@ -810,6 +838,10 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('error'),
                 'warning' => fn () => $request->session()->get('warning'),
                 'info' => fn () => $request->session()->get('info'),
+            ],
+            'config' => [
+                'theme' => config('cambo-admin.appearance.dark_mode', 'light'),
+                'sidebar' => config('cambo-admin.sidebar', []),
             ],
         ];
     }

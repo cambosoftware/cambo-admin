@@ -67,7 +67,7 @@ return [
         'logo' => null,
         'favicon' => null,
         'primary_color' => '#6366f1',
-        'dark_mode' => 'auto', // 'light', 'dark', 'auto'
+        'dark_mode' => 'light', // 'light', 'dark', 'auto'
     ],
 
     /*
@@ -99,7 +99,7 @@ return [
         'collapsible' => true,
         'collapsed_by_default' => true,
         'expand_on_hover' => true,
-        'theme' => 'dark', // 'dark', 'light'
+        'theme' => 'colorful', // 'dark', 'light', 'colorful'
     ],
 
     /*
