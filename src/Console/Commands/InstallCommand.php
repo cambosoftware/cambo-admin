@@ -41,6 +41,9 @@ class InstallCommand extends Command
 
     protected array $selectedModules = [];
 
+    protected ?string $adminEmail = null;
+    protected ?string $adminPassword = null;
+
     public function __construct(Filesystem $files)
     {
         parent::__construct();
@@ -918,6 +921,10 @@ PHP;
                 $user->assignRole('admin');
             }
 
+            // Store credentials to display at the end
+            $this->adminEmail = $email;
+            $this->adminPassword = $password;
+
             $this->info("✓ Admin user created: {$email}");
         } catch (\Exception $e) {
             $this->warn("Could not create admin user: {$e->getMessage()}");
@@ -939,7 +946,23 @@ PHP;
         $this->line('║   2. Run: npm run build                                   ║');
         $this->line('║   3. Visit: ' . url('/') . str_repeat(' ', 32 - strlen(url('/'))) . '║');
         $this->line('║                                                           ║');
-        $this->line('║   Documentation: https://cambosoftware.com/docs           ║');
+
+        // Show admin credentials if created
+        if ($this->adminEmail) {
+            $this->line('╠═══════════════════════════════════════════════════════════╣');
+            $this->line('║                                                           ║');
+            $this->line('║   <fg=yellow>Admin Credentials:</>                                     ║');
+            $this->line('║                                                           ║');
+            $emailPadding = str_repeat(' ', max(0, 37 - strlen($this->adminEmail)));
+            $passPadding = str_repeat(' ', max(0, 37 - strlen($this->adminPassword)));
+            $this->line("║   Email:    <fg=green>{$this->adminEmail}</>{$emailPadding}║");
+            $this->line("║   Password: <fg=green>{$this->adminPassword}</>{$passPadding}║");
+            $this->line('║                                                           ║');
+        }
+
+        $this->line('╠═══════════════════════════════════════════════════════════╣');
+        $this->line('║                                                           ║');
+        $this->line('║   Documentation: https://cambo-admin.cambosoftware.com    ║');
         $this->line('║                                                           ║');
         $this->line('╚═══════════════════════════════════════════════════════════╝');
         $this->newLine();
