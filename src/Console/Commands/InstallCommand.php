@@ -4,8 +4,11 @@ namespace CamboSoftware\CamboAdmin\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use PDO;
+use PDOException;
 
 class InstallCommand extends Command
 {
@@ -14,6 +17,7 @@ class InstallCommand extends Command
                             {--only=* : Install only specific modules}
                             {--no-migrate : Skip database migrations}
                             {--no-seed : Skip database seeding}
+                            {--no-db-setup : Skip database configuration check}
                             {--force : Overwrite existing files}';
 
     protected $description = 'Install CamboAdmin package';
@@ -64,7 +68,11 @@ class InstallCommand extends Command
         $this->publishMigrations();
         $this->publishSeeders();
 
+        // Database configuration and migrations
         if (!$this->option('no-migrate')) {
+            if (!$this->option('no-db-setup')) {
+                $this->ensureDatabaseIsConfigured();
+            }
             $this->runMigrations();
         }
 
@@ -264,6 +272,208 @@ class InstallCommand extends Command
         }
 
         $this->info('✓ Seeders completed');
+    }
+
+    protected function ensureDatabaseIsConfigured(): void
+    {
+        $this->info('Checking database connection...');
+
+        if ($this->checkDatabaseConnection()) {
+            $this->info('✓ Database connection successful');
+            return;
+        }
+
+        $this->warn('⚠ Database connection failed.');
+        $this->newLine();
+
+        if (!$this->confirm('Would you like to configure the database now?', true)) {
+            $this->error('Database configuration is required for migrations.');
+            $this->info('You can run the installer again with --no-migrate to skip migrations.');
+            exit(1);
+        }
+
+        $this->configureDatabaseInteractively();
+    }
+
+    protected function checkDatabaseConnection(): bool
+    {
+        try {
+            DB::connection()->getPdo();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    protected function configureDatabaseInteractively(): void
+    {
+        $this->newLine();
+        $this->line('╔═══════════════════════════════════════════════════════════╗');
+        $this->line('║              Database Configuration                       ║');
+        $this->line('╚═══════════════════════════════════════════════════════════╝');
+        $this->newLine();
+
+        // Choose database driver
+        $driver = $this->choice(
+            'Which database would you like to use?',
+            [
+                'mysql' => 'MySQL / MariaDB (Recommended)',
+                'pgsql' => 'PostgreSQL',
+                'sqlite' => 'SQLite (Simple, file-based)',
+            ],
+            'mysql'
+        );
+
+        if ($driver === 'sqlite') {
+            $this->configureSqlite();
+        } else {
+            $this->configureServerDatabase($driver);
+        }
+
+        // Clear config cache and reconnect
+        $this->call('config:clear', [], $this->output);
+
+        // Verify connection
+        if ($this->checkDatabaseConnection()) {
+            $this->info('✓ Database configured successfully!');
+        } else {
+            $this->error('Database connection still failing. Please check your credentials.');
+            exit(1);
+        }
+    }
+
+    protected function configureSqlite(): void
+    {
+        $dbPath = database_path('database.sqlite');
+
+        if (!$this->files->exists($dbPath)) {
+            $this->files->put($dbPath, '');
+            $this->info("Created SQLite database: {$dbPath}");
+        }
+
+        $this->updateEnvValue('DB_CONNECTION', 'sqlite');
+        $this->updateEnvValue('DB_DATABASE', $dbPath);
+
+        // Remove unused MySQL settings
+        $this->removeEnvKeys(['DB_HOST', 'DB_PORT', 'DB_USERNAME', 'DB_PASSWORD']);
+    }
+
+    protected function configureServerDatabase(string $driver): void
+    {
+        $defaultPort = $driver === 'mysql' ? '3306' : '5432';
+        $driverName = $driver === 'mysql' ? 'MySQL' : 'PostgreSQL';
+
+        $this->info("Configuring {$driverName} database...");
+        $this->newLine();
+
+        // Collect database settings
+        $host = $this->ask('Database host', '127.0.0.1');
+        $port = $this->ask('Database port', $defaultPort);
+        $database = $this->ask('Database name', 'cambo_admin');
+        $username = $this->ask('Database username', 'root');
+        $password = $this->secret('Database password (leave empty for none)') ?? '';
+
+        // Update .env file
+        $this->updateEnvValue('DB_CONNECTION', $driver);
+        $this->updateEnvValue('DB_HOST', $host);
+        $this->updateEnvValue('DB_PORT', $port);
+        $this->updateEnvValue('DB_DATABASE', $database);
+        $this->updateEnvValue('DB_USERNAME', $username);
+        $this->updateEnvValue('DB_PASSWORD', $password);
+
+        // Try to create database if it doesn't exist
+        $this->createDatabaseIfNotExists($driver, $host, $port, $database, $username, $password);
+    }
+
+    protected function createDatabaseIfNotExists(
+        string $driver,
+        string $host,
+        string $port,
+        string $database,
+        string $username,
+        string $password
+    ): void {
+        $this->info("Checking if database '{$database}' exists...");
+
+        try {
+            $dsn = $driver === 'mysql'
+                ? "mysql:host={$host};port={$port}"
+                : "pgsql:host={$host};port={$port}";
+
+            $pdo = new PDO($dsn, $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Check if database exists
+            if ($driver === 'mysql') {
+                $stmt = $pdo->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{$database}'");
+            } else {
+                $stmt = $pdo->query("SELECT datname FROM pg_database WHERE datname = '{$database}'");
+            }
+
+            if ($stmt->fetch()) {
+                $this->info("✓ Database '{$database}' already exists");
+                return;
+            }
+
+            // Ask to create database
+            if ($this->confirm("Database '{$database}' does not exist. Create it now?", true)) {
+                $charset = $driver === 'mysql' ? 'utf8mb4' : 'UTF8';
+                $collate = $driver === 'mysql' ? 'utf8mb4_unicode_ci' : '';
+
+                if ($driver === 'mysql') {
+                    $pdo->exec("CREATE DATABASE `{$database}` CHARACTER SET {$charset} COLLATE {$collate}");
+                } else {
+                    $pdo->exec("CREATE DATABASE \"{$database}\" ENCODING '{$charset}'");
+                }
+
+                $this->info("✓ Database '{$database}' created successfully");
+            }
+        } catch (PDOException $e) {
+            $this->warn("Could not create database automatically: " . $e->getMessage());
+            $this->info("Please create the database manually and run the installer again.");
+        }
+    }
+
+    protected function updateEnvValue(string $key, string $value): void
+    {
+        $envPath = base_path('.env');
+
+        if (!$this->files->exists($envPath)) {
+            $this->files->copy(base_path('.env.example'), $envPath);
+        }
+
+        $content = $this->files->get($envPath);
+
+        // Escape value if it contains spaces or special characters
+        if (preg_match('/\s|[#"\'\\\\]/', $value)) {
+            $value = '"' . addslashes($value) . '"';
+        }
+
+        // Check if key exists
+        if (preg_match("/^{$key}=.*/m", $content)) {
+            $content = preg_replace("/^{$key}=.*/m", "{$key}={$value}", $content);
+        } else {
+            $content .= "\n{$key}={$value}";
+        }
+
+        $this->files->put($envPath, $content);
+    }
+
+    protected function removeEnvKeys(array $keys): void
+    {
+        $envPath = base_path('.env');
+
+        if (!$this->files->exists($envPath)) {
+            return;
+        }
+
+        $content = $this->files->get($envPath);
+
+        foreach ($keys as $key) {
+            $content = preg_replace("/^{$key}=.*\n?/m", '', $content);
+        }
+
+        $this->files->put($envPath, $content);
     }
 
     protected function updateFiles(): void
