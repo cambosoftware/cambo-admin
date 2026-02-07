@@ -59,7 +59,7 @@ const links = props.config.links?.length ? props.config.links : defaultLinks
                 >
                     <component
                         :is="iconMap[link.icon] || DocumentTextIcon"
-                        class="h-6 w-6 text-gray-400 group-hover:text-primary-500 transition-colors mb-1"
+                        class="h-6 w-6 text-gray-400 group-hover:text-indigo-500 transition-colors mb-1"
                     />
                     <span class="text-xs font-medium text-gray-700 dark:text-gray-300">
                         {{ link.label }}

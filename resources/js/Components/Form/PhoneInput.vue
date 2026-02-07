@@ -171,7 +171,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 'disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed',
                 hasError
                     ? 'border-red-300 text-red-900 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-gray-300 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20',
+                    : 'border-gray-300 text-gray-900 focus:border-indigo-500 focus:ring-indigo-500/20',
                 sizeClasses,
                 size === 'sm' ? 'px-2.5' : size === 'lg' ? 'px-4' : 'px-3'
             ]"
@@ -200,7 +200,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                         v-model="search"
                         type="text"
                         placeholder="Rechercher un pays..."
-                        class="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-xs text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500/20"
+                        class="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-xs text-gray-900 placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/20"
                     />
                 </div>
 
@@ -211,7 +211,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                         :key="country.code"
                         :class="[
                             'flex items-center gap-2 px-3 py-1.5 text-sm cursor-pointer transition-colors',
-                            selectedCountry === country.code ? 'bg-primary-50 text-primary-700' : 'text-gray-700 hover:bg-gray-50'
+                            selectedCountry === country.code ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-50'
                         ]"
                         @click="selectCountry(country)"
                     >

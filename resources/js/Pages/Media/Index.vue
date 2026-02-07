@@ -324,9 +324,9 @@ const onSearchInput = () => {
                     <!-- Selection toolbar -->
                     <div
                         v-if="hasSelection"
-                        class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-primary-50 dark:bg-primary-900/20 flex items-center gap-4"
+                        class="px-4 py-2 border-t border-gray-200 dark:border-gray-700 bg-indigo-50 dark:bg-indigo-900/20 flex items-center gap-4"
                     >
-                        <span class="text-sm text-primary-700 dark:text-primary-300">
+                        <span class="text-sm text-indigo-700 dark:text-indigo-300">
                             {{ selectedFiles.length }} fichier(s) sélectionné(s)
                         </span>
                         <Button variant="danger" size="xs" :icon-left="TrashIcon" @click="bulkDelete">
@@ -349,7 +349,7 @@ const onSearchInput = () => {
                         <div
                             v-for="folder in folders"
                             :key="'folder-' + folder.id"
-                            class="group relative bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 cursor-pointer hover:border-primary-500 transition-colors"
+                            class="group relative bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 cursor-pointer hover:border-indigo-500 transition-colors"
                             @click="navigateToFolder(folder.id)"
                         >
                             <FolderIcon :class="['h-12 w-12 mx-auto mb-2', folder.color ? `text-[${folder.color}]` : 'text-amber-500']" />
@@ -368,7 +368,7 @@ const onSearchInput = () => {
                             :class="[
                                 'group relative bg-white dark:bg-gray-800 rounded-xl border overflow-hidden cursor-pointer transition-all',
                                 selectedFiles.find(f => f.id === file.id)
-                                    ? 'border-primary-500 ring-2 ring-primary-500/20'
+                                    ? 'border-indigo-500 ring-2 ring-indigo-500/20'
                                     : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
                             ]"
                             @click="toggleFileSelection(file)"
@@ -378,7 +378,7 @@ const onSearchInput = () => {
                                 :class="[
                                     'absolute top-2 left-2 z-10 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors',
                                     selectedFiles.find(f => f.id === file.id)
-                                        ? 'bg-primary-500 border-primary-500'
+                                        ? 'bg-indigo-500 border-indigo-500'
                                         : 'bg-white/80 border-gray-300 opacity-0 group-hover:opacity-100'
                                 ]"
                             >
@@ -480,7 +480,7 @@ const onSearchInput = () => {
                                     :key="file.id"
                                     :class="[
                                         'hover:bg-gray-50 dark:hover:bg-gray-700/50',
-                                        selectedFiles.find(f => f.id === file.id) ? 'bg-primary-50 dark:bg-primary-900/20' : ''
+                                        selectedFiles.find(f => f.id === file.id) ? 'bg-indigo-50 dark:bg-indigo-900/20' : ''
                                     ]"
                                 >
                                     <td class="px-4 py-3">

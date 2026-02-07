@@ -110,7 +110,7 @@ const displayValue = () => {
                 v-if="type === 'select'"
                 ref="inputRef"
                 v-model="localValue"
-                class="text-sm rounded border-gray-300 py-1 px-2 focus:border-primary-500 focus:ring-primary-500"
+                class="text-sm rounded border-gray-300 py-1 px-2 focus:border-indigo-500 focus:ring-indigo-500"
                 @blur="handleBlur"
                 @keydown="handleKeydown"
             >
@@ -128,7 +128,7 @@ const displayValue = () => {
                 ref="inputRef"
                 v-model="localValue"
                 rows="2"
-                class="text-sm rounded border-gray-300 py-1 px-2 focus:border-primary-500 focus:ring-primary-500"
+                class="text-sm rounded border-gray-300 py-1 px-2 focus:border-indigo-500 focus:ring-indigo-500"
                 @blur="handleBlur"
                 @keydown="handleKeydown"
             />
@@ -138,7 +138,7 @@ const displayValue = () => {
                 ref="inputRef"
                 v-model="localValue"
                 :type="type"
-                class="text-sm rounded border-gray-300 py-1 px-2 focus:border-primary-500 focus:ring-primary-500"
+                class="text-sm rounded border-gray-300 py-1 px-2 focus:border-indigo-500 focus:ring-indigo-500"
                 @blur="handleBlur"
                 @keydown="handleKeydown"
             />

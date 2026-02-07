@@ -45,17 +45,17 @@ const tabClasses = computed(() => {
         underline: {
             wrapper: 'border-b border-gray-200',
             inactive: `${base} border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 -mb-px`,
-            active: `${base} border-b-2 border-primary-500 text-primary-600 -mb-px`
+            active: `${base} border-b-2 border-indigo-500 text-indigo-600 -mb-px`
         },
         pills: {
             wrapper: 'flex gap-1',
             inactive: `${base} rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100`,
-            active: `${base} rounded-lg bg-primary-100 text-primary-700`
+            active: `${base} rounded-lg bg-indigo-100 text-indigo-700`
         },
         bordered: {
             wrapper: 'border-b border-gray-200',
             inactive: `${base} border border-transparent rounded-t-lg text-gray-500 hover:text-gray-700 -mb-px`,
-            active: `${base} border border-gray-200 border-b-white rounded-t-lg text-primary-600 bg-white -mb-px`
+            active: `${base} border border-gray-200 border-b-white rounded-t-lg text-indigo-600 bg-white -mb-px`
         }
     }
     return variants[props.variant]

@@ -67,7 +67,7 @@ const iconSize = computed(() => {
 
 const variantClasses = computed(() => {
     const variants = {
-        primary: 'text-primary-600 hover:bg-primary-50 active:ring-primary-500 focus-visible:ring-primary-500',
+        primary: 'text-indigo-600 hover:bg-indigo-50 active:ring-indigo-500 focus-visible:ring-indigo-500',
         secondary: 'text-gray-500 hover:bg-gray-100 active:ring-gray-500 focus-visible:ring-gray-500',
         success: 'text-emerald-600 hover:bg-emerald-50 active:ring-emerald-500 focus-visible:ring-emerald-500',
         danger: 'text-red-600 hover:bg-red-50 active:ring-red-500 focus-visible:ring-red-500',

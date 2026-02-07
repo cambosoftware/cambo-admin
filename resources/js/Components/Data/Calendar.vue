@@ -147,7 +147,7 @@ const getWeekNumber = (date) => {
 
 // Event colors
 const eventColors = {
-    default: 'bg-primary-500',
+    default: 'bg-indigo-500',
     red: 'bg-red-500',
     orange: 'bg-orange-500',
     amber: 'bg-amber-500',
@@ -288,7 +288,7 @@ const onAddEvent = (day) => {
                                     :class="[
                                         'inline-flex items-center justify-center w-6 h-6 text-sm rounded-full',
                                         day.isToday
-                                            ? 'bg-primary-600 text-white font-semibold'
+                                            ? 'bg-indigo-600 text-white font-semibold'
                                             : day.isCurrentMonth
                                                 ? 'text-gray-900 dark:text-white'
                                                 : 'text-gray-400 dark:text-gray-500'

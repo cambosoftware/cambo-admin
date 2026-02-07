@@ -283,7 +283,7 @@ const mobileTransitionClasses = computed(() => {
                 />
                 <div
                     v-else-if="isVisuallyCollapsed"
-                    class="h-8 w-8 rounded-lg bg-primary-600 flex items-center justify-center flex-shrink-0"
+                    class="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center flex-shrink-0"
                 >
                     <span class="text-white font-bold text-sm">
                         {{ title.charAt(0).toUpperCase() }}

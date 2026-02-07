@@ -127,7 +127,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 sizeClasses,
                 disabled ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : '',
                 hasError ? 'border-red-300' : 'border-gray-300',
-                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-primary-500 ring-2 ring-primary-500/20') : ''
+                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-indigo-500 ring-2 ring-indigo-500/20') : ''
             ]"
             tabindex="0"
             @click="toggle"
@@ -171,7 +171,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                         type="button"
                         :class="[
                             'h-6 w-6 rounded-md border transition-transform cursor-pointer hover:scale-110',
-                            modelValue === color ? 'ring-2 ring-primary-500 ring-offset-1 border-transparent' : 'border-gray-200',
+                            modelValue === color ? 'ring-2 ring-indigo-500 ring-offset-1 border-transparent' : 'border-gray-200',
                             color === '#ffffff' ? 'border-gray-300' : ''
                         ]"
                         :style="{ backgroundColor: color }"
@@ -193,7 +193,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                         type="text"
                         :value="hexInput"
                         placeholder="#000000"
-                        class="flex-1 rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-mono text-gray-900 placeholder:text-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                        class="flex-1 rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-mono text-gray-900 placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                         maxlength="7"
                         @input="onHexInput"
                     />

@@ -29,7 +29,7 @@ const gridStyle = computed(() => ({
     <div
         :class="[
             'widget-wrapper relative bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all',
-            editMode ? 'cursor-move ring-2 ring-primary-500/50' : '',
+            editMode ? 'cursor-move ring-2 ring-indigo-500/50' : '',
             dragging ? 'opacity-50 scale-95' : ''
         ]"
         :style="gridStyle"
@@ -37,7 +37,7 @@ const gridStyle = computed(() => ({
         <!-- Edit mode overlay -->
         <div
             v-if="editMode"
-            class="absolute inset-0 bg-primary-500/5 z-10 flex items-center justify-center"
+            class="absolute inset-0 bg-indigo-500/5 z-10 flex items-center justify-center"
         >
             <div class="flex items-center gap-2">
                 <button

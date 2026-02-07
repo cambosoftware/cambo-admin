@@ -143,7 +143,7 @@ const changePerPage = (value) => {
                 <span class="text-gray-500">Afficher</span>
                 <select
                     :value="perPage"
-                    class="rounded-md border-gray-300 text-sm py-1 pr-8 focus:border-primary-500 focus:ring-primary-500"
+                    class="rounded-md border-gray-300 text-sm py-1 pr-8 focus:border-indigo-500 focus:ring-indigo-500"
                     @change="changePerPage($event.target.value)"
                 >
                     <option v-for="option in perPageOptions" :key="option" :value="option">
@@ -211,7 +211,7 @@ const changePerPage = (value) => {
                             'inline-flex items-center justify-center rounded-md font-medium transition-colors',
                             sizeClasses,
                             page === currentPage
-                                ? 'bg-primary-500 text-white'
+                                ? 'bg-indigo-500 text-white'
                                 : 'text-gray-700 hover:bg-gray-100'
                         ]"
                         @click="goToPage(page)"

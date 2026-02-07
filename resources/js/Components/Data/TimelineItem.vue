@@ -38,7 +38,7 @@ const props = defineProps({
 const variantClasses = computed(() => {
     const variants = {
         default: 'bg-gray-100 text-gray-500 ring-gray-200',
-        primary: 'bg-primary-100 text-primary-600 ring-primary-200',
+        primary: 'bg-indigo-100 text-indigo-600 ring-indigo-200',
         success: 'bg-emerald-100 text-emerald-600 ring-emerald-200',
         warning: 'bg-amber-100 text-amber-600 ring-amber-200',
         danger: 'bg-red-100 text-red-600 ring-red-200',

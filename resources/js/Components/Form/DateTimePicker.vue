@@ -200,7 +200,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 sizeClasses,
                 disabled ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : '',
                 hasError ? 'border-red-300' : 'border-gray-300',
-                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-primary-500 ring-2 ring-primary-500/20') : ''
+                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-indigo-500 ring-2 ring-indigo-500/20') : ''
             ]"
             tabindex="0"
             @click="toggle"
@@ -260,8 +260,8 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                                 :class="[
                                     'rounded-lg py-1.5 text-xs transition-colors cursor-pointer',
                                     item.currentMonth ? 'text-gray-900' : 'text-gray-400',
-                                    isToday(item.date) && !isSelectedDate(item.date) ? 'font-bold text-primary-600' : '',
-                                    isSelectedDate(item.date) ? 'bg-primary-500 text-white font-semibold' : 'hover:bg-gray-100'
+                                    isToday(item.date) && !isSelectedDate(item.date) ? 'font-bold text-indigo-600' : '',
+                                    isSelectedDate(item.date) ? 'bg-indigo-500 text-white font-semibold' : 'hover:bg-gray-100'
                                 ]"
                                 @click="selectDay(item)"
                             >
@@ -281,7 +281,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                                 type="button"
                                 :class="[
                                     'w-full px-2 py-1 text-center text-xs transition-colors cursor-pointer',
-                                    selectedHour === h - 1 ? 'bg-primary-500 text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
+                                    selectedHour === h - 1 ? 'bg-indigo-500 text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
                                 ]"
                                 @click="setHour(h - 1)"
                             >
@@ -297,7 +297,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                                 type="button"
                                 :class="[
                                     'w-full px-2 py-1 text-center text-xs transition-colors cursor-pointer',
-                                    selectedMinute === m ? 'bg-primary-500 text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
+                                    selectedMinute === m ? 'bg-indigo-500 text-white font-medium' : 'text-gray-700 hover:bg-gray-100'
                                 ]"
                                 @click="setMinute(m)"
                             >
@@ -311,7 +311,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 <div class="flex items-center justify-between border-t border-gray-100 p-2">
                     <button
                         type="button"
-                        class="rounded px-3 py-1 text-xs font-medium text-primary-600 hover:bg-primary-50 cursor-pointer"
+                        class="rounded px-3 py-1 text-xs font-medium text-indigo-600 hover:bg-indigo-50 cursor-pointer"
                         @click="() => {
                             const now = new Date()
                             const val = buildValue(now, now.getHours(), now.getMinutes())
@@ -324,7 +324,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                     </button>
                     <button
                         type="button"
-                        class="rounded bg-primary-500 px-3 py-1 text-xs font-medium text-white hover:bg-primary-600 cursor-pointer"
+                        class="rounded bg-indigo-500 px-3 py-1 text-xs font-medium text-white hover:bg-indigo-600 cursor-pointer"
                         @click="close"
                     >
                         OK

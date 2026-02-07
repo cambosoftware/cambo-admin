@@ -125,7 +125,7 @@ const sizeClasses = computed(() => {
                 </div>
                 <CheckIcon
                     v-if="locale.code === currentLocale"
-                    class="h-4 w-4 text-primary-500"
+                    class="h-4 w-4 text-indigo-500"
                 />
             </div>
         </DropdownItem>
@@ -139,7 +139,7 @@ const sizeClasses = computed(() => {
             :class="[
                 'w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors',
                 locale.code === currentLocale
-                    ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
+                    ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400'
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700'
             ]"
             @click="switchLocale(locale.code)"
@@ -163,7 +163,7 @@ const sizeClasses = computed(() => {
             :class="[
                 'p-1.5 rounded-lg transition-colors text-xl',
                 locale.code === currentLocale
-                    ? 'bg-primary-100 dark:bg-primary-900/30 ring-2 ring-primary-500'
+                    ? 'bg-indigo-100 dark:bg-indigo-900/30 ring-2 ring-indigo-500'
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 opacity-60 hover:opacity-100'
             ]"
             :title="locale.native"

@@ -272,7 +272,7 @@ const resetImport = () => {
                                     :class="[
                                         'flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-colors',
                                         exportFormat === format.value
-                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400'
+                                            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-400'
                                             : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                                     ]"
                                     @click="exportFormat = format.value"
@@ -291,7 +291,7 @@ const resetImport = () => {
                                 </label>
                                 <div class="flex gap-2">
                                     <button
-                                        class="text-sm text-primary-600 hover:text-primary-700"
+                                        class="text-sm text-indigo-600 hover:text-indigo-700"
                                         @click="selectAllColumns"
                                     >
                                         Tout sélectionner
@@ -312,7 +312,7 @@ const resetImport = () => {
                                     :class="[
                                         'flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-colors',
                                         selectedColumns.includes(column.key)
-                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20'
                                             : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'
                                     ]"
                                     @click="toggleColumn(column.key)"

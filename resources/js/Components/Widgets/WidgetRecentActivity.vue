@@ -141,7 +141,7 @@ const getActionText = (activity) => {
         <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700">
             <a
                 href="/activity-log"
-                class="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                class="text-xs text-indigo-600 hover:text-indigo-700 font-medium"
             >
                 Voir tout le journal
             </a>

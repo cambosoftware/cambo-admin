@@ -53,7 +53,7 @@ const showAll = () => {
         <template #trigger>
             <button
                 type="button"
-                class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
                 <ViewColumnsIcon class="h-4 w-4" />
                 <span>Colonnes</span>
@@ -74,7 +74,7 @@ const showAll = () => {
                     <input
                         type="checkbox"
                         :checked="isVisible(column.key)"
-                        class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                         @change="toggleColumn(column.key)"
                     />
                     <span class="text-sm text-gray-700">{{ column.label }}</span>
@@ -84,7 +84,7 @@ const showAll = () => {
             <div class="border-t border-gray-200 mt-2 pt-2">
                 <button
                     type="button"
-                    class="w-full text-left px-2 py-1.5 text-sm text-primary-600 hover:bg-primary-50 rounded"
+                    class="w-full text-left px-2 py-1.5 text-sm text-indigo-600 hover:bg-indigo-50 rounded"
                     @click="showAll"
                 >
                     Afficher tout

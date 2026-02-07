@@ -44,7 +44,7 @@ const sizeClasses = computed(() => {
 const variantClasses = computed(() => {
     if (props.outline) {
         const outlineVariants = {
-            primary: 'border border-primary-300 text-primary-700 bg-transparent',
+            primary: 'border border-indigo-300 text-indigo-700 bg-transparent',
             secondary: 'border border-gray-300 text-gray-700 bg-transparent',
             success: 'border border-emerald-300 text-emerald-700 bg-transparent',
             danger: 'border border-red-300 text-red-700 bg-transparent',
@@ -55,7 +55,7 @@ const variantClasses = computed(() => {
     }
 
     const solidVariants = {
-        primary: 'bg-primary-100 text-primary-700',
+        primary: 'bg-indigo-100 text-indigo-700',
         secondary: 'bg-gray-100 text-gray-700',
         success: 'bg-emerald-100 text-emerald-700',
         danger: 'bg-red-100 text-red-700',
@@ -67,7 +67,7 @@ const variantClasses = computed(() => {
 
 const dotColor = computed(() => {
     const colors = {
-        primary: 'bg-primary-500',
+        primary: 'bg-indigo-500',
         secondary: 'bg-gray-500',
         success: 'bg-emerald-500',
         danger: 'bg-red-500',
@@ -79,7 +79,7 @@ const dotColor = computed(() => {
 
 const removeHoverColor = computed(() => {
     const colors = {
-        primary: 'hover:bg-primary-200',
+        primary: 'hover:bg-indigo-200',
         secondary: 'hover:bg-gray-200',
         success: 'hover:bg-emerald-200',
         danger: 'hover:bg-red-200',

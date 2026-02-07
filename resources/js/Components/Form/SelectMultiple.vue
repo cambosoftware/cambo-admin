@@ -148,7 +148,7 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
                 'focus-within:ring-2 focus-within:ring-offset-0',
                 hasError
                     ? 'border-red-300 focus-within:border-red-500 focus-within:ring-red-500/20'
-                    : 'border-gray-300 focus-within:border-primary-500 focus-within:ring-primary-500/20',
+                    : 'border-gray-300 focus-within:border-indigo-500 focus-within:ring-indigo-500/20',
                 disabled ? 'bg-gray-50 cursor-not-allowed' : '',
                 sizeClasses
             ]"
@@ -159,7 +159,7 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
                 v-for="opt in selectedOptions"
                 :key="opt.value"
                 :class="[
-                    'inline-flex items-center gap-1 rounded bg-primary-50 text-primary-700 font-medium',
+                    'inline-flex items-center gap-1 rounded bg-indigo-50 text-indigo-700 font-medium',
                     tagSizes
                 ]"
             >
@@ -167,7 +167,7 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
                 <button
                     v-if="!disabled"
                     type="button"
-                    class="hover:text-primary-900 cursor-pointer"
+                    class="hover:text-indigo-900 cursor-pointer"
                     @click.stop="removeTag(opt.value)"
                 >
                     <svg class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
@@ -211,7 +211,7 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
                     :class="[
                         'flex items-center gap-2 px-3 py-2 text-sm cursor-pointer transition-colors',
                         opt.disabled ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gray-50',
-                        selectedValues.has(String(opt.value)) ? 'bg-primary-50' : ''
+                        selectedValues.has(String(opt.value)) ? 'bg-indigo-50' : ''
                     ]"
                     role="option"
                     :aria-selected="selectedValues.has(String(opt.value))"
@@ -221,7 +221,7 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
                     <span :class="[
                         'flex-shrink-0 h-4 w-4 rounded border flex items-center justify-center',
                         selectedValues.has(String(opt.value))
-                            ? 'bg-primary-600 border-primary-600'
+                            ? 'bg-indigo-600 border-indigo-600'
                             : 'border-gray-300'
                     ]">
                         <svg v-if="selectedValues.has(String(opt.value))" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">

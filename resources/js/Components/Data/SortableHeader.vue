@@ -117,11 +117,11 @@ const closeDropdown = () => {
                 <span class="flex-shrink-0">
                     <ChevronUpIcon
                         v-if="isAsc"
-                        class="h-4 w-4 text-primary-500"
+                        class="h-4 w-4 text-indigo-500"
                     />
                     <ChevronDownIcon
                         v-else-if="isDesc"
-                        class="h-4 w-4 text-primary-500"
+                        class="h-4 w-4 text-indigo-500"
                     />
                     <ChevronUpDownIcon
                         v-else
@@ -136,7 +136,7 @@ const closeDropdown = () => {
                 type="button"
                 :class="[
                     'p-0.5 rounded hover:bg-gray-200 transition-colors cursor-pointer',
-                    hasActiveFilter ? 'text-primary-500' : 'text-gray-400 hover:text-gray-600'
+                    hasActiveFilter ? 'text-indigo-500' : 'text-gray-400 hover:text-gray-600'
                 ]"
                 @click="toggleFilterDropdown"
             >
@@ -155,7 +155,7 @@ const closeDropdown = () => {
                     type="button"
                     :class="[
                         'w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 transition-colors cursor-pointer',
-                        !hasActiveFilter ? 'text-primary-600 font-medium' : 'text-gray-700'
+                        !hasActiveFilter ? 'text-indigo-600 font-medium' : 'text-gray-700'
                     ]"
                     @click="handleFilter('')"
                 >
@@ -167,7 +167,7 @@ const closeDropdown = () => {
                     type="button"
                     :class="[
                         'w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 transition-colors cursor-pointer',
-                        filterValue === option.value ? 'text-primary-600 font-medium bg-primary-50' : 'text-gray-700'
+                        filterValue === option.value ? 'text-indigo-600 font-medium bg-indigo-50' : 'text-gray-700'
                     ]"
                     @click="handleFilter(option.value)"
                 >

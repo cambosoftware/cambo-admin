@@ -62,7 +62,7 @@ const inputClasses = computed(() => [
     'disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed',
     hasError.value
         ? 'border-red-300 text-red-900 focus:border-red-500 focus:ring-red-500/20'
-        : 'border-gray-300 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20',
+        : 'border-gray-300 text-gray-900 focus:border-indigo-500 focus:ring-indigo-500/20',
     sizeClasses.value,
     props.size === 'sm' ? 'pl-8' : props.size === 'lg' ? 'pl-11' : 'pl-9',
     props.modelValue || props.loading ? (props.size === 'sm' ? 'pr-8' : props.size === 'lg' ? 'pr-11' : 'pr-9') : 'pr-3'

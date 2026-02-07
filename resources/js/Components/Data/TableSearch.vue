@@ -88,7 +88,7 @@ const iconRightClasses = {
             :placeholder="placeholder"
             :class="[
                 'block w-full rounded-lg border-gray-300 shadow-sm',
-                'focus:border-primary-500 focus:ring-primary-500',
+                'focus:border-indigo-500 focus:ring-indigo-500',
                 'placeholder:text-gray-400',
                 sizeClasses[size]
             ]"

@@ -64,7 +64,7 @@ const isExternal = computed(() => {
         :href="linkUrl"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-1 text-primary-600 hover:text-primary-800 hover:underline"
+        class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-800 hover:underline"
         :title="value || href"
     >
         <span :class="truncate ? 'truncate max-w-xs' : ''">{{ displayText }}</span>
@@ -74,7 +74,7 @@ const isExternal = computed(() => {
     <Link
         v-else
         :href="linkUrl"
-        class="text-primary-600 hover:text-primary-800 hover:underline"
+        class="text-indigo-600 hover:text-indigo-800 hover:underline"
         :title="value || href"
     >
         <span :class="truncate ? 'truncate max-w-xs' : ''">{{ displayText }}</span>

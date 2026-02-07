@@ -73,7 +73,7 @@ const select = () => {
                 'flex-shrink-0 rounded-full border flex items-center justify-center transition-colors',
                 radioSize,
                 isChecked
-                    ? 'border-primary-600 bg-primary-600'
+                    ? 'border-indigo-600 bg-indigo-600'
                     : hasError
                         ? 'border-red-300 bg-white'
                         : 'border-gray-300 bg-white',

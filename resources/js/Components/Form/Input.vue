@@ -82,7 +82,7 @@ const inputClasses = computed(() => [
     'disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed dark:disabled:bg-gray-900 dark:disabled:text-gray-600',
     hasError.value
         ? 'border-red-300 text-red-900 focus:border-red-500 focus:ring-red-500/20 dark:border-red-500 dark:text-red-400'
-        : 'border-gray-300 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20 dark:border-gray-600 dark:text-white dark:focus:border-primary-400',
+        : 'border-gray-300 text-gray-900 focus:border-indigo-500 focus:ring-indigo-500/20 dark:border-gray-600 dark:text-white dark:focus:border-indigo-400',
     sizeClasses.value,
     props.icon ? (props.size === 'sm' ? 'pl-8' : props.size === 'lg' ? 'pl-11' : 'pl-9') : '',
     props.iconRight || (props.clearable && props.modelValue) ? (props.size === 'sm' ? 'pr-8' : props.size === 'lg' ? 'pr-11' : 'pr-9') : '',

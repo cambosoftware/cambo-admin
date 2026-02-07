@@ -274,7 +274,7 @@ defineExpose({ open, close })
                                         :class="[
                                             'w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors',
                                             flatItems.findIndex(f => f.id === item.id) === selectedIndex
-                                                ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-900 dark:text-primary-100'
+                                                ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-900 dark:text-indigo-100'
                                                 : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50'
                                         ]"
                                         @click="selectItem(item)"

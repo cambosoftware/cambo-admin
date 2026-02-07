@@ -190,7 +190,7 @@ defineExpose({ focus, inputRef })
                 'disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed',
                 hasError
                     ? 'border-red-300 text-red-900 focus:border-red-500 focus:ring-red-500/20'
-                    : 'border-gray-300 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20',
+                    : 'border-gray-300 text-gray-900 focus:border-indigo-500 focus:ring-indigo-500/20',
                 sizeClasses,
                 controls && controlsPosition === 'sides' ? 'rounded-none' : 'rounded-lg',
                 controls && controlsPosition === 'right' ? 'pr-10' : 'px-3'

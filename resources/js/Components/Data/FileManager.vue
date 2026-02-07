@@ -260,7 +260,7 @@ const onSearch = () => {
                         v-model="searchQuery"
                         type="text"
                         placeholder="Rechercher..."
-                        class="w-40 sm:w-56 pl-8 pr-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        class="w-40 sm:w-56 pl-8 pr-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                         @keyup.enter="onSearch"
                     />
                     <MagnifyingGlassIcon class="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -273,7 +273,7 @@ const onSearch = () => {
                         :class="[
                             'p-1.5',
                             view === 'grid'
-                                ? 'bg-gray-100 dark:bg-gray-700 text-primary-600 dark:text-primary-400'
+                                ? 'bg-gray-100 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400'
                                 : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                         ]"
                         @click="view = 'grid'"
@@ -285,7 +285,7 @@ const onSearch = () => {
                         :class="[
                             'p-1.5',
                             view === 'list'
-                                ? 'bg-gray-100 dark:bg-gray-700 text-primary-600 dark:text-primary-400'
+                                ? 'bg-gray-100 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400'
                                 : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
                         ]"
                         @click="view = 'list'"
@@ -298,7 +298,7 @@ const onSearch = () => {
                 <button
                     v-if="allowUpload"
                     type="button"
-                    class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors"
+                    class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors"
                     @click="onUpload"
                 >
                     <ArrowUpTrayIcon class="h-4 w-4" />
@@ -320,7 +320,7 @@ const onSearch = () => {
 
         <!-- Loading overlay -->
         <div v-if="loading" class="flex items-center justify-center py-12">
-            <svg class="animate-spin h-8 w-8 text-primary-500" fill="none" viewBox="0 0 24 24">
+            <svg class="animate-spin h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
@@ -338,7 +338,7 @@ const onSearch = () => {
                 :class="[
                     'group relative flex flex-col items-center p-3 rounded-lg cursor-pointer transition-colors',
                     isSelected(item)
-                        ? 'bg-primary-100 dark:bg-primary-900/30 ring-2 ring-primary-500'
+                        ? 'bg-indigo-100 dark:bg-indigo-900/30 ring-2 ring-indigo-500'
                         : 'hover:bg-gray-100 dark:hover:bg-gray-700/50'
                 ]"
                 @click="(e) => onItemClick(item, e)"
@@ -406,7 +406,7 @@ const onSearch = () => {
                         :class="[
                             'group cursor-pointer transition-colors',
                             isSelected(item)
-                                ? 'bg-primary-50 dark:bg-primary-900/20'
+                                ? 'bg-indigo-50 dark:bg-indigo-900/20'
                                 : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
                         ]"
                         @click="(e) => onItemClick(item, e)"
@@ -463,7 +463,7 @@ const onSearch = () => {
             </span>
             <button
                 type="button"
-                class="text-sm text-primary-600 dark:text-primary-400 hover:underline"
+                class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline"
                 @click="clearSelection"
             >
                 Désélectionner

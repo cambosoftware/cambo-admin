@@ -21,7 +21,7 @@ defineEmits(['click'])
     <tr
         :class="[
             'transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50',
-            selected ? 'bg-primary-50 dark:bg-primary-900/20' : '',
+            selected ? 'bg-indigo-50 dark:bg-indigo-900/20' : '',
             clickable && !disabled ? 'cursor-pointer' : '',
             disabled ? 'opacity-50 pointer-events-none' : ''
         ]"

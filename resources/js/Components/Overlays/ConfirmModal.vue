@@ -41,7 +41,7 @@ const iconColor = computed(() => {
     const colors = {
         danger: 'text-red-600 bg-red-100',
         warning: 'text-amber-600 bg-amber-100',
-        primary: 'text-primary-600 bg-primary-100'
+        primary: 'text-indigo-600 bg-indigo-100'
     }
     return colors[props.variant]
 })

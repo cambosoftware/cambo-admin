@@ -161,7 +161,7 @@ const themeClasses = computed(() => {
             iconActive: 'text-white',
             submenu: 'bg-gray-950/50',
             badge: {
-                primary: 'bg-primary-600 text-white',
+                primary: 'bg-indigo-600 text-white',
                 success: 'bg-green-600 text-white',
                 warning: 'bg-amber-500 text-white',
                 danger: 'bg-red-600 text-white'
@@ -171,12 +171,12 @@ const themeClasses = computed(() => {
 
     return {
         item: 'text-gray-700 hover:bg-gray-100 hover:text-gray-900',
-        itemActive: 'bg-primary-50 text-primary-700',
+        itemActive: 'bg-indigo-50 text-indigo-700',
         icon: 'text-gray-500',
-        iconActive: 'text-primary-600',
+        iconActive: 'text-indigo-600',
         submenu: 'bg-gray-50',
         badge: {
-            primary: 'bg-primary-600 text-white',
+            primary: 'bg-indigo-600 text-white',
             success: 'bg-green-600 text-white',
             warning: 'bg-amber-500 text-white',
             danger: 'bg-red-600 text-white'

@@ -23,11 +23,11 @@ const submit = () => {
 
 <template>
     <GuestLayout
-        title="Vérification de l'email"
-        subtitle="Merci de votre inscription ! Avant de commencer, veuillez vérifier votre adresse email en cliquant sur le lien que nous venons de vous envoyer."
+        title="Verify Email"
+        subtitle="Thanks for signing up! Before getting started, please verify your email address by clicking on the link we just sent you."
     >
         <Alert v-if="verificationLinkSent" variant="success" class="mb-6">
-            Un nouveau lien de vérification a été envoyé à l'adresse email que vous avez fournie lors de l'inscription.
+            A new verification link has been sent to the email address you provided during registration.
         </Alert>
 
         <form @submit.prevent="submit">
@@ -38,7 +38,7 @@ const submit = () => {
                     class="w-full"
                     :loading="form.processing"
                 >
-                    Renvoyer l'email de vérification
+                    Resend Verification Email
                 </Button>
 
                 <div class="text-center">
@@ -46,9 +46,9 @@ const submit = () => {
                         href="/logout"
                         method="post"
                         as="button"
-                        class="text-sm font-medium text-gray-600 hover:text-gray-900"
+                        class="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
                     >
-                        Se déconnecter
+                        Sign Out
                     </Link>
                 </div>
             </div>

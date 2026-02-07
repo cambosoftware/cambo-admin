@@ -224,7 +224,7 @@ watch(search, () => {
                     <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Filtres</span>
                     <button
                         v-if="hasActiveFilters"
-                        class="ml-auto text-sm text-primary-600 hover:text-primary-700"
+                        class="ml-auto text-sm text-indigo-600 hover:text-indigo-700"
                         @click="clearFilters"
                     >
                         Réinitialiser
@@ -328,7 +328,7 @@ watch(search, () => {
                                     class="mt-2 text-xs"
                                 >
                                     <details class="group">
-                                        <summary class="cursor-pointer text-primary-600 hover:text-primary-700">
+                                        <summary class="cursor-pointer text-indigo-600 hover:text-indigo-700">
                                             Voir les détails
                                         </summary>
                                         <div class="mt-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg space-y-2">
@@ -360,7 +360,7 @@ watch(search, () => {
 
                             <Link
                                 :href="`/activity-log/${activity.id}`"
-                                class="flex-shrink-0 p-2 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                                class="flex-shrink-0 p-2 text-gray-400 hover:text-indigo-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
                                 <EyeIcon class="h-5 w-5" />
                             </Link>
@@ -415,7 +415,7 @@ watch(search, () => {
                         <TableCell>
                             <Link
                                 :href="`/activity-log/${activity.id}`"
-                                class="p-2 text-gray-400 hover:text-primary-600"
+                                class="p-2 text-gray-400 hover:text-indigo-600"
                             >
                                 <EyeIcon class="h-5 w-5" />
                             </Link>

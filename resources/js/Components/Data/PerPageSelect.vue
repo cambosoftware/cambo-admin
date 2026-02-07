@@ -32,7 +32,7 @@ const handleChange = (event) => {
         <select
             :value="modelValue"
             :class="[
-                'rounded-md border-gray-300 focus:border-primary-500 focus:ring-primary-500',
+                'rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500',
                 size === 'sm' ? 'text-xs py-1 pr-7' : 'text-sm py-1.5 pr-8'
             ]"
             @change="handleChange"

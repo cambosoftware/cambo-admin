@@ -95,7 +95,7 @@ const inputClasses = computed(() => [
     'pr-10',
     hasError.value
         ? 'border-red-300 text-red-900 focus:border-red-500 focus:ring-red-500/20'
-        : 'border-gray-300 text-gray-900 focus:border-primary-500 focus:ring-primary-500/20',
+        : 'border-gray-300 text-gray-900 focus:border-indigo-500 focus:ring-indigo-500/20',
     sizeClasses.value
 ])
 
@@ -174,7 +174,7 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
                 'focus-within:ring-2 focus-within:ring-offset-0',
                 hasError
                     ? 'border-red-300 focus-within:border-red-500 focus-within:ring-red-500/20'
-                    : 'border-gray-300 focus-within:border-primary-500 focus-within:ring-primary-500/20',
+                    : 'border-gray-300 focus-within:border-indigo-500 focus-within:ring-indigo-500/20',
                 disabled ? 'bg-gray-50 cursor-not-allowed' : '',
                 sizeClasses
             ]"
@@ -233,7 +233,7 @@ onUnmounted(() => document.removeEventListener('click', onClickOutside))
                     :class="[
                         'px-3 py-2 text-sm cursor-pointer transition-colors',
                         opt.disabled ? 'text-gray-400 cursor-not-allowed' : '',
-                        String(opt.value) === String(modelValue) ? 'bg-primary-50 text-primary-700 font-medium' : '',
+                        String(opt.value) === String(modelValue) ? 'bg-indigo-50 text-indigo-700 font-medium' : '',
                         index === highlightIndex && !opt.disabled ? 'bg-gray-100' : '',
                         !opt.disabled && String(opt.value) !== String(modelValue) ? 'hover:bg-gray-50' : ''
                     ]"

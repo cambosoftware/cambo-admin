@@ -174,7 +174,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 hasError
                     ? 'border-red-300'
                     : 'border-gray-300',
-                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-primary-500 ring-2 ring-primary-500/20') : ''
+                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-indigo-500 ring-2 ring-indigo-500/20') : ''
             ]"
             tabindex="0"
             @click="toggle"
@@ -223,7 +223,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                             :class="[
                                 'w-full px-3 py-1.5 text-center text-sm transition-colors cursor-pointer',
                                 parsedValue.hours === h
-                                    ? 'bg-primary-500 text-white font-medium'
+                                    ? 'bg-indigo-500 text-white font-medium'
                                     : 'text-gray-700 hover:bg-gray-100'
                             ]"
                             @click="selectHour(h)"
@@ -245,7 +245,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                             :class="[
                                 'w-full px-3 py-1.5 text-center text-sm transition-colors cursor-pointer',
                                 parsedValue.minutes === m
-                                    ? 'bg-primary-500 text-white font-medium'
+                                    ? 'bg-indigo-500 text-white font-medium'
                                     : 'text-gray-700 hover:bg-gray-100'
                             ]"
                             @click="selectMinute(m)"
@@ -259,7 +259,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 <div class="border-t border-gray-100 p-1">
                     <button
                         type="button"
-                        class="w-full rounded py-1.5 text-xs font-medium text-primary-600 hover:bg-primary-50 cursor-pointer"
+                        class="w-full rounded py-1.5 text-xs font-medium text-indigo-600 hover:bg-indigo-50 cursor-pointer"
                         @click="() => {
                             const now = new Date()
                             const val = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`

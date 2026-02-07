@@ -42,7 +42,7 @@ const handleChange = (event) => {
             :checked="isAllSelected"
             :indeterminate="isIndeterminate"
             :disabled="disabled || totalCount === 0"
-            class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 disabled:opacity-50"
+            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 disabled:opacity-50"
             @change="handleChange"
         />
     </div>

@@ -59,7 +59,7 @@ const statusConfig = computed(() => {
 const dotColorClass = computed(() => {
     if (!statusConfig.value) return 'bg-gray-400'
     const colors = {
-        primary: 'bg-primary-500',
+        primary: 'bg-indigo-500',
         secondary: 'bg-gray-400',
         success: 'bg-emerald-500',
         danger: 'bg-red-500',
@@ -72,7 +72,7 @@ const dotColorClass = computed(() => {
 const textColorClass = computed(() => {
     if (!statusConfig.value) return 'text-gray-500'
     const colors = {
-        primary: 'text-primary-600',
+        primary: 'text-indigo-600',
         secondary: 'text-gray-600',
         success: 'text-emerald-600',
         danger: 'text-red-600',

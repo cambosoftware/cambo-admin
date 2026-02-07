@@ -63,7 +63,7 @@ const areaD = computed(() => {
                     :class="[
                         'px-2 py-1 text-xs rounded-md transition-colors',
                         period === 'Mois'
-                            ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
+                            ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400'
                             : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700'
                     ]"
                 >
@@ -94,14 +94,14 @@ const areaD = computed(() => {
                 <!-- Area fill -->
                 <path
                     :d="areaD"
-                    class="fill-primary-500/10"
+                    class="fill-indigo-500/10"
                 />
 
                 <!-- Line -->
                 <path
                     :d="pathD"
                     fill="none"
-                    class="stroke-primary-500"
+                    class="stroke-indigo-500"
                     stroke-width="0.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -114,7 +114,7 @@ const areaD = computed(() => {
                     :cx="(i / (chartData.length - 1)) * 100"
                     :cy="getY(d.value)"
                     r="1"
-                    class="fill-primary-500"
+                    class="fill-indigo-500"
                 />
             </svg>
         </div>

@@ -65,10 +65,10 @@ provide('stepWizard', {
             :disabled="!clickable || index > currentIndex"
             :class="[
                 'h-2.5 w-2.5 rounded-full transition-colors',
-                getStepStatus(index) === 'current' ? 'bg-primary-500' : '',
-                getStepStatus(index) === 'completed' ? 'bg-primary-300' : '',
+                getStepStatus(index) === 'current' ? 'bg-indigo-500' : '',
+                getStepStatus(index) === 'completed' ? 'bg-indigo-300' : '',
                 getStepStatus(index) === 'upcoming' ? 'bg-gray-200' : '',
-                clickable && index <= currentIndex ? 'cursor-pointer hover:bg-primary-400' : ''
+                clickable && index <= currentIndex ? 'cursor-pointer hover:bg-indigo-400' : ''
             ]"
             :aria-current="getStepStatus(index) === 'current' ? 'step' : undefined"
             @click="handleStepClick(step, index)"
@@ -97,8 +97,8 @@ provide('stepWizard', {
                     <span
                         :class="[
                             'flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors',
-                            getStepStatus(index) === 'completed' ? 'bg-primary-500 border-primary-500' : '',
-                            getStepStatus(index) === 'current' ? 'border-primary-500 bg-white' : '',
+                            getStepStatus(index) === 'completed' ? 'bg-indigo-500 border-indigo-500' : '',
+                            getStepStatus(index) === 'current' ? 'border-indigo-500 bg-white' : '',
                             getStepStatus(index) === 'upcoming' ? 'border-gray-300 bg-white' : ''
                         ]"
                     >
@@ -110,7 +110,7 @@ provide('stepWizard', {
                             v-else-if="showNumbers"
                             :class="[
                                 'text-sm font-medium',
-                                getStepStatus(index) === 'current' ? 'text-primary-500' : 'text-gray-500'
+                                getStepStatus(index) === 'current' ? 'text-indigo-500' : 'text-gray-500'
                             ]"
                         >
                             {{ index + 1 }}
@@ -119,7 +119,7 @@ provide('stepWizard', {
                             v-else
                             :class="[
                                 'h-2.5 w-2.5 rounded-full',
-                                getStepStatus(index) === 'current' ? 'bg-primary-500' : 'bg-gray-300'
+                                getStepStatus(index) === 'current' ? 'bg-indigo-500' : 'bg-gray-300'
                             ]"
                         />
                     </span>
@@ -129,8 +129,8 @@ provide('stepWizard', {
                         <span
                             :class="[
                                 'block text-sm font-medium',
-                                getStepStatus(index) === 'completed' ? 'text-primary-600' : '',
-                                getStepStatus(index) === 'current' ? 'text-primary-600' : '',
+                                getStepStatus(index) === 'completed' ? 'text-indigo-600' : '',
+                                getStepStatus(index) === 'current' ? 'text-indigo-600' : '',
                                 getStepStatus(index) === 'upcoming' ? 'text-gray-500' : ''
                             ]"
                         >
@@ -147,7 +147,7 @@ provide('stepWizard', {
                     v-if="index < steps.length - 1"
                     :class="[
                         'flex-1 h-0.5 mx-4',
-                        getStepStatus(index) === 'completed' ? 'bg-primary-500' : 'bg-gray-200'
+                        getStepStatus(index) === 'completed' ? 'bg-indigo-500' : 'bg-gray-200'
                     ]"
                 />
             </li>
@@ -167,7 +167,7 @@ provide('stepWizard', {
                     v-if="index < steps.length - 1"
                     :class="[
                         'absolute left-5 top-10 -ml-px h-full w-0.5',
-                        getStepStatus(index) === 'completed' ? 'bg-primary-500' : 'bg-gray-200'
+                        getStepStatus(index) === 'completed' ? 'bg-indigo-500' : 'bg-gray-200'
                     ]"
                 />
 
@@ -182,8 +182,8 @@ provide('stepWizard', {
                     <span
                         :class="[
                             'relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors',
-                            getStepStatus(index) === 'completed' ? 'bg-primary-500 border-primary-500' : '',
-                            getStepStatus(index) === 'current' ? 'border-primary-500 bg-white' : '',
+                            getStepStatus(index) === 'completed' ? 'bg-indigo-500 border-indigo-500' : '',
+                            getStepStatus(index) === 'current' ? 'border-indigo-500 bg-white' : '',
                             getStepStatus(index) === 'upcoming' ? 'border-gray-300 bg-white' : ''
                         ]"
                     >
@@ -195,7 +195,7 @@ provide('stepWizard', {
                             v-else-if="showNumbers"
                             :class="[
                                 'text-sm font-medium',
-                                getStepStatus(index) === 'current' ? 'text-primary-500' : 'text-gray-500'
+                                getStepStatus(index) === 'current' ? 'text-indigo-500' : 'text-gray-500'
                             ]"
                         >
                             {{ index + 1 }}
@@ -207,8 +207,8 @@ provide('stepWizard', {
                         <span
                             :class="[
                                 'block text-sm font-medium',
-                                getStepStatus(index) === 'completed' ? 'text-primary-600' : '',
-                                getStepStatus(index) === 'current' ? 'text-primary-600' : '',
+                                getStepStatus(index) === 'completed' ? 'text-indigo-600' : '',
+                                getStepStatus(index) === 'current' ? 'text-indigo-600' : '',
                                 getStepStatus(index) === 'upcoming' ? 'text-gray-500' : ''
                             ]"
                         >

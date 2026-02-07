@@ -141,7 +141,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 hasError
                     ? 'border-red-300'
                     : 'border-gray-300',
-                open ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-primary-500 ring-2 ring-primary-500/20') : '',
+                open ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-indigo-500 ring-2 ring-indigo-500/20') : '',
                 disabled ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : '',
                 sizeClasses
             ]"
@@ -193,7 +193,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                     :class="[
                         'px-3 py-2 text-sm cursor-pointer transition-colors',
                         opt.disabled ? 'text-gray-400 cursor-not-allowed' : '',
-                        String(opt.value) === String(modelValue) ? 'bg-primary-50 text-primary-700 font-medium' : '',
+                        String(opt.value) === String(modelValue) ? 'bg-indigo-50 text-indigo-700 font-medium' : '',
                         index === highlightIndex && !opt.disabled ? 'bg-gray-100' : '',
                         !opt.disabled && String(opt.value) !== String(modelValue) ? 'hover:bg-gray-50' : ''
                     ]"

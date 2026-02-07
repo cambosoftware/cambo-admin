@@ -119,7 +119,7 @@ const trendColor = computed(() => {
 })
 
 const iconBgColors = {
-    primary: 'bg-primary-100 text-primary-600',
+    primary: 'bg-indigo-100 text-indigo-600',
     success: 'bg-emerald-100 text-emerald-600',
     warning: 'bg-amber-100 text-amber-600',
     danger: 'bg-red-100 text-red-600',
@@ -134,7 +134,7 @@ const iconBgColors = {
         :href="href"
         :class="[
             'relative overflow-hidden rounded-xl bg-white p-6 ring-1 ring-gray-200',
-            href ? 'hover:ring-primary-300 transition-shadow cursor-pointer' : ''
+            href ? 'hover:ring-indigo-300 transition-shadow cursor-pointer' : ''
         ]"
     >
         <!-- Loading skeleton -->

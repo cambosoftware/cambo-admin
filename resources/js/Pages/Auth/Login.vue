@@ -1,8 +1,6 @@
 <script setup>
-import { ref } from 'vue'
 import { useForm, Link } from '@inertiajs/vue3'
 import GuestLayout from '@/Components/Layout/GuestLayout.vue'
-import Form from '@/Components/Form/Form.vue'
 import FormGroup from '@/Components/Form/FormGroup.vue'
 import Input from '@/Components/Form/Input.vue'
 import PasswordInput from '@/Components/Form/PasswordInput.vue'
@@ -39,67 +37,65 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout title="Connexion" subtitle="Accédez à votre espace">
+    <GuestLayout title="Sign In" subtitle="Access your account">
         <!-- Status message (e.g., after password reset) -->
         <Alert v-if="status" variant="success" class="mb-6">
             {{ status }}
         </Alert>
 
-        <Form @submit="submit" :errors="form.errors">
-            <div class="space-y-5">
-                <FormGroup label="Adresse email" name="email" required>
-                    <Input
-                        v-model="form.email"
-                        type="email"
-                        placeholder="vous@exemple.com"
-                        autocomplete="email"
-                        :error="form.errors.email"
-                        autofocus
-                    />
-                </FormGroup>
+        <form @submit.prevent="submit" class="space-y-5">
+            <FormGroup label="Email Address" :error="form.errors.email" required>
+                <Input
+                    v-model="form.email"
+                    type="email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    :error="form.errors.email"
+                    autofocus
+                />
+            </FormGroup>
 
-                <FormGroup label="Mot de passe" name="password" required>
-                    <PasswordInput
-                        v-model="form.password"
-                        placeholder="••••••••"
-                        autocomplete="current-password"
-                        :error="form.errors.password"
-                    />
-                </FormGroup>
+            <FormGroup label="Password" :error="form.errors.password" required>
+                <PasswordInput
+                    v-model="form.password"
+                    placeholder="••••••••"
+                    autocomplete="current-password"
+                    :error="form.errors.password"
+                />
+            </FormGroup>
 
-                <div class="flex items-center justify-between">
-                    <Checkbox
-                        v-model="form.remember"
-                        label="Se souvenir de moi"
-                        size="sm"
-                    />
+            <div class="flex items-center justify-between">
+                <Checkbox
+                    v-model="form.remember"
+                    label="Remember me"
+                    size="sm"
+                />
 
-                    <Link
-                        v-if="canResetPassword"
-                        href="/forgot-password"
-                        class="text-sm font-medium text-primary-600 hover:text-primary-500"
-                    >
-                        Mot de passe oublié ?
-                    </Link>
-                </div>
-
-                <Button
-                    type="submit"
-                    variant="primary"
-                    class="w-full"
-                    size="lg"
-                    :loading="form.processing"
+                <Link
+                    v-if="canResetPassword"
+                    href="/forgot-password"
+                    class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                    Se connecter
-                </Button>
+                    Forgot password?
+                </Link>
             </div>
-        </Form>
+
+            <Button
+                type="submit"
+                variant="primary"
+                class="w-full"
+                size="lg"
+                :loading="form.processing"
+            >
+                Sign In
+            </Button>
+        </form>
 
         <template #footer>
-            <p v-if="canRegister" class="text-center text-sm text-gray-600">
-                Pas encore de compte ?
-                <Link href="/register" class="font-medium text-primary-600 hover:text-primary-500">
-                    Créer un compte
+            <p v-if="canRegister" class="text-center text-sm text-gray-600 dark:text-gray-400">
+                Don't have an account?
+                <Link href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
+                    Create an account
                 </Link>
             </p>
         </template>

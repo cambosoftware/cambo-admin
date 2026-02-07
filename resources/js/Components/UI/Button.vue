@@ -76,7 +76,7 @@ const iconSize = computed(() => {
 const variantClasses = computed(() => {
     if (props.outline) {
         const outlineVariants = {
-            primary: 'border border-primary-500 text-primary-600 hover:bg-primary-50 active:ring-primary-500 focus-visible:ring-primary-500 dark:text-primary-400 dark:hover:bg-primary-900/20',
+            primary: 'border border-indigo-500 text-indigo-600 hover:bg-indigo-50 active:ring-indigo-500 focus-visible:ring-indigo-500 dark:text-indigo-400 dark:hover:bg-indigo-900/20',
             secondary: 'border border-gray-300 text-gray-700 hover:bg-gray-50 active:ring-gray-500 focus-visible:ring-gray-500 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700',
             success: 'border border-emerald-500 text-emerald-600 hover:bg-emerald-50 active:ring-emerald-500 focus-visible:ring-emerald-500 dark:text-emerald-400 dark:hover:bg-emerald-900/20',
             danger: 'border border-red-500 text-red-600 hover:bg-red-50 active:ring-red-500 focus-visible:ring-red-500 dark:text-red-400 dark:hover:bg-red-900/20',
@@ -87,14 +87,14 @@ const variantClasses = computed(() => {
     }
 
     const solidVariants = {
-        primary: 'bg-primary-600 text-white hover:bg-primary-700 active:ring-primary-500 focus-visible:ring-primary-500 shadow-sm dark:bg-primary-500 dark:hover:bg-primary-600',
-        secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 active:ring-primary-500 focus-visible:ring-primary-500 shadow-sm dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600',
+        primary: 'bg-indigo-600 text-white hover:bg-indigo-700 active:ring-indigo-500 focus-visible:ring-indigo-500 shadow-sm dark:bg-indigo-500 dark:hover:bg-indigo-600',
+        secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 active:ring-indigo-500 focus-visible:ring-indigo-500 shadow-sm dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600',
         success: 'bg-emerald-600 text-white hover:bg-emerald-700 active:ring-emerald-500 focus-visible:ring-emerald-500 shadow-sm dark:bg-emerald-500 dark:hover:bg-emerald-600',
         danger: 'bg-red-600 text-white hover:bg-red-700 active:ring-red-500 focus-visible:ring-red-500 shadow-sm dark:bg-red-500 dark:hover:bg-red-600',
         warning: 'bg-amber-500 text-white hover:bg-amber-600 active:ring-amber-500 focus-visible:ring-amber-500 shadow-sm dark:bg-amber-400 dark:hover:bg-amber-500',
         info: 'bg-sky-500 text-white hover:bg-sky-600 active:ring-sky-500 focus-visible:ring-sky-500 shadow-sm dark:bg-sky-400 dark:hover:bg-sky-500',
         ghost: 'text-gray-700 hover:bg-gray-100 active:ring-gray-500 focus-visible:ring-gray-500 dark:text-gray-300 dark:hover:bg-gray-700',
-        link: 'text-primary-600 hover:text-primary-700 hover:underline active:ring-primary-500 focus-visible:ring-primary-500 !px-0 !py-0 dark:text-primary-400 dark:hover:text-primary-300'
+        link: 'text-indigo-600 hover:text-indigo-700 hover:underline active:ring-indigo-500 focus-visible:ring-indigo-500 !px-0 !py-0 dark:text-indigo-400 dark:hover:text-indigo-300'
     }
     return solidVariants[props.variant]
 })

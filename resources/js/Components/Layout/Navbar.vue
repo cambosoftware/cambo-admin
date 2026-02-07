@@ -99,7 +99,7 @@ const userInitials = computed(() => {
                         v-model="searchQuery"
                         type="text"
                         placeholder="Rechercher..."
-                        class="w-64 rounded-md border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 py-1.5 pl-10 pr-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-primary-500"
+                        class="w-64 rounded-md border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 py-1.5 pl-10 pr-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-indigo-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-indigo-500"
                     />
                     <svg
                         class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500"
@@ -144,7 +144,7 @@ const userInitials = computed(() => {
                 <div class="relative">
                     <button
                         type="button"
-                        class="flex items-center gap-2 rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                        class="flex items-center gap-2 rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                         @click="toggleUserMenu"
                         @blur="closeUserMenu"
                     >
@@ -156,7 +156,7 @@ const userInitials = computed(() => {
                         />
                         <div
                             v-else
-                            class="h-8 w-8 rounded-full bg-primary-600 flex items-center justify-center"
+                            class="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center"
                         >
                             <span class="text-sm font-medium text-white">
                                 {{ userInitials }}
@@ -265,7 +265,7 @@ const userInitials = computed(() => {
                         v-model="searchQuery"
                         type="text"
                         placeholder="Rechercher..."
-                        class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 py-2 pl-10 pr-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-primary-500"
+                        class="w-full rounded-md border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 py-2 pl-10 pr-3 text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-indigo-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-indigo-500"
                         autofocus
                     />
                     <svg

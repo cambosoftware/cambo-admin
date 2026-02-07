@@ -31,9 +31,9 @@ const iconMap = {
 
 const colorClasses = {
     primary: {
-        bg: 'bg-primary-100 dark:bg-primary-900/30',
-        text: 'text-primary-600 dark:text-primary-400',
-        icon: 'text-primary-500',
+        bg: 'bg-indigo-100 dark:bg-indigo-900/30',
+        text: 'text-indigo-600 dark:text-indigo-400',
+        icon: 'text-indigo-500',
     },
     success: {
         bg: 'bg-green-100 dark:bg-green-900/30',

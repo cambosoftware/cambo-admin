@@ -53,14 +53,14 @@ const handleAction = (action) => {
     >
         <div
             v-if="selectedCount > 0"
-            class="flex items-center gap-3 px-4 py-3 bg-primary-50 border border-primary-200 rounded-lg"
+            class="flex items-center gap-3 px-4 py-3 bg-indigo-50 border border-indigo-200 rounded-lg"
         >
             <!-- Selection info -->
             <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center h-6 min-w-6 px-1.5 text-xs font-medium bg-primary-500 text-white rounded-full">
+                <span class="inline-flex items-center justify-center h-6 min-w-6 px-1.5 text-xs font-medium bg-indigo-500 text-white rounded-full">
                     {{ selectedCount }}
                 </span>
-                <span class="text-sm text-primary-700">
+                <span class="text-sm text-indigo-700">
                     élément{{ selectedCount > 1 ? 's' : '' }} sélectionné{{ selectedCount > 1 ? 's' : '' }}
                 </span>
             </div>
@@ -69,7 +69,7 @@ const handleAction = (action) => {
             <button
                 v-if="totalCount && selectedCount < totalCount"
                 type="button"
-                class="text-sm text-primary-600 hover:text-primary-800 underline"
+                class="text-sm text-indigo-600 hover:text-indigo-800 underline"
                 @click="$emit('select-all')"
             >
                 Tout sélectionner ({{ totalCount }})

@@ -189,7 +189,7 @@ function clear() {
                 v-if="multiple && (!maxFiles || files.length < maxFiles)"
                 type="button"
                 :class="[
-                    'flex items-center gap-1.5 text-sm text-primary-600 hover:text-primary-700 cursor-pointer',
+                    'flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-700 cursor-pointer',
                     disabled ? 'opacity-50 cursor-not-allowed' : ''
                 ]"
                 :disabled="disabled"

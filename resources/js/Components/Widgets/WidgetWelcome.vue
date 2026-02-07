@@ -22,21 +22,21 @@ const greeting = computed(() => {
 </script>
 
 <template>
-    <div class="h-full flex items-center px-6 bg-gradient-to-r from-primary-500 to-primary-600 text-white">
+    <div class="h-full flex items-center px-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white">
         <div class="flex-1">
-            <div class="flex items-center gap-2 text-primary-100 mb-1">
+            <div class="flex items-center gap-2 text-indigo-100 mb-1">
                 <SparklesIcon class="h-5 w-5" />
                 <span class="text-sm font-medium">{{ greeting }}</span>
             </div>
             <h2 class="text-2xl font-bold mb-1">
                 {{ user?.name || 'Utilisateur' }}
             </h2>
-            <p class="text-primary-100 text-sm">
+            <p class="text-indigo-100 text-sm">
                 {{ config.message || 'Bienvenue sur votre tableau de bord.' }}
             </p>
         </div>
 
-        <div class="hidden sm:flex items-center gap-4 text-primary-100">
+        <div class="hidden sm:flex items-center gap-4 text-indigo-100">
             <div class="text-right">
                 <div class="text-3xl font-bold text-white">
                     {{ new Date().toLocaleDateString('fr-FR', { day: 'numeric' }) }}

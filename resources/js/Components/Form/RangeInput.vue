@@ -84,7 +84,7 @@ const thumbSize = computed(() => {
 
 const colorClasses = computed(() => {
     const colors = {
-        primary: 'bg-primary-500',
+        primary: 'bg-indigo-500',
         success: 'bg-green-500',
         danger: 'bg-red-500',
         warning: 'bg-yellow-500',
@@ -95,7 +95,7 @@ const colorClasses = computed(() => {
 
 const thumbColorClasses = computed(() => {
     const colors = {
-        primary: 'border-primary-500',
+        primary: 'border-indigo-500',
         success: 'border-green-500',
         danger: 'border-red-500',
         warning: 'border-yellow-500',
@@ -206,7 +206,7 @@ const onKeydown = (index, e) => {
                 :class="[
                     'absolute rounded-full border-2 bg-white shadow-sm cursor-grab focus:outline-none focus:ring-2 focus:ring-offset-0',
                     thumbSize,
-                    hasError ? 'border-red-500 focus:ring-red-500/20' : thumbColorClasses + ' focus:ring-primary-500/20',
+                    hasError ? 'border-red-500 focus:ring-red-500/20' : thumbColorClasses + ' focus:ring-indigo-500/20',
                     dragging === 0 ? 'cursor-grabbing' : ''
                 ]"
                 :style="{ left: lowPercent + '%', transform: 'translateX(-50%)' }"
@@ -224,7 +224,7 @@ const onKeydown = (index, e) => {
                 :class="[
                     'absolute rounded-full border-2 bg-white shadow-sm cursor-grab focus:outline-none focus:ring-2 focus:ring-offset-0',
                     thumbSize,
-                    hasError ? 'border-red-500 focus:ring-red-500/20' : thumbColorClasses + ' focus:ring-primary-500/20',
+                    hasError ? 'border-red-500 focus:ring-red-500/20' : thumbColorClasses + ' focus:ring-indigo-500/20',
                     dragging === 1 ? 'cursor-grabbing' : ''
                 ]"
                 :style="{ left: highPercent + '%', transform: 'translateX(-50%)' }"

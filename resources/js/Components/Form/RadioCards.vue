@@ -81,7 +81,7 @@ const select = (opt) => {
                     ? 'opacity-50 cursor-not-allowed bg-gray-50'
                     : 'cursor-pointer hover:shadow-md',
                 isSelected(opt.value)
-                    ? 'border-primary-500 bg-primary-50 ring-1 ring-primary-500'
+                    ? 'border-indigo-500 bg-indigo-50 ring-1 ring-indigo-500'
                     : hasError
                         ? 'border-red-300'
                         : 'border-gray-200'
@@ -95,7 +95,7 @@ const select = (opt) => {
             <!-- Radio indicator -->
             <span :class="[
                 'absolute top-3 right-3 h-5 w-5 rounded-full border-2 flex items-center justify-center',
-                isSelected(opt.value) ? 'border-primary-600 bg-primary-600' : 'border-gray-300'
+                isSelected(opt.value) ? 'border-indigo-600 bg-indigo-600' : 'border-gray-300'
             ]">
                 <span v-if="isSelected(opt.value)" class="h-2 w-2 rounded-full bg-white" />
             </span>
@@ -106,7 +106,7 @@ const select = (opt) => {
                 :is="opt.icon"
                 :class="[
                     'h-8 w-8 mb-2',
-                    isSelected(opt.value) ? 'text-primary-600' : 'text-gray-400'
+                    isSelected(opt.value) ? 'text-indigo-600' : 'text-gray-400'
                 ]"
             />
 
@@ -114,7 +114,7 @@ const select = (opt) => {
             <div class="pr-6">
                 <p :class="[
                     'text-sm font-semibold',
-                    isSelected(opt.value) ? 'text-primary-900' : 'text-gray-900'
+                    isSelected(opt.value) ? 'text-indigo-900' : 'text-gray-900'
                 ]">
                     <slot name="label" :option="opt">{{ opt.label }}</slot>
                 </p>

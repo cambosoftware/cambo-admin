@@ -145,7 +145,7 @@ const getInputProps = (setting) => {
                             :class="[
                                 'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors',
                                 activeGroup === key
-                                    ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
+                                    ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400'
                                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                             ]"
                             @click="selectGroup(key)"
@@ -169,8 +169,8 @@ const getInputProps = (setting) => {
                 <Card class="mb-6">
                     <div class="p-4 flex items-center justify-between">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
-                                <component :is="groupIcons[activeGroup]" class="h-6 w-6 text-primary-600" />
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                                <component :is="groupIcons[activeGroup]" class="h-6 w-6 text-indigo-600" />
                             </div>
                             <div>
                                 <h2 class="text-lg font-semibold text-gray-900 dark:text-white">

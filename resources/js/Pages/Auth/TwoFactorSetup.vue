@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { useForm, router } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import AdminLayout from '@/Components/Layout/AdminLayout.vue'
 import Card from '@/Components/Containers/Card.vue'
 import FormGroup from '@/Components/Form/FormGroup.vue'
@@ -11,7 +11,7 @@ import Alert from '@/Components/Feedback/Alert.vue'
 import Badge from '@/Components/UI/Badge.vue'
 import ConfirmModal from '@/Components/Overlays/ConfirmModal.vue'
 import ClickToCopy from '@/Components/Utilities/ClickToCopy.vue'
-import { ShieldCheckIcon, KeyIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
+import { ShieldCheckIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({
     secret: {
@@ -49,7 +49,6 @@ const regenerateForm = useForm({
 
 const qrCodeSvg = computed(() => {
     if (!props.qrCodeUrl) return ''
-    // Generate QR code URL for display
     return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(props.qrCodeUrl)}`
 })
 
@@ -85,10 +84,10 @@ const regenerateRecoveryCodes = () => {
 
 <template>
     <AdminLayout
-        title="Authentification à deux facteurs"
+        title="Two-Factor Authentication"
         :breadcrumb="[
-            { label: 'Profil', href: '/profile' },
-            { label: 'Sécurité 2FA' }
+            { label: 'Profile', href: '/profile' },
+            { label: '2FA Security' }
         ]"
     >
         <div class="max-w-2xl space-y-6">
@@ -97,38 +96,38 @@ const regenerateRecoveryCodes = () => {
                 <div class="flex items-center gap-4">
                     <div
                         class="flex h-12 w-12 items-center justify-center rounded-full"
-                        :class="enabled ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'"
+                        :class="enabled ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' : 'bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500'"
                     >
                         <ShieldCheckIcon class="h-6 w-6" />
                     </div>
                     <div class="flex-1">
-                        <h3 class="text-lg font-semibold text-gray-900">
-                            Authentification à deux facteurs
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            Two-Factor Authentication
                         </h3>
-                        <p class="text-sm text-gray-500">
-                            {{ enabled ? 'Activée - Votre compte est protégé' : 'Désactivée - Activez pour plus de sécurité' }}
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            {{ enabled ? 'Enabled - Your account is protected' : 'Disabled - Enable for extra security' }}
                         </p>
                     </div>
                     <Badge :variant="enabled ? 'success' : 'warning'">
-                        {{ enabled ? 'Activée' : 'Désactivée' }}
+                        {{ enabled ? 'Enabled' : 'Disabled' }}
                     </Badge>
                 </div>
             </Card>
 
             <!-- Setup Card (when not enabled) -->
-            <Card v-if="!enabled" title="Configuration">
+            <Card v-if="!enabled" title="Setup">
                 <div class="space-y-6">
                     <Alert variant="info">
                         <p>
-                            L'authentification à deux facteurs ajoute une couche de sécurité supplémentaire à votre compte.
-                            Vous devrez scanner le QR code ci-dessous avec une application comme Google Authenticator ou Authy.
+                            Two-factor authentication adds an extra layer of security to your account.
+                            You will need to scan the QR code below with an app like Google Authenticator or Authy.
                         </p>
                     </Alert>
 
                     <div class="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
                         <!-- QR Code -->
                         <div class="flex flex-col items-center gap-3">
-                            <div class="rounded-lg border bg-white p-4">
+                            <div class="rounded-lg border bg-white p-4 dark:border-gray-700">
                                 <img
                                     v-if="qrCodeSvg"
                                     :src="qrCodeSvg"
@@ -136,28 +135,28 @@ const regenerateRecoveryCodes = () => {
                                     class="h-48 w-48"
                                 />
                             </div>
-                            <p class="text-xs text-gray-500">Scannez avec votre app 2FA</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Scan with your 2FA app</p>
                         </div>
 
                         <!-- Manual setup -->
                         <div class="flex-1 space-y-4">
                             <div>
-                                <p class="mb-2 text-sm font-medium text-gray-700">
-                                    Ou entrez ce code manuellement :
+                                <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                                    Or enter this code manually:
                                 </p>
-                                <div class="rounded-md bg-gray-50 p-3">
+                                <div class="rounded-md bg-gray-50 p-3 dark:bg-gray-800">
                                     <ClickToCopy
                                         :text="secret"
-                                        class="font-mono text-sm font-semibold tracking-wider text-gray-900"
+                                        class="font-mono text-sm font-semibold tracking-wider text-gray-900 dark:text-white"
                                     />
                                 </div>
                             </div>
 
                             <form @submit.prevent="enable" class="space-y-4">
                                 <FormGroup
-                                    label="Code de vérification"
-                                    name="code"
-                                    hint="Entrez le code à 6 chiffres de votre application"
+                                    label="Verification Code"
+                                    :error="enableForm.errors.code"
+                                    hint="Enter the 6-digit code from your app"
                                     required
                                 >
                                     <Input
@@ -175,7 +174,7 @@ const regenerateRecoveryCodes = () => {
                                     variant="primary"
                                     :loading="enableForm.processing"
                                 >
-                                    Activer la 2FA
+                                    Enable 2FA
                                 </Button>
                             </form>
                         </div>
@@ -184,26 +183,26 @@ const regenerateRecoveryCodes = () => {
             </Card>
 
             <!-- Recovery Codes (when enabled) -->
-            <Card v-if="enabled" title="Codes de récupération">
+            <Card v-if="enabled" title="Recovery Codes">
                 <template #actions>
                     <Button
                         variant="ghost"
                         size="sm"
                         @click="showRegenerateModal = true"
                     >
-                        Régénérer
+                        Regenerate
                     </Button>
                 </template>
 
                 <div class="space-y-4">
                     <Alert variant="warning" :icon="ExclamationTriangleIcon">
                         <p>
-                            Conservez ces codes dans un endroit sûr. Ils vous permettront d'accéder à votre compte
-                            si vous perdez l'accès à votre application d'authentification.
+                            Store these codes in a safe place. They will allow you to access your account
+                            if you lose access to your authenticator app.
                         </p>
                     </Alert>
 
-                    <div class="grid grid-cols-2 gap-2 rounded-md bg-gray-50 p-4">
+                    <div class="grid grid-cols-2 gap-2 rounded-md bg-gray-50 p-4 dark:bg-gray-800">
                         <div
                             v-for="code in recoveryCodes"
                             :key="code"
@@ -216,16 +215,16 @@ const regenerateRecoveryCodes = () => {
             </Card>
 
             <!-- Disable Card (when enabled) -->
-            <Card v-if="enabled" title="Désactiver la 2FA">
+            <Card v-if="enabled" title="Disable 2FA">
                 <div class="flex items-center justify-between">
-                    <p class="text-sm text-gray-500">
-                        Désactiver l'authentification à deux facteurs rendra votre compte moins sécurisé.
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Disabling two-factor authentication will make your account less secure.
                     </p>
                     <Button
                         variant="danger"
                         @click="showDisableModal = true"
                     >
-                        Désactiver
+                        Disable
                     </Button>
                 </div>
             </Card>
@@ -234,14 +233,14 @@ const regenerateRecoveryCodes = () => {
         <!-- Disable Modal -->
         <ConfirmModal
             v-model="showDisableModal"
-            title="Désactiver la 2FA"
-            message="Êtes-vous sûr de vouloir désactiver l'authentification à deux facteurs ? Votre compte sera moins sécurisé."
-            confirm-text="Désactiver"
+            title="Disable 2FA"
+            message="Are you sure you want to disable two-factor authentication? Your account will be less secure."
+            confirm-text="Disable"
             variant="danger"
             :loading="disableForm.processing"
             @confirm="disable"
         >
-            <FormGroup label="Mot de passe" name="password" required class="mt-4">
+            <FormGroup label="Password" :error="disableForm.errors.password" required class="mt-4">
                 <PasswordInput
                     v-model="disableForm.password"
                     :error="disableForm.errors.password"
@@ -252,14 +251,14 @@ const regenerateRecoveryCodes = () => {
         <!-- Regenerate Modal -->
         <ConfirmModal
             v-model="showRegenerateModal"
-            title="Régénérer les codes"
-            message="Les anciens codes de récupération seront invalidés. Assurez-vous de sauvegarder les nouveaux codes."
-            confirm-text="Régénérer"
+            title="Regenerate Codes"
+            message="Old recovery codes will be invalidated. Make sure to save the new codes."
+            confirm-text="Regenerate"
             variant="warning"
             :loading="regenerateForm.processing"
             @confirm="regenerateRecoveryCodes"
         >
-            <FormGroup label="Mot de passe" name="password" required class="mt-4">
+            <FormGroup label="Password" :error="regenerateForm.errors.password" required class="mt-4">
                 <PasswordInput
                     v-model="regenerateForm.password"
                     :error="regenerateForm.errors.password"

@@ -154,7 +154,7 @@ function onFileChange(e) {
             :class="[
                 'rounded-lg border-2 border-dashed p-6 text-center transition-colors',
                 disabled ? 'bg-gray-50 cursor-not-allowed' : 'cursor-pointer',
-                isDragOver ? 'border-primary-400 bg-primary-50' : '',
+                isDragOver ? 'border-indigo-400 bg-indigo-50' : '',
                 hasError
                     ? 'border-red-300 bg-red-50'
                     : !isDragOver ? 'border-gray-300 hover:border-gray-400' : ''
@@ -164,9 +164,9 @@ function onFileChange(e) {
             @dragover.prevent="onDragOver"
             @dragleave="onDragLeave"
         >
-            <CloudArrowUpIcon :class="['mx-auto h-10 w-10', isDragOver ? 'text-primary-500' : hasError ? 'text-red-400' : 'text-gray-400']" />
+            <CloudArrowUpIcon :class="['mx-auto h-10 w-10', isDragOver ? 'text-indigo-500' : hasError ? 'text-red-400' : 'text-gray-400']" />
             <p class="mt-2 text-sm font-medium text-gray-700">
-                <span class="text-primary-600">Cliquez pour sélectionner</span> ou glissez-déposez
+                <span class="text-indigo-600">Cliquez pour sélectionner</span> ou glissez-déposez
             </p>
             <p v-if="description" class="mt-1 text-xs text-gray-500">
                 {{ description }}

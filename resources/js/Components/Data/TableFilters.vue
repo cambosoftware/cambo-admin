@@ -74,7 +74,7 @@ const clearAll = () => {
             >
                 <select
                     :value="modelValue[key] || ''"
-                    class="text-sm rounded-lg border-gray-300 py-1.5 pr-8 focus:border-primary-500 focus:ring-primary-500"
+                    class="text-sm rounded-lg border-gray-300 py-1.5 pr-8 focus:border-indigo-500 focus:ring-indigo-500"
                     @change="updateFilter(key, $event.target.value)"
                 >
                     <option value="">{{ filter.label }}</option>

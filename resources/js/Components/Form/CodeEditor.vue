@@ -127,7 +127,7 @@ function onKeydown(e) {
         :class="[
             'rounded-lg border bg-gray-900 overflow-hidden font-mono text-sm',
             hasError ? 'border-red-500' : 'border-gray-700',
-            focused ? 'ring-2 ring-primary-500/20' : '',
+            focused ? 'ring-2 ring-indigo-500/20' : '',
             disabled ? 'opacity-60' : ''
         ]"
     >

@@ -217,7 +217,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 sizeClasses,
                 disabled ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : '',
                 hasError ? 'border-red-300' : 'border-gray-300',
-                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-primary-500 ring-2 ring-primary-500/20') : ''
+                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-indigo-500 ring-2 ring-indigo-500/20') : ''
             ]"
             tabindex="0"
             @click="toggle"
@@ -286,9 +286,9 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                                         'py-1.5 text-xs transition-colors cursor-pointer',
                                         item.currentMonth ? 'text-gray-900' : 'text-gray-400',
                                         isToday(item.date) ? 'font-bold' : '',
-                                        isRangeStart(item.date) ? 'bg-primary-500 text-white font-semibold rounded-l-lg' : '',
-                                        isRangeEnd(item.date) ? 'bg-primary-500 text-white font-semibold rounded-r-lg' : '',
-                                        isInRange(item.date) ? 'bg-primary-50 text-primary-700' : '',
+                                        isRangeStart(item.date) ? 'bg-indigo-500 text-white font-semibold rounded-l-lg' : '',
+                                        isRangeEnd(item.date) ? 'bg-indigo-500 text-white font-semibold rounded-r-lg' : '',
+                                        isInRange(item.date) ? 'bg-indigo-50 text-indigo-700' : '',
                                         !isRangeStart(item.date) && !isRangeEnd(item.date) && !isInRange(item.date) ? 'hover:bg-gray-100 rounded-lg' : '',
                                         isDisabledDate(item.date) ? 'opacity-40 cursor-not-allowed' : ''
                                     ]"
@@ -322,9 +322,9 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                                         'py-1.5 text-xs transition-colors cursor-pointer',
                                         item.currentMonth ? 'text-gray-900' : 'text-gray-400',
                                         isToday(item.date) ? 'font-bold' : '',
-                                        isRangeStart(item.date) ? 'bg-primary-500 text-white font-semibold rounded-l-lg' : '',
-                                        isRangeEnd(item.date) ? 'bg-primary-500 text-white font-semibold rounded-r-lg' : '',
-                                        isInRange(item.date) ? 'bg-primary-50 text-primary-700' : '',
+                                        isRangeStart(item.date) ? 'bg-indigo-500 text-white font-semibold rounded-l-lg' : '',
+                                        isRangeEnd(item.date) ? 'bg-indigo-500 text-white font-semibold rounded-r-lg' : '',
+                                        isInRange(item.date) ? 'bg-indigo-50 text-indigo-700' : '',
                                         !isRangeStart(item.date) && !isRangeEnd(item.date) && !isInRange(item.date) ? 'hover:bg-gray-100 rounded-lg' : '',
                                         isDisabledDate(item.date) ? 'opacity-40 cursor-not-allowed' : ''
                                     ]"

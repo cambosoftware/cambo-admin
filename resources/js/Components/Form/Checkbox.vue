@@ -68,7 +68,7 @@ const toggle = () => {
                 'relative flex-shrink-0 rounded border flex items-center justify-center transition-colors',
                 boxSize,
                 modelValue || indeterminate
-                    ? 'bg-primary-600 border-primary-600'
+                    ? 'bg-indigo-600 border-indigo-600'
                     : hasError
                         ? 'border-red-300 bg-white'
                         : 'border-gray-300 bg-white',

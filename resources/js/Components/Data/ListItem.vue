@@ -45,7 +45,7 @@ const paddingClass = computed(() => {
         :class="[
             'relative',
             paddingClass,
-            selected ? 'bg-primary-50' : '',
+            selected ? 'bg-indigo-50' : '',
             isHoverable && !disabled ? 'hover:bg-gray-50 cursor-pointer' : '',
             disabled ? 'opacity-50 pointer-events-none' : ''
         ]"

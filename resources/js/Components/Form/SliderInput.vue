@@ -79,7 +79,7 @@ const thumbSize = computed(() => {
 
 const colorClasses = computed(() => {
     const colors = {
-        primary: 'bg-primary-500',
+        primary: 'bg-indigo-500',
         success: 'bg-green-500',
         danger: 'bg-red-500',
         warning: 'bg-yellow-500',
@@ -90,7 +90,7 @@ const colorClasses = computed(() => {
 
 const thumbColorClasses = computed(() => {
     const colors = {
-        primary: 'border-primary-500 focus-visible:ring-primary-500/20',
+        primary: 'border-indigo-500 focus-visible:ring-indigo-500/20',
         success: 'border-green-500 focus-visible:ring-green-500/20',
         danger: 'border-red-500 focus-visible:ring-red-500/20',
         warning: 'border-yellow-500 focus-visible:ring-yellow-500/20',

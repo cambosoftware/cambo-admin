@@ -105,7 +105,7 @@ onMounted(() => {
             hasError
                 ? 'border-red-300'
                 : 'border-gray-300',
-            focused ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-primary-500 ring-2 ring-primary-500/20') : '',
+            focused ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-indigo-500 ring-2 ring-indigo-500/20') : '',
             disabled ? 'opacity-60' : ''
         ]"
     >

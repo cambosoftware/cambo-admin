@@ -265,8 +265,8 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 disabled ? 'bg-gray-50 text-gray-500 cursor-not-allowed' : '',
                 hasError
                     ? 'border-red-300 focus-within:border-red-500 focus-within:ring-2 focus-within:ring-red-500/20'
-                    : 'border-gray-300 focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500/20',
-                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-primary-500 ring-2 ring-primary-500/20') : ''
+                    : 'border-gray-300 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20',
+                isOpen ? (hasError ? 'border-red-500 ring-2 ring-red-500/20' : 'border-indigo-500 ring-2 ring-indigo-500/20') : ''
             ]"
             tabindex="0"
             @click="toggle"
@@ -312,7 +312,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                     </button>
                     <button
                         type="button"
-                        class="text-sm font-semibold text-gray-900 hover:text-primary-600 cursor-pointer"
+                        class="text-sm font-semibold text-gray-900 hover:text-indigo-600 cursor-pointer"
                         @click="view = view === 'days' ? 'months' : view === 'months' ? 'years' : 'days'"
                     >
                         <template v-if="view === 'years'">
@@ -352,8 +352,8 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                             :class="[
                                 'rounded-lg py-1.5 text-xs transition-colors cursor-pointer',
                                 item.currentMonth ? 'text-gray-900' : 'text-gray-400',
-                                isToday(item.date) && !isSelected(item.date) ? 'font-bold text-primary-600' : '',
-                                isSelected(item.date) ? 'bg-primary-500 text-white font-semibold' : 'hover:bg-gray-100',
+                                isToday(item.date) && !isSelected(item.date) ? 'font-bold text-indigo-600' : '',
+                                isSelected(item.date) ? 'bg-indigo-500 text-white font-semibold' : 'hover:bg-gray-100',
                                 isDisabledDate(item.date) ? 'opacity-40 cursor-not-allowed hover:bg-transparent' : ''
                             ]"
                             :disabled="isDisabledDate(item.date)"
@@ -374,7 +374,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                             :class="[
                                 'rounded-lg px-2 py-2.5 text-xs transition-colors cursor-pointer',
                                 selectedDate && selectedDate.getMonth() === i && selectedDate.getFullYear() === currentYear
-                                    ? 'bg-primary-500 text-white font-semibold'
+                                    ? 'bg-indigo-500 text-white font-semibold'
                                     : 'text-gray-700 hover:bg-gray-100'
                             ]"
                             @click="selectMonth(i)"
@@ -394,7 +394,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                             :class="[
                                 'rounded-lg px-2 py-2.5 text-xs transition-colors cursor-pointer',
                                 selectedDate && selectedDate.getFullYear() === year
-                                    ? 'bg-primary-500 text-white font-semibold'
+                                    ? 'bg-indigo-500 text-white font-semibold'
                                     : 'text-gray-700 hover:bg-gray-100'
                             ]"
                             @click="selectYear(year)"
@@ -408,7 +408,7 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onClickOutside))
                 <div class="mt-2 border-t border-gray-100 pt-2">
                     <button
                         type="button"
-                        class="w-full rounded-lg py-1.5 text-xs font-medium text-primary-600 hover:bg-primary-50 cursor-pointer"
+                        class="w-full rounded-lg py-1.5 text-xs font-medium text-indigo-600 hover:bg-indigo-50 cursor-pointer"
                         @click="selectDay({ date: new Date() })"
                     >
                         Aujourd'hui

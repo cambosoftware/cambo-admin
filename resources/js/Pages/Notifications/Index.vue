@@ -179,7 +179,7 @@ const visitAction = (notification) => {
                             :class="[
                                 'px-3 py-1.5 text-sm font-medium rounded-lg transition-colors',
                                 selectedFilter === filter.value
-                                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
+                                    ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400'
                                     : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
                             ]"
                             @click="filterNotifications(filter.value)"
@@ -198,13 +198,13 @@ const visitAction = (notification) => {
                             'group relative flex gap-4 p-4 transition-colors',
                             notification.read_at
                                 ? 'bg-white dark:bg-gray-800'
-                                : 'bg-primary-50/50 dark:bg-primary-900/10'
+                                : 'bg-indigo-50/50 dark:bg-indigo-900/10'
                         ]"
                     >
                         <!-- Unread indicator -->
                         <span
                             v-if="!notification.read_at"
-                            class="absolute left-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-primary-500 rounded-full"
+                            class="absolute left-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-indigo-500 rounded-full"
                         />
 
                         <!-- Icon -->

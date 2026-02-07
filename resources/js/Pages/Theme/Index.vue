@@ -147,7 +147,7 @@ const getVariableConfig = (key) => {
                     :class="[
                         'relative overflow-hidden transition-all cursor-pointer',
                         currentThemeKey === key
-                            ? 'ring-2 ring-primary-500 shadow-lg'
+                            ? 'ring-2 ring-indigo-500 shadow-lg'
                             : 'hover:shadow-md'
                     ]"
                     @click="applyTheme(key)"
@@ -179,7 +179,7 @@ const getVariableConfig = (key) => {
                                 </Badge>
                                 <CheckIcon
                                     v-if="currentThemeKey === key"
-                                    class="h-5 w-5 text-primary-500"
+                                    class="h-5 w-5 text-indigo-500"
                                 />
                             </div>
                         </div>
@@ -210,7 +210,7 @@ const getVariableConfig = (key) => {
                     <!-- Active indicator -->
                     <div
                         v-if="currentThemeKey === key"
-                        class="absolute top-2 right-2 bg-primary-500 text-white px-2 py-1 rounded text-xs font-medium"
+                        class="absolute top-2 right-2 bg-indigo-500 text-white px-2 py-1 rounded text-xs font-medium"
                     >
                         Actif
                     </div>
@@ -222,7 +222,7 @@ const getVariableConfig = (key) => {
         <Card>
             <div class="p-6">
                 <div class="flex items-center gap-3 mb-6">
-                    <SwatchIcon class="h-6 w-6 text-primary-500" />
+                    <SwatchIcon class="h-6 w-6 text-indigo-500" />
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
                         Personnalisation rapide
                     </h2>
@@ -234,10 +234,10 @@ const getVariableConfig = (key) => {
                         <div class="flex items-center gap-3">
                             <div
                                 class="w-10 h-10 rounded-lg border border-gray-200 dark:border-gray-700"
-                                :style="{ backgroundColor: currentTheme.variables['primary-500'] }"
+                                :style="{ backgroundColor: currentTheme.variables['indigo-500'] }"
                             />
                             <span class="text-sm text-gray-500">
-                                {{ currentTheme.variables['primary-500'] }}
+                                {{ currentTheme.variables['indigo-500'] }}
                             </span>
                         </div>
                     </FormGroup>
@@ -345,7 +345,7 @@ const getVariableConfig = (key) => {
                     <div class="flex items-center gap-4">
                         <div
                             class="w-16 h-16 rounded-lg"
-                            :style="{ backgroundColor: customForm.variables['primary-500'] }"
+                            :style="{ backgroundColor: customForm.variables['indigo-500'] }"
                         />
                         <div
                             class="w-16 h-16 rounded-lg"
@@ -358,7 +358,7 @@ const getVariableConfig = (key) => {
                         <div class="flex-1">
                             <Button
                                 variant="primary"
-                                :style="{ backgroundColor: customForm.variables['primary-500'] }"
+                                :style="{ backgroundColor: customForm.variables['indigo-500'] }"
                             >
                                 Bouton exemple
                             </Button>

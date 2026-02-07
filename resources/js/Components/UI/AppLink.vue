@@ -25,9 +25,9 @@ const props = defineProps({
 
 const variantClasses = computed(() => {
     const variants = {
-        default: 'text-primary-600 hover:text-primary-700',
+        default: 'text-indigo-600 hover:text-indigo-700',
         muted: 'text-gray-500 hover:text-gray-700',
-        primary: 'text-primary-600 hover:text-primary-800 font-semibold'
+        primary: 'text-indigo-600 hover:text-indigo-800 font-semibold'
     }
     return variants[props.variant]
 })

@@ -2,7 +2,6 @@
 import { ref, nextTick } from 'vue'
 import { useForm, Link } from '@inertiajs/vue3'
 import GuestLayout from '@/Components/Layout/GuestLayout.vue'
-import Form from '@/Components/Form/Form.vue'
 import FormGroup from '@/Components/Form/FormGroup.vue'
 import Input from '@/Components/Form/Input.vue'
 import Button from '@/Components/UI/Button.vue'
@@ -39,74 +38,72 @@ const submit = () => {
 
 <template>
     <GuestLayout
-        title="Authentification à deux facteurs"
+        title="Two-Factor Authentication"
         :subtitle="recovery
-            ? 'Veuillez confirmer l\'accès à votre compte en entrant un de vos codes de récupération.'
-            : 'Veuillez confirmer l\'accès à votre compte en entrant le code fourni par votre application d\'authentification.'"
+            ? 'Please confirm access to your account by entering one of your recovery codes.'
+            : 'Please confirm access to your account by entering the code provided by your authenticator app.'"
     >
-        <Form @submit="submit" :errors="form.errors">
-            <div class="space-y-5">
-                <FormGroup
-                    v-if="!recovery"
-                    label="Code d'authentification"
-                    name="code"
-                    required
-                >
-                    <Input
-                        ref="codeInput"
-                        v-model="form.code"
-                        type="text"
-                        inputmode="numeric"
-                        placeholder="000000"
-                        autocomplete="one-time-code"
-                        :error="form.errors.code"
-                        autofocus
-                    />
-                </FormGroup>
+        <form @submit.prevent="submit" class="space-y-5">
+            <FormGroup
+                v-if="!recovery"
+                label="Authentication Code"
+                :error="form.errors.code"
+                required
+            >
+                <Input
+                    ref="codeInput"
+                    v-model="form.code"
+                    type="text"
+                    inputmode="numeric"
+                    placeholder="000000"
+                    autocomplete="one-time-code"
+                    :error="form.errors.code"
+                    autofocus
+                />
+            </FormGroup>
 
-                <FormGroup
-                    v-else
-                    label="Code de récupération"
-                    name="recovery_code"
-                    required
-                >
-                    <Input
-                        ref="recoveryCodeInput"
-                        v-model="form.recovery_code"
-                        type="text"
-                        placeholder="XXXXXXXXXX"
-                        autocomplete="off"
-                        :error="form.errors.recovery_code"
-                        autofocus
-                    />
-                </FormGroup>
+            <FormGroup
+                v-else
+                label="Recovery Code"
+                :error="form.errors.recovery_code"
+                required
+            >
+                <Input
+                    ref="recoveryCodeInput"
+                    v-model="form.recovery_code"
+                    type="text"
+                    placeholder="XXXXXXXXXX"
+                    autocomplete="off"
+                    :error="form.errors.recovery_code"
+                    autofocus
+                />
+            </FormGroup>
 
-                <Button
-                    type="submit"
-                    variant="primary"
-                    class="w-full"
-                    size="lg"
-                    :loading="form.processing"
-                >
-                    Connexion
-                </Button>
+            <Button
+                type="submit"
+                variant="primary"
+                class="w-full"
+                size="lg"
+                :loading="form.processing"
+            >
+                Sign In
+            </Button>
 
-                <div class="text-center">
-                    <button
-                        type="button"
-                        class="text-sm font-medium text-primary-600 hover:text-primary-500"
-                        @click="toggleRecovery"
-                    >
-                        {{ recovery ? 'Utiliser un code d\'authentification' : 'Utiliser un code de récupération' }}
-                    </button>
-                </div>
+            <div class="text-center">
+                <button
+                    type="button"
+                    class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                    @click="toggleRecovery"
+                >
+                    {{ recovery ? 'Use an authentication code' : 'Use a recovery code' }}
+                </button>
             </div>
-        </Form>
+        </form>
 
         <template #footer>
-            <p class="text-center text-sm text-gray-600">
-                <Link href="/login" class="font-medium text-primary-600 hover:text-primary-500">
-                    Retour à la connexion
+            <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+                <Link href="/login" class="font-medium text-indigo-600 hover:text-indigo-500">
+                    Back to Sign In
                 </Link>
             </p>
         </template>

@@ -97,7 +97,7 @@ const bgColorClass = computed(() => {
     if (props.color) return props.color
     // Generate a deterministic color from the name
     const colors = [
-        'bg-primary-500', 'bg-emerald-500', 'bg-amber-500',
+        'bg-indigo-500', 'bg-emerald-500', 'bg-amber-500',
         'bg-rose-500', 'bg-purple-500', 'bg-sky-500',
         'bg-teal-500', 'bg-orange-500'
     ]

@@ -178,7 +178,7 @@ defineExpose({ focus: focusInput, inputRef })
                 disabled ? 'bg-gray-50 cursor-not-allowed' : '',
                 hasError
                     ? 'border-red-300 focus-within:border-red-500 focus-within:ring-2 focus-within:ring-red-500/20'
-                    : 'border-gray-300 focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-500/20'
+                    : 'border-gray-300 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20'
             ]"
             @click="focusInput"
         >
@@ -187,7 +187,7 @@ defineExpose({ focus: focusInput, inputRef })
                 v-for="(tag, index) in modelValue"
                 :key="index"
                 :class="[
-                    'inline-flex items-center gap-1 rounded-md bg-primary-50 text-primary-700 font-medium',
+                    'inline-flex items-center gap-1 rounded-md bg-indigo-50 text-indigo-700 font-medium',
                     tagSizes
                 ]"
             >
@@ -195,7 +195,7 @@ defineExpose({ focus: focusInput, inputRef })
                 <button
                     v-if="!disabled"
                     type="button"
-                    class="inline-flex items-center text-primary-400 hover:text-primary-600 cursor-pointer"
+                    class="inline-flex items-center text-indigo-400 hover:text-indigo-600 cursor-pointer"
                     tabindex="-1"
                     @click.stop="removeTag(index)"
                 >

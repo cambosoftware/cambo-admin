@@ -121,7 +121,7 @@ const formatLogName = (name) => {
 
                             <Link
                                 :href="`/activity-log/${activity.id}`"
-                                class="flex-shrink-0 p-2 text-gray-400 hover:text-primary-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                                class="flex-shrink-0 p-2 text-gray-400 hover:text-indigo-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
                                 <EyeIcon class="h-5 w-5" />
                             </Link>

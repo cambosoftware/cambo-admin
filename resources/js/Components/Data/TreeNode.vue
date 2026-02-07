@@ -34,7 +34,7 @@ const handleClick = () => {
         <div
             :class="[
                 'flex items-center gap-2 py-1.5 px-2 rounded-md cursor-pointer transition-colors',
-                isSelected ? 'bg-primary-100 text-primary-700' : 'hover:bg-gray-100'
+                isSelected ? 'bg-indigo-100 text-indigo-700' : 'hover:bg-gray-100'
             ]"
             :style="{ paddingLeft }"
             @click="handleClick"
@@ -55,7 +55,7 @@ const handleClick = () => {
                 v-if="tree.checkable"
                 type="checkbox"
                 :checked="isChecked"
-                class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 @click.stop
                 @change="tree.toggleCheck(item.id)"
             />

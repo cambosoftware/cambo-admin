@@ -50,7 +50,7 @@ const copy = async () => {
             type="button"
             :class="[
                 'inline-flex items-center gap-1 text-left group',
-                'text-gray-900 hover:text-primary-600 transition-colors',
+                'text-gray-900 hover:text-indigo-600 transition-colors',
                 truncate ? 'max-w-full' : ''
             ]"
             @click="copy"

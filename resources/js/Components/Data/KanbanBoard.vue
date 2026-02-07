@@ -166,7 +166,7 @@ const getLabelColor = (index) => labelColors[index % labelColors.length]
             <div
                 :class="[
                     'bg-gray-100 dark:bg-gray-800/50 rounded-xl',
-                    dropTargetColumn === column.id ? 'ring-2 ring-primary-500' : ''
+                    dropTargetColumn === column.id ? 'ring-2 ring-indigo-500' : ''
                 ]"
                 @dragover="(e) => onDragOver(e, column.id)"
                 @dragleave="onDragLeave"
@@ -205,7 +205,7 @@ const getLabelColor = (index) => labelColors[index % labelColors.length]
                         draggable="true"
                         :class="[
                             'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-3 cursor-grab active:cursor-grabbing transition-all',
-                            cardClickable ? 'hover:border-primary-300 dark:hover:border-primary-600' : '',
+                            cardClickable ? 'hover:border-indigo-300 dark:hover:border-indigo-600' : '',
                             draggedCard?.id === card.id ? 'opacity-50' : ''
                         ]"
                         @dragstart="(e) => onDragStart(e, card, column.id)"
@@ -296,7 +296,7 @@ const getLabelColor = (index) => labelColors[index % labelColors.length]
                     <!-- Drop placeholder -->
                     <div
                         v-if="dropTargetColumn === column.id && draggedCard"
-                        class="h-20 border-2 border-dashed border-primary-300 dark:border-primary-600 rounded-lg bg-primary-50/50 dark:bg-primary-900/10"
+                        class="h-20 border-2 border-dashed border-indigo-300 dark:border-indigo-600 rounded-lg bg-indigo-50/50 dark:bg-indigo-900/10"
                     />
                 </div>
 

@@ -40,9 +40,11 @@ const maxWidthClass = computed(() => {
             <div v-if="showLogo" class="flex justify-center">
                 <Link href="/">
                     <slot name="logo">
-                        <div class="h-12 w-12 rounded-xl bg-primary-600 dark:bg-primary-500 flex items-center justify-center">
-                            <span class="text-white font-bold text-xl">CA</span>
-                        </div>
+                        <img
+                            src="https://cambo-admin.cambosoftware.com/images/logo-header.png"
+                            alt="CamboAdmin"
+                            class="h-12 w-auto"
+                        />
                     </slot>
                 </Link>
             </div>

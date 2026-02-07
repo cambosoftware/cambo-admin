@@ -222,14 +222,14 @@ onUnmounted(() => {
         <!-- Trigger button -->
         <button
             type="button"
-            class="relative p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500"
+            class="relative p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
             @click="toggle"
         >
             <span class="sr-only">Notifications</span>
             <component
                 :is="hasUnread ? BellAlertIcon : BellIcon"
                 class="h-5 w-5"
-                :class="{ 'text-primary-500': hasUnread }"
+                :class="{ 'text-indigo-500': hasUnread }"
             />
 
             <!-- Badge -->
@@ -268,7 +268,7 @@ onUnmounted(() => {
                     <button
                         v-if="hasUnread"
                         type="button"
-                        class="text-xs text-primary-600 hover:text-primary-700 dark:text-primary-400"
+                        class="text-xs text-indigo-600 hover:text-indigo-700 dark:text-indigo-400"
                         @click="markAllAsRead"
                     >
                         Tout marquer comme lu
@@ -290,14 +290,14 @@ onUnmounted(() => {
                                 'group relative flex gap-3 px-4 py-3 cursor-pointer transition-colors',
                                 notification.read_at
                                     ? 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
-                                    : 'bg-primary-50/50 dark:bg-primary-900/10 hover:bg-primary-50 dark:hover:bg-primary-900/20'
+                                    : 'bg-indigo-50/50 dark:bg-indigo-900/10 hover:bg-indigo-50 dark:hover:bg-indigo-900/20'
                             ]"
                             @click="onNotificationClick(notification)"
                         >
                             <!-- Unread indicator -->
                             <span
                                 v-if="!notification.read_at"
-                                class="absolute left-1.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary-500 rounded-full"
+                                class="absolute left-1.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-indigo-500 rounded-full"
                             />
 
                             <!-- Icon -->
@@ -346,7 +346,7 @@ onUnmounted(() => {
                 <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700 text-center">
                     <button
                         type="button"
-                        class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700"
+                        class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700"
                         @click="viewAll"
                     >
                         Voir toutes les notifications

@@ -77,7 +77,7 @@ const lineClampClass = computed(() => {
         <button
             v-if="expandable && isTruncated"
             type="button"
-            class="ml-1 text-xs text-primary-600 hover:text-primary-800"
+            class="ml-1 text-xs text-indigo-600 hover:text-indigo-800"
             @click.stop="isExpanded = !isExpanded"
         >
             {{ isExpanded ? 'Réduire' : 'Voir plus' }}

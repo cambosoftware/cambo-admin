@@ -47,7 +47,7 @@ const sizeClasses = computed(() => {
 
 const barColor = computed(() => {
     const colors = {
-        primary: 'bg-primary-600',
+        primary: 'bg-indigo-600',
         success: 'bg-emerald-500',
         warning: 'bg-amber-500',
         danger: 'bg-red-500',

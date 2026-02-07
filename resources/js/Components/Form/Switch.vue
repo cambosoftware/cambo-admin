@@ -63,7 +63,7 @@ const labelSize = computed(() => {
 
 const activeColorClass = computed(() => {
     const colors = {
-        primary: 'bg-primary-600',
+        primary: 'bg-indigo-600',
         success: 'bg-emerald-500',
         danger: 'bg-red-500',
         warning: 'bg-amber-500',
@@ -93,7 +93,7 @@ const toggle = () => {
             type="button"
             :class="[
                 'relative inline-flex flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 cursor-pointer',
-                'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+                'focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2',
                 trackSizes,
                 modelValue ? activeColorClass : 'bg-gray-200',
                 disabled ? 'cursor-not-allowed' : ''

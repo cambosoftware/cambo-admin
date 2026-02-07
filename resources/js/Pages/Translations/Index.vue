@@ -245,7 +245,7 @@ const exportTranslations = () => {
                                 :class="[
                                     'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-colors',
                                     currentLocale === code
-                                        ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
+                                        ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400'
                                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                                 ]"
                                 @click="selectLocale(code)"
@@ -269,7 +269,7 @@ const exportTranslations = () => {
                                 :class="[
                                     'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left text-sm transition-colors',
                                     !activeGroup
-                                        ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
+                                        ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400'
                                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                                 ]"
                                 @click="selectGroup(null)"
@@ -283,7 +283,7 @@ const exportTranslations = () => {
                                 :class="[
                                     'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left text-sm transition-colors',
                                     activeGroup === group
-                                        ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
+                                        ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400'
                                         : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                                 ]"
                                 @click="selectGroup(group)"

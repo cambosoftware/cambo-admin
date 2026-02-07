@@ -34,7 +34,7 @@ defineProps({
         rel="noopener noreferrer"
         :class="[
             'inline-flex items-center gap-1',
-            variant === 'default' ? 'text-primary-600 hover:text-primary-800' : 'text-gray-600 hover:text-gray-900',
+            variant === 'default' ? 'text-indigo-600 hover:text-indigo-800' : 'text-gray-600 hover:text-gray-900',
             underline ? 'hover:underline' : ''
         ]"
     >

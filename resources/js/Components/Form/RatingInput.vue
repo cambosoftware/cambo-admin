@@ -75,7 +75,7 @@ const activeColor = computed(() => {
         yellow: 'text-yellow-400',
         orange: 'text-orange-400',
         red: 'text-red-400',
-        primary: 'text-primary-500'
+        primary: 'text-indigo-500'
     }
     return colors[props.color]
 })

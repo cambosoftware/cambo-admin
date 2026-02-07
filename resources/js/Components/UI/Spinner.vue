@@ -31,7 +31,7 @@ const sizeClasses = computed(() => {
 
 const colorClasses = computed(() => {
     const colors = {
-        primary: 'text-primary-600',
+        primary: 'text-indigo-600',
         white: 'text-white',
         gray: 'text-gray-400',
         success: 'text-emerald-600',
