@@ -18,6 +18,14 @@ A complete Laravel backoffice package with 150+ Vue.js components, authenticatio
 - [Components Reference](https://cambo-admin.cambosoftware.com/components/)
 - [API Reference](https://cambo-admin.cambosoftware.com/api/)
 
+### For AI Assistants (Claude, GPT, etc.)
+
+AI-optimized documentation for automated integration:
+
+- **[llms.txt](https://cambo-admin.cambosoftware.com/llms.txt)** - Quick reference
+- **[llms-full.txt](https://cambo-admin.cambosoftware.com/llms-full.txt)** - Complete documentation (all components, props, examples)
+- **[CLAUDE.md](https://github.com/cambosoftware/cambo-admin/blob/main/CLAUDE.md)** - Claude Code integration guide
+
 ## Features
 
 - **150+ Vue.js Components** - Buttons, Forms, Tables, Modals, Charts, and more
