@@ -1,0 +1,1903 @@
+# CamboAdmin - Complete AI Documentation
+
+> This file contains the complete documentation for CamboAdmin, optimized for AI assistants.
+> Last updated: 2026-02-07
+
+## Package Information
+
+- **Name**: cambosoftware/cambo-admin
+- **Version**: 1.0.0
+- **License**: MIT
+- **Documentation**: https://cambo-admin.cambosoftware.com
+- **GitHub**: https://github.com/cambosoftware/cambo-admin
+- **Packagist**: https://packagist.org/packages/cambosoftware/cambo-admin
+
+## Requirements
+
+- PHP 8.2 or higher
+- Laravel 11.x or 12.x
+- Node.js 18.x or higher
+- Composer 2.x
+- npm or pnpm
+
+## Installation
+
+### New Project
+
+```bash
+# Create Laravel project
+composer create-project laravel/laravel my-admin-app
+cd my-admin-app
+
+# Configure database in .env
+# DB_CONNECTION=mysql
+# DB_DATABASE=my_admin
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# Install CamboAdmin
+composer require cambosoftware/cambo-admin
+
+# Full installation (recommended)
+php artisan cambo:install --full
+
+# Install frontend
+npm install
+npm run build
+
+# Run migrations
+php artisan migrate
+
+# Start server
+php artisan serve
+```
+
+### Existing Project
+
+```bash
+composer require cambosoftware/cambo-admin
+php artisan cambo:install
+npm install
+npm run build
+```
+
+### Installation Options
+
+```bash
+# Full installation with all modules
+php artisan cambo:install --full
+
+# Interactive installation (choose modules)
+php artisan cambo:install
+
+# UI components only (no backend)
+php artisan cambo:install --only=ui
+
+# Specific modules
+php artisan cambo:install --modules=auth,users,roles
+```
+
+## Configuration
+
+File: `config/cambo-admin.php`
+
+```php
+<?php
+
+return [
+    // Enable/disable modules
+    'modules' => [
+        'auth' => true,           // Login, register, 2FA, password reset
+        'users' => true,          // User management CRUD
+        'roles' => true,          // Role management
+        'permissions' => true,    // Permission management
+        'notifications' => true,  // Notification center
+        'activity-log' => true,   // Activity tracking
+        'dashboard' => true,      // Dashboard with widgets
+        'media' => true,          // File manager
+        'settings' => true,       // Dynamic settings
+        'import-export' => true,  // Data import/export
+        'i18n' => true,           // Multi-language
+        'themes' => true,         // Theme customization
+    ],
+
+    // Route configuration
+    'routes' => [
+        'enabled' => true,
+        'prefix' => 'admin',
+        'middleware' => ['web', 'auth', 'verified'],
+        'as' => 'cambo.',
+    ],
+
+    // Appearance
+    'appearance' => [
+        'name' => env('APP_NAME', 'CamboAdmin'),
+        'logo' => null,
+        'favicon' => null,
+        'primary_color' => '#6366f1',
+        'dark_mode' => 'auto', // 'light', 'dark', 'auto'
+    ],
+
+    // Features
+    'features' => [
+        'registration' => true,
+        'password_reset' => true,
+        'two_factor' => true,
+        'email_verification' => true,
+        'remember_me' => true,
+        'social_login' => false,
+    ],
+
+    // DataTable defaults
+    'datatable' => [
+        'per_page_options' => [10, 25, 50, 100],
+        'default_per_page' => 25,
+        'debounce_search' => 300,
+    ],
+
+    // Export formats
+    'exports' => [
+        'csv' => true,
+        'excel' => true,
+        'pdf' => false, // Requires barryvdh/laravel-dompdf
+    ],
+
+    // Media/File manager
+    'media' => [
+        'disk' => 'public',
+        'max_upload_size' => 10240, // KB
+        'allowed_types' => [
+            'image' => ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'],
+            'document' => ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'csv'],
+            'video' => ['mp4', 'avi', 'mov', 'wmv'],
+            'audio' => ['mp3', 'wav', 'ogg'],
+        ],
+    ],
+
+    // Locales
+    'locales' => [
+        'en' => ['name' => 'English', 'native' => 'English', 'rtl' => false],
+        'fr' => ['name' => 'French', 'native' => 'Français', 'rtl' => false],
+        'es' => ['name' => 'Spanish', 'native' => 'Español', 'rtl' => false],
+        'ar' => ['name' => 'Arabic', 'native' => 'العربية', 'rtl' => true],
+    ],
+];
+```
+
+## CLI Commands
+
+### CRUD Generator
+
+```bash
+php artisan cambo:crud ModelName --fields="field1:type,field2:type"
+```
+
+**Field Types**: string, text, integer, decimal, boolean, date, datetime, timestamp, json
+
+**Examples**:
+
+```bash
+# Simple product
+php artisan cambo:crud Product --fields="name:string,price:decimal,active:boolean"
+
+# Blog post with relations
+php artisan cambo:crud Post --fields="title:string,content:text,published_at:datetime,category_id:integer"
+
+# With soft deletes
+php artisan cambo:crud Article --fields="title:string,body:text" --soft-deletes
+```
+
+**Generated Files**:
+- `database/migrations/xxxx_create_products_table.php`
+- `app/Models/Product.php`
+- `app/Http/Controllers/ProductController.php`
+- `resources/js/Pages/Products/Index.vue`
+- `resources/js/Pages/Products/Create.vue`
+- `resources/js/Pages/Products/Edit.vue`
+- `resources/js/Pages/Products/Show.vue`
+
+### Page Generator
+
+```bash
+php artisan cambo:page PageName [options]
+```
+
+**Options**:
+- `--title="Page Title"` - Set page title
+- `--with-card` - Include Card component
+- `--with-table` - Include DataTable component
+- `--with-form` - Include Form components
+
+**Examples**:
+
+```bash
+php artisan cambo:page Dashboard
+php artisan cambo:page Reports/Monthly --title="Monthly Report" --with-card --with-table
+php artisan cambo:page Settings/Profile --title="Profile Settings" --with-form
+```
+
+### Component Generator
+
+```bash
+php artisan cambo:component ComponentName [options]
+```
+
+**Options**:
+- `--category=Category` - Component category folder
+- `--with-props` - Add props boilerplate
+- `--with-emits` - Add emits boilerplate
+- `--with-slots` - Add slots boilerplate
+
+**Examples**:
+
+```bash
+php artisan cambo:component StatsCard --category=Widgets --with-props
+php artisan cambo:component Charts/RevenueChart --with-props --with-emits
+```
+
+### Add Module
+
+```bash
+php artisan cambo:add module-name
+```
+
+**Available Modules**: notifications, activity-log, media, import-export, i18n, themes
+
+## Components Reference
+
+### Layout Components
+
+#### AdminLayout
+Main layout wrapper with sidebar and navbar.
+
+```vue
+<script setup>
+import AdminLayout from '@/Components/Layout/AdminLayout.vue'
+</script>
+
+<template>
+  <AdminLayout title="Dashboard" :breadcrumbs="[{ label: 'Home', url: '/' }]">
+    <!-- Page content -->
+  </AdminLayout>
+</template>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| title | String | '' | Page title |
+| breadcrumbs | Array | [] | Breadcrumb items |
+| fullWidth | Boolean | false | Remove max-width constraint |
+
+#### Sidebar
+Navigation sidebar component.
+
+```vue
+<Sidebar :items="menuItems" :collapsed="isCollapsed" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| items | Array | [] | Menu items |
+| collapsed | Boolean | false | Collapsed state |
+| theme | String | 'dark' | 'dark' or 'light' |
+
+#### Navbar
+Top navigation bar.
+
+```vue
+<Navbar :user="currentUser" :notifications="notifications" />
+```
+
+#### Breadcrumb
+Breadcrumb navigation.
+
+```vue
+<Breadcrumb :items="[
+  { label: 'Home', url: '/' },
+  { label: 'Users', url: '/users' },
+  { label: 'Edit' }
+]" />
+```
+
+#### PageHeader
+Page title with actions.
+
+```vue
+<PageHeader title="Users" subtitle="Manage system users">
+  <template #actions>
+    <Button>Add User</Button>
+  </template>
+</PageHeader>
+```
+
+### UI Components
+
+#### Button
+```vue
+<Button variant="primary" size="md" :loading="isLoading" @click="handleClick">
+  Click Me
+</Button>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | String | 'primary' | primary, secondary, success, danger, warning, info, light, dark |
+| size | String | 'md' | sm, md, lg |
+| type | String | 'button' | button, submit, reset |
+| loading | Boolean | false | Show loading spinner |
+| disabled | Boolean | false | Disable button |
+| outline | Boolean | false | Outline style |
+| pill | Boolean | false | Rounded pill style |
+| block | Boolean | false | Full width |
+| href | String | null | Link URL (renders as <a>) |
+| iconLeft | String | null | Icon name on left |
+| iconRight | String | null | Icon name on right |
+
+#### ButtonGroup
+```vue
+<ButtonGroup>
+  <Button>One</Button>
+  <Button>Two</Button>
+  <Button>Three</Button>
+</ButtonGroup>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| vertical | Boolean | false | Vertical layout |
+
+#### IconButton
+```vue
+<IconButton icon="trash" variant="danger" @click="deleteItem" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| icon | String | required | Heroicon name |
+| variant | String | 'secondary' | Button variant |
+| size | String | 'md' | sm, md, lg |
+| rounded | Boolean | false | Fully rounded |
+
+#### Badge
+```vue
+<Badge variant="success">Active</Badge>
+<Badge variant="danger" dot>Offline</Badge>
+<Badge removable @remove="handleRemove">Tag</Badge>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | String | 'primary' | primary, secondary, success, danger, warning, info |
+| size | String | 'md' | sm, md, lg |
+| dot | Boolean | false | Show as dot indicator |
+| pill | Boolean | false | Rounded pill |
+| outline | Boolean | false | Outline style |
+| removable | Boolean | false | Show remove button |
+
+#### Avatar
+```vue
+<Avatar src="/path/to/image.jpg" alt="John Doe" size="lg" />
+<Avatar name="John Doe" /> <!-- Shows initials JD -->
+<Avatar name="John Doe" status="online" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| src | String | null | Image URL |
+| alt | String | '' | Alt text |
+| name | String | null | Name for initials fallback |
+| size | String | 'md' | xs, sm, md, lg, xl, 2xl |
+| status | String | null | online, offline, busy, away |
+| rounded | Boolean | true | Rounded shape |
+
+#### AvatarGroup
+```vue
+<AvatarGroup :max="3">
+  <Avatar name="John Doe" />
+  <Avatar name="Jane Smith" />
+  <Avatar name="Bob Wilson" />
+  <Avatar name="Alice Brown" />
+</AvatarGroup>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| max | Number | 5 | Maximum visible avatars |
+| size | String | 'md' | Avatar size |
+
+#### Spinner
+```vue
+<Spinner size="lg" color="primary" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| size | String | 'md' | xs, sm, md, lg, xl |
+| color | String | 'primary' | primary, secondary, white, current |
+
+#### Skeleton
+```vue
+<Skeleton type="text" :lines="3" />
+<Skeleton type="circular" width="48px" height="48px" />
+<Skeleton type="rectangular" height="200px" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| type | String | 'text' | text, circular, rectangular, rounded |
+| width | String | '100%' | Width |
+| height | String | '1rem' | Height |
+| lines | Number | 1 | Number of text lines |
+
+#### Tooltip
+```vue
+<Tooltip content="This is a tooltip" position="top">
+  <Button>Hover me</Button>
+</Tooltip>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| content | String | required | Tooltip text |
+| position | String | 'top' | top, bottom, left, right |
+| delay | Number | 200 | Show delay in ms |
+| arrow | Boolean | true | Show arrow |
+
+#### Divider
+```vue
+<Divider />
+<Divider label="OR" />
+<Divider vertical />
+<Divider dashed />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | String | null | Center label |
+| vertical | Boolean | false | Vertical orientation |
+| dashed | Boolean | false | Dashed style |
+
+### Form Components
+
+#### Form
+```vue
+<script setup>
+import { useForm } from '@inertiajs/vue3'
+
+const form = useForm({
+  name: '',
+  email: '',
+})
+
+const submit = () => form.post('/users')
+</script>
+
+<template>
+  <Form @submit="submit">
+    <!-- Form fields -->
+    <Button type="submit" :loading="form.processing">Submit</Button>
+  </Form>
+</template>
+```
+
+#### FormGroup
+```vue
+<FormGroup
+  label="Email"
+  :error="form.errors.email"
+  hint="We'll never share your email"
+  required
+>
+  <Input v-model="form.email" type="email" />
+</FormGroup>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | String | null | Field label |
+| error | String | null | Error message |
+| hint | String | null | Help text |
+| required | Boolean | false | Show required indicator |
+| inline | Boolean | false | Inline layout |
+
+#### Input
+```vue
+<Input
+  v-model="value"
+  type="text"
+  placeholder="Enter text..."
+  :disabled="false"
+  :readonly="false"
+/>
+
+<Input v-model="search" icon-left="search" clearable />
+<Input v-model="url" prefix="https://" suffix=".com" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | String/Number | '' | v-model value |
+| type | String | 'text' | text, email, password, number, tel, url |
+| placeholder | String | null | Placeholder text |
+| disabled | Boolean | false | Disabled state |
+| readonly | Boolean | false | Readonly state |
+| size | String | 'md' | sm, md, lg |
+| iconLeft | String | null | Left icon |
+| iconRight | String | null | Right icon |
+| prefix | String | null | Prefix text |
+| suffix | String | null | Suffix text |
+| clearable | Boolean | false | Show clear button |
+
+#### Textarea
+```vue
+<Textarea
+  v-model="content"
+  placeholder="Enter description..."
+  :rows="5"
+  :maxlength="500"
+  show-count
+  resize="vertical"
+/>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | String | '' | v-model value |
+| rows | Number | 3 | Number of rows |
+| maxlength | Number | null | Maximum characters |
+| showCount | Boolean | false | Show character count |
+| resize | String | 'vertical' | none, vertical, horizontal, both |
+
+#### Select
+```vue
+<Select
+  v-model="selected"
+  :options="[
+    { value: 'a', label: 'Option A' },
+    { value: 'b', label: 'Option B' },
+  ]"
+  placeholder="Choose..."
+/>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Any | null | v-model value |
+| options | Array | [] | Options array |
+| placeholder | String | 'Select...' | Placeholder |
+| disabled | Boolean | false | Disabled state |
+| multiple | Boolean | false | Multiple selection |
+
+#### SelectSearch
+Searchable dropdown with filtering.
+
+```vue
+<SelectSearch
+  v-model="selected"
+  :options="users"
+  label-key="name"
+  value-key="id"
+  searchable
+  clearable
+/>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Any | null | v-model value |
+| options | Array | [] | Options array |
+| labelKey | String | 'label' | Key for option label |
+| valueKey | String | 'value' | Key for option value |
+| searchable | Boolean | true | Enable search |
+| clearable | Boolean | false | Show clear button |
+| placeholder | String | 'Select...' | Placeholder |
+
+#### SelectMultiple
+Multiple selection with tags.
+
+```vue
+<SelectMultiple
+  v-model="selectedTags"
+  :options="tags"
+  :max="5"
+/>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Array | [] | v-model value |
+| options | Array | [] | Options array |
+| max | Number | null | Maximum selections |
+| searchable | Boolean | true | Enable search |
+
+#### Checkbox
+```vue
+<Checkbox v-model="accepted" label="I accept the terms" />
+<Checkbox v-model="indeterminate" :indeterminate="true" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Boolean | false | v-model value |
+| label | String | null | Checkbox label |
+| disabled | Boolean | false | Disabled state |
+| indeterminate | Boolean | false | Indeterminate state |
+
+#### CheckboxGroup
+```vue
+<CheckboxGroup
+  v-model="selectedItems"
+  :options="[
+    { value: 'a', label: 'Option A' },
+    { value: 'b', label: 'Option B' },
+  ]"
+/>
+```
+
+#### Radio
+```vue
+<Radio v-model="choice" value="option1" label="Option 1" />
+<Radio v-model="choice" value="option2" label="Option 2" />
+```
+
+#### RadioGroup
+```vue
+<RadioGroup
+  v-model="selected"
+  :options="[
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'large', label: 'Large' },
+  ]"
+/>
+```
+
+#### RadioCards
+Card-style radio buttons.
+
+```vue
+<RadioCards
+  v-model="plan"
+  :options="[
+    { value: 'free', label: 'Free', description: 'Basic features' },
+    { value: 'pro', label: 'Pro', description: 'All features', icon: 'star' },
+  ]"
+  :cols="3"
+/>
+```
+
+#### Switch
+```vue
+<Switch v-model="enabled" label="Enable notifications" />
+<Switch v-model="darkMode" on-label="Dark" off-label="Light" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Boolean | false | v-model value |
+| label | String | null | Label text |
+| onLabel | String | null | Label when on |
+| offLabel | String | null | Label when off |
+| disabled | Boolean | false | Disabled state |
+| color | String | 'primary' | Color variant |
+
+#### Toggle
+Segmented button group.
+
+```vue
+<Toggle
+  v-model="view"
+  :options="[
+    { value: 'list', label: 'List', icon: 'list-bullet' },
+    { value: 'grid', label: 'Grid', icon: 'squares-2x2' },
+  ]"
+/>
+```
+
+#### DatePicker
+```vue
+<DatePicker v-model="date" format="YYYY-MM-DD" />
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | String/Date | null | v-model value |
+| format | String | 'YYYY-MM-DD' | Date format |
+| minDate | Date | null | Minimum date |
+| maxDate | Date | null | Maximum date |
+| placeholder | String | 'Select date' | Placeholder |
+
+#### DateRangePicker
+```vue
+<DateRangePicker v-model="dateRange" />
+<!-- dateRange = { start: '2024-01-01', end: '2024-01-31' } -->
+```
+
+#### TimePicker
+```vue
+<TimePicker v-model="time" format="HH:mm" />
+```
+
+#### DateTimePicker
+```vue
+<DateTimePicker v-model="datetime" />
+```
+
+#### ColorPicker
+```vue
+<ColorPicker v-model="color" :presets="['#ff0000', '#00ff00', '#0000ff']" />
+```
+
+#### FilePicker
+```vue
+<FilePicker
+  v-model="file"
+  accept=".pdf,.doc,.docx"
+  :max-size="5 * 1024 * 1024"
+/>
+```
+
+#### ImagePicker
+```vue
+<ImagePicker
+  v-model="image"
+  :preview="true"
+  :crop="true"
+  :aspect-ratio="16/9"
+/>
+```
+
+#### FileDropzone
+```vue
+<FileDropzone
+  v-model="files"
+  multiple
+  accept="image/*"
+  :max-files="5"
+  @upload="handleUpload"
+/>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Array | [] | v-model files |
+| multiple | Boolean | false | Allow multiple files |
+| accept | String | '*' | Accepted file types |
+| maxFiles | Number | null | Maximum files |
+| maxSize | Number | null | Max file size in bytes |
+
+#### RichTextEditor
+```vue
+<RichTextEditor v-model="content" :toolbar="['bold', 'italic', 'link', 'image']" />
+```
+
+#### MarkdownEditor
+```vue
+<MarkdownEditor v-model="markdown" :preview="true" />
+```
+
+#### CodeEditor
+```vue
+<CodeEditor v-model="code" language="javascript" :line-numbers="true" />
+```
+
+#### TagInput
+```vue
+<TagInput v-model="tags" placeholder="Add tags..." :max="10" />
+```
+
+#### SliderInput
+```vue
+<SliderInput v-model="value" :min="0" :max="100" :step="5" />
+```
+
+#### RangeInput
+```vue
+<RangeInput v-model="range" :min="0" :max="1000" />
+<!-- range = { min: 200, max: 800 } -->
+```
+
+#### RatingInput
+```vue
+<RatingInput v-model="rating" :max="5" />
+```
+
+#### PasswordInput
+```vue
+<PasswordInput v-model="password" :show-toggle="true" :strength-meter="true" />
+```
+
+#### SearchInput
+```vue
+<SearchInput v-model="query" @search="handleSearch" :debounce="300" />
+```
+
+#### PhoneInput
+```vue
+<PhoneInput v-model="phone" default-country="US" />
+```
+
+#### CurrencyInput
+```vue
+<CurrencyInput v-model="amount" currency="USD" locale="en-US" />
+```
+
+#### NumberInput
+```vue
+<NumberInput v-model="quantity" :min="0" :max="100" :step="1" />
+```
+
+### Data Display Components
+
+#### DataTable
+Full-featured data table with sorting, filtering, pagination, and export.
+
+```vue
+<script setup>
+const columns = [
+  { key: 'id', label: 'ID', sortable: true },
+  { key: 'name', label: 'Name', sortable: true, searchable: true },
+  { key: 'email', label: 'Email', sortable: true, searchable: true },
+  { key: 'status', label: 'Status', type: 'badge' },
+  { key: 'created_at', label: 'Created', type: 'date', format: 'MMM D, YYYY' },
+  { key: 'actions', label: '', type: 'actions' },
+]
+</script>
+
+<template>
+  <DataTable
+    :resource="users"
+    :columns="columns"
+    searchable
+    exportable
+  >
+    <template #cell-status="{ value }">
+      <Badge :variant="value === 'active' ? 'success' : 'danger'">
+        {{ value }}
+      </Badge>
+    </template>
+
+    <template #cell-actions="{ row }">
+      <ButtonGroup>
+        <IconButton icon="pencil" @click="edit(row)" />
+        <IconButton icon="trash" variant="danger" @click="delete(row)" />
+      </ButtonGroup>
+    </template>
+  </DataTable>
+</template>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| resource | Object | required | Paginated data from Laravel |
+| columns | Array | [] | Column definitions |
+| searchable | Boolean | false | Enable search |
+| exportable | Boolean | false | Enable export |
+| selectable | Boolean | false | Enable row selection |
+| actions | Boolean | true | Show action column |
+
+**Column Types**: text, number, date, datetime, badge, boolean, image, link, actions
+
+#### Table
+Basic HTML table wrapper.
+
+```vue
+<Table>
+  <TableHead>
+    <TableRow>
+      <TableCell header>Name</TableCell>
+      <TableCell header>Email</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow v-for="user in users" :key="user.id">
+      <TableCell>{{ user.name }}</TableCell>
+      <TableCell>{{ user.email }}</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+#### Pagination
+```vue
+<Pagination
+  :current-page="1"
+  :total-pages="10"
+  :per-page="25"
+  :total="250"
+  @page-change="handlePageChange"
+/>
+```
+
+#### List
+```vue
+<List>
+  <ListItem v-for="item in items" :key="item.id">
+    <template #avatar>
+      <Avatar :name="item.name" />
+    </template>
+    <template #title>{{ item.name }}</template>
+    <template #description>{{ item.email }}</template>
+    <template #actions>
+      <IconButton icon="chevron-right" />
+    </template>
+  </ListItem>
+</List>
+```
+
+#### DescriptionList
+```vue
+<DescriptionList
+  :items="[
+    { label: 'Name', value: 'John Doe' },
+    { label: 'Email', value: 'john@example.com' },
+    { label: 'Status', value: 'Active', type: 'badge', variant: 'success' },
+  ]"
+  :columns="2"
+/>
+```
+
+#### Tree
+```vue
+<Tree
+  :items="treeData"
+  :expandable="true"
+  :selectable="true"
+  v-model="selectedNodes"
+/>
+```
+
+#### Timeline
+```vue
+<Timeline
+  :items="[
+    { title: 'Order placed', date: '2024-01-15', icon: 'shopping-cart' },
+    { title: 'Shipped', date: '2024-01-16', icon: 'truck' },
+    { title: 'Delivered', date: '2024-01-18', icon: 'check-circle', active: true },
+  ]"
+/>
+```
+
+#### Calendar
+```vue
+<Calendar
+  v-model="selectedDate"
+  :events="events"
+  @event-click="handleEventClick"
+/>
+```
+
+#### KanbanBoard
+```vue
+<KanbanBoard
+  v-model="columns"
+  @card-move="handleCardMove"
+/>
+```
+
+### Chart Components
+
+All charts use Chart.js under the hood.
+
+#### LineChart
+```vue
+<LineChart
+  :data="{
+    labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+    datasets: [{
+      label: 'Sales',
+      data: [100, 200, 150, 300],
+    }]
+  }"
+  :height="300"
+/>
+```
+
+#### AreaChart
+```vue
+<AreaChart
+  :data="chartData"
+  :options="{ fill: true }"
+/>
+```
+
+#### BarChart
+```vue
+<BarChart
+  :data="chartData"
+  :horizontal="false"
+  :stacked="false"
+/>
+```
+
+#### DonutChart
+```vue
+<DonutChart
+  :data="{
+    labels: ['Desktop', 'Mobile', 'Tablet'],
+    datasets: [{
+      data: [60, 30, 10],
+    }]
+  }"
+/>
+```
+
+#### PieChart
+```vue
+<PieChart :data="chartData" />
+```
+
+#### StatCard
+```vue
+<StatCard
+  title="Total Users"
+  :value="1234"
+  :change="12.5"
+  change-type="increase"
+  icon="users"
+/>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| title | String | required | Stat title |
+| value | Number/String | required | Stat value |
+| change | Number | null | Percent change |
+| changeType | String | null | increase, decrease |
+| icon | String | null | Icon name |
+| iconColor | String | 'primary' | Icon color |
+
+#### StatGrid
+```vue
+<StatGrid :columns="4">
+  <StatCard title="Users" :value="1234" icon="users" />
+  <StatCard title="Revenue" value="$12,345" icon="currency-dollar" />
+  <StatCard title="Orders" :value="567" icon="shopping-cart" />
+  <StatCard title="Growth" value="23%" :change="5.2" icon="trending-up" />
+</StatGrid>
+```
+
+#### MiniChart
+Small inline chart for stat cards.
+
+```vue
+<MiniChart
+  type="line"
+  :data="[10, 25, 15, 30, 20, 35]"
+  :width="100"
+  :height="40"
+/>
+```
+
+### Overlay Components
+
+#### Modal
+```vue
+<script setup>
+import { ref } from 'vue'
+const isOpen = ref(false)
+</script>
+
+<template>
+  <Button @click="isOpen = true">Open Modal</Button>
+
+  <Modal v-model="isOpen" title="Modal Title" size="lg">
+    <p>Modal content here</p>
+
+    <template #footer>
+      <Button variant="secondary" @click="isOpen = false">Cancel</Button>
+      <Button variant="primary" @click="save">Save</Button>
+    </template>
+  </Modal>
+</template>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Boolean | false | v-model open state |
+| title | String | null | Modal title |
+| size | String | 'md' | sm, md, lg, xl, full |
+| closable | Boolean | true | Show close button |
+| closeOnEscape | Boolean | true | Close on ESC key |
+| closeOnClickOutside | Boolean | true | Close on backdrop click |
+
+#### ConfirmModal
+```vue
+<ConfirmModal
+  v-model="showConfirm"
+  title="Delete Item"
+  message="Are you sure you want to delete this item? This action cannot be undone."
+  confirm-text="Delete"
+  cancel-text="Cancel"
+  variant="danger"
+  @confirm="handleDelete"
+  @cancel="showConfirm = false"
+/>
+```
+
+#### Drawer
+```vue
+<Drawer v-model="isOpen" title="Settings" position="right" size="md">
+  <p>Drawer content</p>
+</Drawer>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| modelValue | Boolean | false | v-model open state |
+| title | String | null | Drawer title |
+| position | String | 'right' | left, right, top, bottom |
+| size | String | 'md' | sm, md, lg, xl |
+
+#### Dropdown
+```vue
+<Dropdown>
+  <template #trigger>
+    <Button>Options</Button>
+  </template>
+
+  <DropdownItem @click="edit">Edit</DropdownItem>
+  <DropdownItem @click="duplicate">Duplicate</DropdownItem>
+  <DropdownDivider />
+  <DropdownItem @click="delete" variant="danger">Delete</DropdownItem>
+</Dropdown>
+```
+
+#### Popover
+```vue
+<Popover position="bottom">
+  <template #trigger>
+    <Button>Info</Button>
+  </template>
+
+  <div class="p-4">
+    <h4>Popover Title</h4>
+    <p>Popover content goes here.</p>
+  </div>
+</Popover>
+```
+
+#### ContextMenu
+```vue
+<ContextMenu :items="[
+  { label: 'Edit', icon: 'pencil', action: () => edit() },
+  { label: 'Delete', icon: 'trash', action: () => delete(), variant: 'danger' },
+]">
+  <div>Right-click me</div>
+</ContextMenu>
+```
+
+### Feedback Components
+
+#### Alert
+```vue
+<Alert variant="success" title="Success!" dismissible>
+  Your changes have been saved.
+</Alert>
+
+<Alert variant="danger" title="Error" icon="exclamation-circle">
+  Something went wrong. Please try again.
+</Alert>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | String | 'info' | info, success, warning, danger |
+| title | String | null | Alert title |
+| icon | String | null | Icon name |
+| dismissible | Boolean | false | Show dismiss button |
+
+#### Toast
+```vue
+<script setup>
+import { useToast } from '@/Composables/useToast'
+
+const toast = useToast()
+
+const showSuccess = () => {
+  toast.success('Item saved successfully!')
+}
+
+const showError = () => {
+  toast.error('Failed to save item', { duration: 5000 })
+}
+</script>
+```
+
+**Toast Methods**:
+- `toast.success(message, options)`
+- `toast.error(message, options)`
+- `toast.warning(message, options)`
+- `toast.info(message, options)`
+
+#### ProgressBar
+```vue
+<ProgressBar :value="75" :max="100" variant="primary" :show-label="true" />
+<ProgressBar :value="50" striped animated />
+```
+
+#### EmptyState
+```vue
+<EmptyState
+  icon="inbox"
+  title="No items found"
+  description="Get started by creating a new item."
+>
+  <Button>Create Item</Button>
+</EmptyState>
+```
+
+#### ErrorState
+```vue
+<ErrorState
+  code="404"
+  title="Page not found"
+  description="The page you're looking for doesn't exist."
+>
+  <Button href="/">Go Home</Button>
+</ErrorState>
+```
+
+### Container Components
+
+#### Card
+```vue
+<Card>
+  <template #header>
+    <h3>Card Title</h3>
+  </template>
+
+  <p>Card content goes here.</p>
+
+  <template #footer>
+    <Button>Action</Button>
+  </template>
+</Card>
+```
+
+**Props**:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| padding | Boolean | true | Add padding |
+| shadow | Boolean | true | Add shadow |
+| border | Boolean | false | Add border |
+| hoverable | Boolean | false | Hover effect |
+
+#### CardGrid
+```vue
+<CardGrid :columns="3" gap="md">
+  <Card v-for="item in items" :key="item.id">
+    {{ item.name }}
+  </Card>
+</CardGrid>
+```
+
+#### Accordion
+```vue
+<Accordion :multiple="false">
+  <AccordionItem title="Section 1" :default-open="true">
+    Content for section 1
+  </AccordionItem>
+  <AccordionItem title="Section 2">
+    Content for section 2
+  </AccordionItem>
+</Accordion>
+```
+
+#### Tabs
+```vue
+<Tabs v-model="activeTab">
+  <Tab name="general" label="General">
+    General settings content
+  </Tab>
+  <Tab name="security" label="Security">
+    Security settings content
+  </Tab>
+  <Tab name="notifications" label="Notifications">
+    Notification settings content
+  </Tab>
+</Tabs>
+```
+
+#### Collapse
+```vue
+<Collapse v-model="isOpen">
+  <template #trigger>
+    <Button>Toggle Content</Button>
+  </template>
+
+  <div>Collapsible content here</div>
+</Collapse>
+```
+
+#### Panel
+```vue
+<Panel title="Panel Title" collapsible>
+  Panel content
+</Panel>
+```
+
+### Navigation Components
+
+#### NavLink
+```vue
+<NavLink href="/dashboard" icon="home" :active="isActive">
+  Dashboard
+</NavLink>
+```
+
+#### NavGroup
+```vue
+<NavGroup label="Settings" icon="cog" :expanded="true">
+  <NavLink href="/settings/general">General</NavLink>
+  <NavLink href="/settings/security">Security</NavLink>
+</NavGroup>
+```
+
+#### StepWizard
+```vue
+<StepWizard v-model="currentStep" :steps="[
+  { title: 'Account', description: 'Create account' },
+  { title: 'Profile', description: 'Add profile info' },
+  { title: 'Confirm', description: 'Review and confirm' },
+]">
+  <template #step-1>
+    <!-- Account form -->
+  </template>
+  <template #step-2>
+    <!-- Profile form -->
+  </template>
+  <template #step-3>
+    <!-- Confirmation -->
+  </template>
+</StepWizard>
+```
+
+#### BackButton
+```vue
+<BackButton fallback="/dashboard" />
+```
+
+#### CommandPalette
+```vue
+<CommandPalette
+  v-model="isOpen"
+  :commands="[
+    { id: 'new-user', label: 'Create User', icon: 'user-plus', action: () => {} },
+    { id: 'settings', label: 'Settings', icon: 'cog', action: () => {} },
+  ]"
+/>
+```
+
+### Utility Components
+
+#### CopyButton
+```vue
+<CopyButton :text="textToCopy" />
+```
+
+#### ClickToCopy
+```vue
+<ClickToCopy text="text-to-copy">
+  Click to copy this text
+</ClickToCopy>
+```
+
+#### ExternalLink
+```vue
+<ExternalLink href="https://example.com">
+  Visit Example
+</ExternalLink>
+```
+
+#### Highlight
+```vue
+<Highlight :query="searchQuery">
+  This text will have matching parts highlighted
+</Highlight>
+```
+
+#### RelativeTime
+```vue
+<RelativeTime :date="createdAt" />
+<!-- Output: "2 hours ago" -->
+```
+
+#### CountUp
+```vue
+<CountUp :value="1234" :duration="2000" />
+```
+
+#### Kbd
+```vue
+<Kbd>Ctrl</Kbd> + <Kbd>S</Kbd>
+```
+
+## Roles & Permissions
+
+### Setup
+
+Add HasRoles trait to User model:
+
+```php
+<?php
+
+namespace App\Models;
+
+use CamboSoftware\CamboAdmin\Models\Traits\HasRoles;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use HasRoles;
+}
+```
+
+### Usage in PHP
+
+```php
+// Assign role
+$user->assignRole('admin');
+$user->assignRole(['editor', 'moderator']);
+
+// Remove role
+$user->removeRole('editor');
+
+// Sync roles
+$user->syncRoles(['admin', 'editor']);
+
+// Check role
+if ($user->hasRole('admin')) {
+    // User is admin
+}
+
+if ($user->hasAnyRole(['admin', 'editor'])) {
+    // User has at least one role
+}
+
+// Check permission
+if ($user->hasPermission('users.create')) {
+    // User can create users
+}
+
+if ($user->hasAnyPermission(['users.create', 'users.edit'])) {
+    // User can create or edit users
+}
+
+// Get all permissions
+$permissions = $user->getAllPermissions();
+```
+
+### Middleware
+
+```php
+// routes/web.php
+
+// Single role
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index']);
+});
+
+// Multiple roles (OR)
+Route::middleware(['role:admin,editor'])->group(function () {
+    Route::resource('/posts', PostController::class);
+});
+
+// Single permission
+Route::middleware(['permission:users.create'])->group(function () {
+    Route::post('/users', [UserController::class, 'store']);
+});
+
+// Multiple permissions (OR)
+Route::middleware(['permission:users.edit,users.delete'])->group(function () {
+    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
+});
+```
+
+### Usage in Vue
+
+```vue
+<script setup>
+import { usePage } from '@inertiajs/vue3'
+import { computed } from 'vue'
+
+const page = usePage()
+
+const can = (permission) => {
+  return page.props.auth.permissions?.includes(permission)
+}
+
+const hasRole = (role) => {
+  return page.props.auth.roles?.includes(role)
+}
+
+const isAdmin = computed(() => hasRole('admin'))
+</script>
+
+<template>
+  <!-- Permission check -->
+  <Button v-if="can('users.create')" @click="createUser">
+    Create User
+  </Button>
+
+  <!-- Role check -->
+  <AdminPanel v-if="isAdmin">
+    Admin only content
+  </AdminPanel>
+</template>
+```
+
+## Services
+
+### ThemeService
+
+```php
+use CamboSoftware\CamboAdmin\Services\ThemeService;
+
+$themeService = app(ThemeService::class);
+
+// Get current theme
+$theme = $themeService->getCurrentTheme();
+
+// Set theme
+$themeService->setTheme('dark');
+
+// Get primary color
+$color = $themeService->getPrimaryColor();
+```
+
+### TranslationService
+
+```php
+use CamboSoftware\CamboAdmin\Services\TranslationService;
+
+$translationService = app(TranslationService::class);
+
+// Get translations for locale
+$translations = $translationService->getTranslations('en');
+
+// Set translation
+$translationService->setTranslation('en', 'welcome', 'Welcome!');
+
+// Get supported locales
+$locales = $translationService->getSupportedLocales();
+```
+
+### ImportExportService
+
+```php
+use CamboSoftware\CamboAdmin\Services\ImportExportService;
+
+$service = app(ImportExportService::class);
+
+// Export to CSV
+$path = $service->exportToCsv(User::all(), ['name', 'email'], 'users.csv');
+
+// Export to Excel
+$path = $service->exportToExcel(User::all(), ['name', 'email'], 'users.xlsx');
+
+// Import from CSV
+$result = $service->importFromCsv($filePath, [
+    'name' => 'name',
+    'email' => 'email',
+], function ($row) {
+    return User::create($row);
+});
+```
+
+## QueryBuilder
+
+Server-side data handling for DataTable.
+
+```php
+use CamboSoftware\CamboAdmin\QueryBuilder\QueryBuilder;
+
+public function index()
+{
+    return inertia('Users/Index', [
+        'users' => QueryBuilder::for(User::class)
+            // Define columns
+            ->columns(['id', 'name', 'email', 'role', 'created_at'])
+
+            // Enable search on columns
+            ->searchable(['name', 'email'])
+
+            // Enable sorting on columns
+            ->sortable(['name', 'email', 'created_at'])
+
+            // Add filters
+            ->filterable(['role', 'status'])
+
+            // Enable exports
+            ->exportable(['csv', 'excel', 'pdf'])
+
+            // With relationships
+            ->with(['roles', 'permissions'])
+
+            // Apply scopes
+            ->scope('active')
+
+            // Paginate
+            ->paginate(25)
+    ]);
+}
+```
+
+## Common Patterns
+
+### CRUD Controller
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class ProductController extends Controller
+{
+    public function index()
+    {
+        return Inertia::render('Products/Index', [
+            'products' => Product::latest()->paginate(25),
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Products/Create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'active' => 'boolean',
+        ]);
+
+        Product::create($validated);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product created successfully.');
+    }
+
+    public function show(Product $product)
+    {
+        return Inertia::render('Products/Show', [
+            'product' => $product,
+        ]);
+    }
+
+    public function edit(Product $product)
+    {
+        return Inertia::render('Products/Edit', [
+            'product' => $product,
+        ]);
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'active' => 'boolean',
+        ]);
+
+        $product->update($validated);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product updated successfully.');
+    }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return redirect()->route('products.index')
+            ->with('success', 'Product deleted successfully.');
+    }
+}
+```
+
+### Index Page with DataTable
+
+```vue
+<script setup>
+import { ref } from 'vue'
+import { router } from '@inertiajs/vue3'
+import AdminLayout from '@/Components/Layout/AdminLayout.vue'
+import DataTable from '@/Components/Data/DataTable.vue'
+import Button from '@/Components/UI/Button.vue'
+import ConfirmModal from '@/Components/Overlays/ConfirmModal.vue'
+
+const props = defineProps({
+  products: Object,
+})
+
+const columns = [
+  { key: 'id', label: 'ID', sortable: true },
+  { key: 'name', label: 'Name', sortable: true, searchable: true },
+  { key: 'price', label: 'Price', type: 'currency' },
+  { key: 'active', label: 'Status', type: 'boolean' },
+  { key: 'created_at', label: 'Created', type: 'date' },
+  { key: 'actions', label: '', type: 'actions' },
+]
+
+const showDeleteModal = ref(false)
+const selectedProduct = ref(null)
+
+const confirmDelete = (product) => {
+  selectedProduct.value = product
+  showDeleteModal.value = true
+}
+
+const deleteProduct = () => {
+  router.delete(`/admin/products/${selectedProduct.value.id}`)
+  showDeleteModal.value = false
+}
+</script>
+
+<template>
+  <AdminLayout title="Products">
+    <template #actions>
+      <Button href="/admin/products/create" icon-left="plus">
+        Add Product
+      </Button>
+    </template>
+
+    <DataTable :resource="products" :columns="columns" searchable>
+      <template #cell-actions="{ row }">
+        <Button size="sm" href={`/admin/products/${row.id}/edit`}>
+          Edit
+        </Button>
+        <Button size="sm" variant="danger" @click="confirmDelete(row)">
+          Delete
+        </Button>
+      </template>
+    </DataTable>
+
+    <ConfirmModal
+      v-model="showDeleteModal"
+      title="Delete Product"
+      message="Are you sure you want to delete this product?"
+      variant="danger"
+      @confirm="deleteProduct"
+    />
+  </AdminLayout>
+</template>
+```
+
+### Create/Edit Form Page
+
+```vue
+<script setup>
+import { useForm } from '@inertiajs/vue3'
+import AdminLayout from '@/Components/Layout/AdminLayout.vue'
+import Card from '@/Components/Containers/Card.vue'
+import Form from '@/Components/Form/Form.vue'
+import FormGroup from '@/Components/Form/FormGroup.vue'
+import Input from '@/Components/Form/Input.vue'
+import Switch from '@/Components/Form/Switch.vue'
+import Button from '@/Components/UI/Button.vue'
+
+const props = defineProps({
+  product: {
+    type: Object,
+    default: null,
+  },
+})
+
+const isEditing = !!props.product
+
+const form = useForm({
+  name: props.product?.name ?? '',
+  price: props.product?.price ?? '',
+  active: props.product?.active ?? true,
+})
+
+const submit = () => {
+  if (isEditing) {
+    form.put(`/admin/products/${props.product.id}`)
+  } else {
+    form.post('/admin/products')
+  }
+}
+</script>
+
+<template>
+  <AdminLayout :title="isEditing ? 'Edit Product' : 'Create Product'">
+    <Card>
+      <Form @submit="submit">
+        <FormGroup label="Name" :error="form.errors.name" required>
+          <Input v-model="form.name" placeholder="Product name" />
+        </FormGroup>
+
+        <FormGroup label="Price" :error="form.errors.price" required>
+          <Input v-model="form.price" type="number" step="0.01" min="0" />
+        </FormGroup>
+
+        <FormGroup label="Active" :error="form.errors.active">
+          <Switch v-model="form.active" />
+        </FormGroup>
+
+        <div class="flex gap-4">
+          <Button type="submit" :loading="form.processing">
+            {{ isEditing ? 'Update' : 'Create' }}
+          </Button>
+          <Button variant="secondary" href="/admin/products">
+            Cancel
+          </Button>
+        </div>
+      </Form>
+    </Card>
+  </AdminLayout>
+</template>
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**1. Components not found**
+```bash
+npm run build
+```
+
+**2. Routes not registered**
+```bash
+php artisan route:clear
+php artisan config:clear
+```
+
+**3. Migrations not running**
+```bash
+php artisan migrate:fresh --seed
+```
+
+**4. Permission denied**
+```bash
+chmod -R 775 storage bootstrap/cache
+```
+
+**5. Styles not loading**
+```bash
+npm run build
+php artisan view:clear
+```
+
+## Support
+
+- Documentation: https://cambo-admin.cambosoftware.com
+- GitHub Issues: https://github.com/cambosoftware/cambo-admin/issues
+- Email: contact@cambosoftware.com

@@ -220,3 +220,25 @@ import Button from '@/Components/UI/Button.vue'
     </div>
 </template>
 ```
+
+## Playground
+
+Try the Button component:
+
+<LiveDemo>
+  <DemoButton>Click me</DemoButton>
+
+  <template #code>
+
+```vue
+<template>
+    <Button variant="primary">Click me</Button>
+</template>
+
+<script setup>
+import Button from '@/Components/UI/Button.vue'
+</script>
+```
+
+  </template>
+</LiveDemo>

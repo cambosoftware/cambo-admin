@@ -108,6 +108,12 @@ class CamboAdminServiceProvider extends ServiceProvider
                 __DIR__ . '/../resources/lang/' => resource_path('lang'),
             ], 'cambo-admin-lang');
 
+            // Auth Controllers
+            $this->publishes([
+                __DIR__ . '/../app/Http/Controllers/Auth/' => app_path('Http/Controllers/Auth'),
+                __DIR__ . '/../app/Http/Controllers/ProfileController.php' => app_path('Http/Controllers/ProfileController.php'),
+            ], 'cambo-admin-controllers');
+
             // All assets
             $this->publishes([
                 __DIR__ . '/../config/cambo-admin.php' => config_path('cambo-admin.php'),
@@ -119,6 +125,8 @@ class CamboAdminServiceProvider extends ServiceProvider
                 __DIR__ . '/../resources/js/Plugins/' => resource_path('js/Plugins'),
                 __DIR__ . '/../resources/views/' => resource_path('views'),
                 __DIR__ . '/../resources/lang/' => resource_path('lang'),
+                __DIR__ . '/../app/Http/Controllers/Auth/' => app_path('Http/Controllers/Auth'),
+                __DIR__ . '/../app/Http/Controllers/ProfileController.php' => app_path('Http/Controllers/ProfileController.php'),
             ], 'cambo-admin');
         }
     }
@@ -134,7 +142,9 @@ class CamboAdminServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
-        if (config('cambo-admin.modules.auth', true)) {
+        // Only load auth routes if controllers have been published
+        if (config('cambo-admin.modules.auth', true) &&
+            class_exists(\App\Http\Controllers\Auth\LoginController::class)) {
             $this->loadRoutesFrom(__DIR__ . '/../routes/auth.php');
         }
     }

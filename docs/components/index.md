@@ -1,50 +1,60 @@
-# Composants Vue
+# UI Components
 
-CamboAdmin fournit une bibliotheque complete de **134+ composants Vue 3** prets a l'emploi.
+CamboAdmin provides a comprehensive library of **Vue 3 components** ready to use, built with Tailwind CSS.
 
 ## Categories
 
-### UI de Base
-- [Button](/components/button) - Boutons avec variantes
-- [Badge](/components/badge) - Badges et labels
-- [Avatar](/components/avatar) - Avatars utilisateurs
-- [Spinner](/components/spinner) - Indicateurs de chargement
-- [Skeleton](/components/skeleton) - Placeholders de chargement
-- [Tooltip](/components/tooltip) - Infobulles
-- [Divider](/components/divider) - Separateurs
+### Basic UI
 
-### Formulaires
-- [Form](/components/form) - Conteneur de formulaire
-- [Input](/components/input) - Champs de texte
-- [Textarea](/components/textarea) - Zones de texte
-- [Select](/components/select) - Listes deroulantes
-- [Checkbox](/components/checkbox) - Cases a cocher
-- [Radio](/components/radio) - Boutons radio
-- [Switch](/components/switch) - Interrupteurs
-- [FileInput](/components/file-input) - Upload de fichiers
+- [Button](./ui/button.md) - Buttons with multiple variants
+- [ButtonGroup](./ui/button-group.md) - Grouped buttons
+- [IconButton](./ui/icon-button.md) - Icon-only buttons
+- [Badge](./ui/badge.md) - Badges and labels
+- [Avatar](./ui/avatar.md) - User avatars
+- [AvatarGroup](./ui/avatar-group.md) - Grouped avatars display
+- [Icon](./ui/icon.md) - Icon wrapper component
+- [Spinner](./ui/spinner.md) - Loading indicators
+- [Skeleton](./ui/skeleton.md) - Loading placeholders
+- [Tooltip](./ui/tooltip.md) - Hover tooltips
+- [Divider](./ui/divider.md) - Visual separators
+- [AppLink](./ui/app-link.md) - Styled navigation links
+
+### Forms
+
+- [Form](/components/forms/) - Form container
+- [Input](/components/forms/) - Text fields
+- [Textarea](/components/forms/) - Text areas
+- [Select](/components/forms/) - Dropdown lists
+- [Checkbox](/components/forms/) - Checkboxes
+- [Radio](/components/forms/) - Radio buttons
+- [Switch](/components/forms/) - Toggle switches
+- [FileInput](/components/forms/) - File uploads
 
 ### Navigation
-- [Tabs](/components/tabs) - Onglets
-- [Breadcrumb](/components/breadcrumb) - Fil d'Ariane
-- [Pagination](/components/pagination) - Pagination
-- [Dropdown](/components/dropdown) - Menus deroulants
+
+- [Tabs](/components/layout/) - Tab navigation
+- [Breadcrumb](/components/layout/) - Breadcrumb navigation
+- [Pagination](/components/data/) - Pagination controls
+- [Dropdown](/components/overlays/) - Dropdown menus
 
 ### Feedback
-- [Alert](/components/alert) - Alertes
-- [Toast](/components/toast) - Notifications toast
-- [Modal](/components/modal) - Modales
-- [Drawer](/components/drawer) - Tiroirs lateraux
-- [Progress](/components/progress) - Barres de progression
+
+- [Alert](/components/feedback/) - Alert messages
+- [Toast](/components/feedback/) - Toast notifications
+- [Modal](/components/overlays/) - Modal dialogs
+- [Drawer](/components/overlays/) - Side drawers
+- [Progress](/components/feedback/) - Progress bars
 
 ### Data Display
-- [Table](/components/table) - Tableaux de donnees
-- [Card](/components/card) - Cartes
-- [Accordion](/components/accordion) - Accordeons
-- [Stats](/components/stats) - Statistiques
+
+- [Table](/components/data/) - Data tables
+- [Card](/components/layout/) - Card containers
+- [Accordion](/components/layout/) - Collapsible sections
+- [Stats](/components/data/) - Statistics display
 
 ## Installation
 
-Les composants sont automatiquement disponibles apres l'installation de CamboAdmin. Importez-les directement :
+Components are automatically available after installing CamboAdmin. Import them directly:
 
 ```vue
 <script setup>
@@ -56,36 +66,36 @@ import DataTable from '@/Components/DataTable/DataTable.vue'
 
 ## Conventions
 
-### Nommage
+### Naming
 
-- Les composants suivent la convention PascalCase
-- Les props utilisent kebab-case dans les templates
-- Les events utilisent kebab-case
+- Components follow PascalCase convention
+- Props use kebab-case in templates
+- Events use kebab-case
 
 ```vue
 <template>
     <Button
         variant="primary"
-        icon-left="plus"
+        :icon="PlusIcon"
         @click="handleClick"
     >
-        Ajouter
+        Add Item
     </Button>
 </template>
 ```
 
 ### Slots
 
-La plupart des composants supportent des slots pour la personnalisation :
+Most components support slots for customization:
 
 ```vue
 <Card>
     <template #header>
-        <h3>Titre</h3>
+        <h3>Title</h3>
     </template>
 
     <template #default>
-        Contenu principal
+        Main content
     </template>
 
     <template #footer>
@@ -94,37 +104,65 @@ La plupart des composants supportent des slots pour la personnalisation :
 </Card>
 ```
 
-### Icones
+### Icons
 
-Les icones utilisent [Heroicons](https://heroicons.com/) :
+Icons use [Heroicons](https://heroicons.com/):
 
 ```vue
-<Icon name="user" class="w-5 h-5" />
-<Button icon-left="plus">Ajouter</Button>
+<script setup>
+import { UserIcon, PlusIcon } from '@heroicons/vue/24/outline'
+</script>
+
+<template>
+    <Icon :icon="UserIcon" class="w-5 h-5" />
+    <Button :icon="PlusIcon">Add</Button>
+</template>
 ```
 
 ## Theming
 
-Les composants utilisent des variables CSS pour le theming :
+Components use Tailwind CSS with custom color configuration:
 
-```css
-:root {
-    --color-primary: #3B82F6;
-    --color-secondary: #6B7280;
-    --color-success: #10B981;
-    --color-danger: #EF4444;
-    --color-warning: #F59E0B;
-    --color-info: #3B82F6;
+```javascript
+// tailwind.config.js
+module.exports = {
+    theme: {
+        extend: {
+            colors: {
+                primary: {
+                    50: '#eff6ff',
+                    // ... color scale
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                }
+            }
+        }
+    }
 }
 ```
 
-Modifiez ces variables pour personnaliser l'apparence de tous les composants.
+Modify these colors to customize the appearance of all components.
+
+## Dark Mode
+
+All components include dark mode support. Dark mode is automatically applied based on user system preferences or can be toggled manually using the theme system.
 
 ## TypeScript
 
-Tous les composants sont compatibles TypeScript avec des types exportes :
+All components are TypeScript compatible with exported types:
 
 ```typescript
 import type { ButtonProps } from '@/Components/UI/Button.vue'
 import type { InputProps } from '@/Components/Form/Input.vue'
 ```
+
+## Quick Links
+
+| Category | Components |
+|----------|------------|
+| [Basic UI](./ui/) | Button, Badge, Avatar, Icon, Spinner, Skeleton, Tooltip, Divider |
+| [Forms](./forms/) | Input, Select, Checkbox, Radio, Switch, FileInput |
+| [Feedback](./feedback/) | Alert, Toast, Progress |
+| [Data](./data/) | Table, Stats, Pagination |
+| [Layout](./layout/) | Card, Tabs, Accordion, Breadcrumb |
+| [Overlays](./overlays/) | Modal, Drawer, Dropdown |

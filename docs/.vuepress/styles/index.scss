@@ -1,0 +1,76 @@
+// Custom styles for CamboAdmin documentation
+
+// Navbar with white background
+.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+// Navbar links - dark text on white background
+.navbar .navbar-items a,
+.navbar .navbar-items .navbar-dropdown-wrapper .navbar-dropdown-title {
+  color: #374151 !important;
+}
+
+.navbar .navbar-items a:hover,
+.navbar .navbar-items .navbar-dropdown-wrapper:hover .navbar-dropdown-title {
+  color: #6366f1 !important;
+}
+
+// Site name/brand
+.navbar .site-name {
+  color: #111827 !important;
+}
+
+// Make the logo larger in the navbar
+.navbar .logo {
+  height: 40px !important;
+  max-height: 40px !important;
+}
+
+// Search box styling
+.navbar .search-box input {
+  background-color: #f3f4f6 !important;
+  border-color: #e5e7eb !important;
+  color: #374151 !important;
+}
+
+.navbar .search-box input::placeholder {
+  color: #9ca3af !important;
+}
+
+// Dropdown menus
+.navbar .navbar-dropdown {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.navbar .navbar-dropdown .navbar-dropdown-item {
+  color: #374151 !important;
+}
+
+.navbar .navbar-dropdown .navbar-dropdown-item:hover {
+  color: #6366f1 !important;
+}
+
+// Ensure good spacing around logo
+.navbar .navbar-items-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+// Hero section logo
+.home .hero img {
+  max-width: 300px;
+  max-height: 200px;
+}
+
+// Toggle button (mobile menu)
+.navbar .toggle-navbar-button .icon span {
+  background-color: #374151 !important;
+}
+
+// External link icon
+.navbar .navbar-items a .external-link-icon {
+  color: #9ca3af !important;
+}

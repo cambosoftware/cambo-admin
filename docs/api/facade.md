@@ -1,129 +1,223 @@
-# Facade Cambo
+# Cambo Facade
 
-La facade `Cambo` fournit un acces simplifie aux fonctionnalites principales de CamboAdmin.
+The `Cambo` facade provides simplified access to CamboAdmin core features and configuration.
 
-## Utilisation
+## Description
+
+The Cambo facade is a static proxy to the `CamboSoftware\CamboAdmin\CamboAdmin` class, providing convenient access to configuration values, module status, and application settings.
+
+## Usage
 
 ```php
 use CamboSoftware\CamboAdmin\Facades\Cambo;
 
-// ou
+// or via alias
 use Cambo;
 ```
 
-## Methodes disponibles
+## Methods
 
-### Configuration
+| Method | Parameters | Return Type | Description |
+|--------|------------|-------------|-------------|
+| `config()` | `string $key, mixed $default = null` | `mixed` | Get a configuration value |
+| `moduleEnabled()` | `string $module` | `bool` | Check if a module is enabled |
+| `enabledModules()` | none | `array` | Get all enabled modules |
+| `routePrefix()` | none | `string` | Get the route prefix |
+| `routeMiddleware()` | none | `array` | Get the route middleware |
+| `primaryColor()` | none | `string` | Get the primary color |
+| `appName()` | none | `string` | Get the application name |
+| `darkMode()` | none | `string` | Get the dark mode setting |
+| `featureEnabled()` | `string $feature` | `bool` | Check if a feature is enabled |
+| `userModel()` | none | `string` | Get the User model class |
 
-#### `config(string $key, mixed $default = null): mixed`
+## Method Details
 
-Recupere une valeur de configuration.
+### config()
+
+```php
+public function config(string $key, mixed $default = null): mixed
+```
+
+Retrieves a configuration value using dot notation.
+
+**Parameters:**
+- `$key` - The configuration key using dot notation
+- `$default` - Default value if key not found
+
+**Example:**
 
 ```php
 $appName = Cambo::config('appearance.name');
-$primaryColor = Cambo::config('appearance.primary_color', '#3B82F6');
+$primaryColor = Cambo::config('appearance.primary_color', '#6366f1');
 ```
 
-### Modules
+### moduleEnabled()
 
-#### `moduleEnabled(string $module): bool`
+```php
+public function moduleEnabled(string $module): bool
+```
 
-Verifie si un module est active.
+Checks if a specific module is enabled in the configuration.
+
+**Parameters:**
+- `$module` - The module name to check
+
+**Example:**
 
 ```php
 if (Cambo::moduleEnabled('notifications')) {
-    // Le module notifications est actif
+    // Notifications module is active
+}
+
+if (Cambo::moduleEnabled('media')) {
+    // Media module is active
 }
 ```
 
-#### `enabledModules(): array`
+### enabledModules()
 
-Retourne la liste des modules actives.
+```php
+public function enabledModules(): array
+```
+
+Returns an array of all enabled module names.
+
+**Example:**
 
 ```php
 $modules = Cambo::enabledModules();
 // ['auth', 'users', 'roles', 'notifications', ...]
 ```
 
-### Routes
+### routePrefix()
 
-#### `routePrefix(): string`
+```php
+public function routePrefix(): string
+```
 
-Retourne le prefixe des routes.
+Returns the route prefix for admin routes. Defaults to `'admin'`.
+
+**Example:**
 
 ```php
 $prefix = Cambo::routePrefix();
 // 'admin'
+
+// Use in routes
+Route::prefix(Cambo::routePrefix())->group(function () {
+    // Admin routes
+});
 ```
 
-#### `routeMiddleware(): array`
+### routeMiddleware()
 
-Retourne les middleware des routes.
+```php
+public function routeMiddleware(): array
+```
+
+Returns the middleware array for admin routes. Defaults to `['web', 'auth']`.
+
+**Example:**
 
 ```php
 $middleware = Cambo::routeMiddleware();
 // ['web', 'auth', 'verified']
 ```
 
-### Apparence
-
-#### `appName(): string`
-
-Retourne le nom de l'application.
+### primaryColor()
 
 ```php
-$name = Cambo::appName();
+public function primaryColor(): string
 ```
 
-#### `primaryColor(): string`
+Returns the primary color hex code. Defaults to `'#6366f1'` (Indigo).
 
-Retourne la couleur primaire.
+**Example:**
 
 ```php
 $color = Cambo::primaryColor();
-// '#3B82F6'
+// '#6366f1'
 ```
 
-#### `darkMode(): string`
+### appName()
 
-Retourne le mode d'affichage.
+```php
+public function appName(): string
+```
+
+Returns the application name. Falls back to Laravel's `config('app.name')`.
+
+**Example:**
+
+```php
+$name = Cambo::appName();
+// 'CamboAdmin'
+```
+
+### darkMode()
+
+```php
+public function darkMode(): string
+```
+
+Returns the dark mode setting. Defaults to `'auto'`.
+
+**Possible values:**
+- `'auto'` - Follow system preference
+- `'light'` - Always light mode
+- `'dark'` - Always dark mode
+
+**Example:**
 
 ```php
 $mode = Cambo::darkMode();
-// 'system', 'light', ou 'dark'
+// 'auto', 'light', or 'dark'
 ```
 
-### Fonctionnalites
+### featureEnabled()
 
-#### `featureEnabled(string $feature): bool`
+```php
+public function featureEnabled(string $feature): bool
+```
 
-Verifie si une fonctionnalite est activee.
+Checks if a specific feature is enabled.
+
+**Parameters:**
+- `$feature` - The feature name to check
+
+**Example:**
 
 ```php
 if (Cambo::featureEnabled('two_factor')) {
-    // L'authentification 2FA est activee
+    // Two-factor authentication is enabled
 }
 
 if (Cambo::featureEnabled('registration')) {
-    // L'inscription est activee
+    // User registration is enabled
 }
 ```
 
-### Modeles
+### userModel()
 
-#### `userModel(): string`
+```php
+public function userModel(): string
+```
 
-Retourne la classe du modele User.
+Returns the User model class name. Defaults to `\App\Models\User::class`.
+
+**Example:**
 
 ```php
 $userClass = Cambo::userModel();
 // 'App\Models\User'
+
+$users = $userClass::all();
 ```
 
-## Exemple complet
+## Complete Usage Example
 
 ```php
-use Cambo;
+use CamboSoftware\CamboAdmin\Facades\Cambo;
 
 class DashboardController extends Controller
 {
@@ -145,9 +239,9 @@ class DashboardController extends Controller
 }
 ```
 
-## Acces direct au service
+## Direct Service Access
 
-Vous pouvez aussi injecter le service directement :
+You can also inject the service directly:
 
 ```php
 use CamboSoftware\CamboAdmin\CamboAdmin;
@@ -161,16 +255,20 @@ class MyController extends Controller
     public function index()
     {
         $appName = $this->cambo->appName();
+        $modules = $this->cambo->enabledModules();
     }
 }
 ```
 
-## Helper global
+## Source Code
 
-Un helper global est aussi disponible :
+**Location:** `src/Facades/Cambo.php` and `src/CamboAdmin.php`
+
+The facade resolves to the `cambo-admin` binding in the service container:
 
 ```php
-// Dans un controller ou service
-$appName = cambo()->appName();
-$isModuleEnabled = cambo()->moduleEnabled('notifications');
+protected static function getFacadeAccessor(): string
+{
+    return 'cambo-admin';
+}
 ```

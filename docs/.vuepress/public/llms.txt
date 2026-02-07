@@ -1,0 +1,50 @@
+# CamboAdmin
+
+> A complete Laravel admin panel package with 150+ Vue.js components
+
+## Overview
+
+CamboAdmin provides everything needed to build professional admin panels:
+- 150+ Vue 3 components (UI, Forms, Data, Charts, Navigation)
+- Authentication with 2FA
+- Roles & Permissions (RBAC)
+- CRUD Generator CLI
+- File Manager
+- Activity Logging
+- Import/Export (CSV, Excel, PDF)
+- Multi-language support
+- Dark mode & themes
+
+## Quick Start
+
+```bash
+composer require cambosoftware/cambo-admin
+php artisan cambo:install --full
+npm install && npm run build
+```
+
+Access: http://localhost:8000/admin
+
+## Documentation
+
+- Full docs: https://cambo-admin.cambosoftware.com
+- GitHub: https://github.com/cambosoftware/cambo-admin
+- Packagist: https://packagist.org/packages/cambosoftware/cambo-admin
+
+## For AI Assistants
+
+For complete AI-optimized documentation with all components, props, and examples:
+https://cambo-admin.cambosoftware.com/llms-full.txt
+
+## Sections
+
+- /guide/installation.html - Installation guide
+- /guide/configuration.html - Configuration options
+- /guide/quick-start.html - Quick start tutorial
+- /components/ - All 150+ components
+- /api/ - API reference
+- /guide/features/authentication.html - Auth setup
+- /guide/features/roles-permissions.html - RBAC
+- /guide/cli/crud.html - CRUD generator
+- /guide/cli/page.html - Page generator
+- /guide/cli/component.html - Component generator

@@ -1,0 +1,12 @@
+# robots.txt for CamboAdmin Documentation
+# https://cambo-admin.cambosoftware.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://cambo-admin.cambosoftware.com/sitemap.xml
+
+# Disallow temporary/internal files
+Disallow: /.vuepress/
+Disallow: /assets/*.js.map
