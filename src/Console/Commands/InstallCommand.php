@@ -287,7 +287,7 @@ class InstallCommand extends Command
             if (!Str::contains($content, 'use HasRoles')) {
                 $content = str_replace(
                     'use HasFactory, Notifiable;',
-                    "use HasFactory, Notifiable;\n    use \\App\\Models\\Traits\\HasRoles;",
+                    "use HasFactory, Notifiable;\n    use \\CamboSoftware\\CamboAdmin\\Models\\Traits\\HasRoles;",
                     $content
                 );
             }
@@ -298,7 +298,7 @@ class InstallCommand extends Command
             if (!Str::contains($content, 'use LogsActivity')) {
                 $content = str_replace(
                     'use HasFactory, Notifiable;',
-                    "use HasFactory, Notifiable;\n    use \\App\\Models\\Traits\\LogsActivity;",
+                    "use HasFactory, Notifiable;\n    use \\CamboSoftware\\CamboAdmin\\Models\\Traits\\LogsActivity;",
                     $content
                 );
             }
