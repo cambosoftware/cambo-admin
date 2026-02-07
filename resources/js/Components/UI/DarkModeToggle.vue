@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useTheme } from '@/composables/useTheme'
+import { useTheme } from '@/Composables/useTheme'
 import { SunIcon, MoonIcon, ComputerDesktopIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps({

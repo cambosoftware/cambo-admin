@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { useTheme } from '@/composables/useTheme'
+import { useTheme } from '@/Composables/useTheme'
 import Dropdown from '@/Components/Overlays/Dropdown.vue'
 import DropdownItem from '@/Components/Overlays/DropdownItem.vue'
 import { SunIcon, MoonIcon, ComputerDesktopIcon, ChevronDownIcon, CheckIcon } from '@heroicons/vue/24/outline'

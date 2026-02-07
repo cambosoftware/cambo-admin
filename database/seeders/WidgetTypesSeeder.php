@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\WidgetType;
+use CamboSoftware\CamboAdmin\Models\WidgetType;
 use Illuminate\Database\Seeder;
 
 class WidgetTypesSeeder extends Seeder
