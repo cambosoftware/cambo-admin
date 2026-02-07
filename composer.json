@@ -21,6 +21,7 @@
     "homepage": "https://github.com/cambosoftware/cambo-admin",
     "require": {
         "php": "^8.2",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^11.0|^12.0",
         "inertiajs/inertia-laravel": "^1.0|^2.0",
         "tightenco/ziggy": "^2.0"
