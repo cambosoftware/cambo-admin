@@ -186,6 +186,12 @@ class InstallCommand extends Command
             '--force' => $this->option('force'),
         ]);
 
+        // Publish controllers
+        $this->call('vendor:publish', [
+            '--tag' => 'cambo-admin-controllers',
+            '--force' => $this->option('force'),
+        ]);
+
         // Publish pages for selected modules
         if (!empty($this->selectedModules)) {
             $this->call('vendor:publish', [
