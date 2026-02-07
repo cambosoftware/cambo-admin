@@ -392,13 +392,14 @@ JS;
 
         $package = json_decode($this->files->get($packagePath), true);
 
-        // Required dev dependencies for Vue + Inertia + Tailwind + Icons
+        // Required dev dependencies for Vue + Inertia + Tailwind + Icons + Charts
         $requiredDevDependencies = [
             '@heroicons/vue' => '^2.2',
             '@inertiajs/vue3' => '^2.0',
             '@vitejs/plugin-vue' => '^6.0',
             'chart.js' => '^4.4',
             'vue' => '^3.5',
+            'vue-chartjs' => '^5.3',
         ];
 
         // Merge dependencies
