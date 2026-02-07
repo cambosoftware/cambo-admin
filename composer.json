@@ -25,8 +25,8 @@
         "inertiajs/inertia-laravel": "^1.0|^2.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^9.0",
-        "phpunit/phpunit": "^10.0"
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^10.0|^11.0"
     },
     "suggest": {
         "barryvdh/laravel-dompdf": "Required for PDF exports",
