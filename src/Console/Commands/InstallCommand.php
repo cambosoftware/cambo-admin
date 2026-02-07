@@ -51,6 +51,9 @@ class InstallCommand extends Command
     {
         $this->displayBanner();
 
+        // Check and fix directory permissions
+        $this->ensureDirectoryPermissions();
+
         // Determine installation type
         if ($this->option('full')) {
             $this->selectedModules = array_keys($this->modules);
@@ -104,6 +107,73 @@ class InstallCommand extends Command
         $this->line('║                                                           ║');
         $this->line('╚═══════════════════════════════════════════════════════════╝');
         $this->newLine();
+    }
+
+    protected function ensureDirectoryPermissions(): void
+    {
+        $this->info('Checking directory permissions...');
+
+        $directories = [
+            storage_path(),
+            storage_path('app'),
+            storage_path('app/public'),
+            storage_path('framework'),
+            storage_path('framework/cache'),
+            storage_path('framework/cache/data'),
+            storage_path('framework/sessions'),
+            storage_path('framework/views'),
+            storage_path('logs'),
+            base_path('bootstrap/cache'),
+        ];
+
+        $issues = [];
+
+        foreach ($directories as $directory) {
+            // Create directory if it doesn't exist
+            if (!$this->files->isDirectory($directory)) {
+                try {
+                    $this->files->makeDirectory($directory, 0775, true);
+                } catch (\Exception $e) {
+                    $issues[] = $directory;
+                    continue;
+                }
+            }
+
+            // Check if writable
+            if (!$this->files->isWritable($directory)) {
+                // Try to fix permissions
+                try {
+                    chmod($directory, 0775);
+                    if (!$this->files->isWritable($directory)) {
+                        $issues[] = $directory;
+                    }
+                } catch (\Exception $e) {
+                    $issues[] = $directory;
+                }
+            }
+        }
+
+        if (empty($issues)) {
+            $this->info('✓ Directory permissions OK');
+            return;
+        }
+
+        $this->warn('⚠ Some directories are not writable:');
+        foreach ($issues as $dir) {
+            $this->line("  - {$dir}");
+        }
+
+        $this->newLine();
+        $this->line('To fix this, run the following commands:');
+        $this->newLine();
+        $this->line('  <fg=yellow>chmod -R 775 storage bootstrap/cache</>');
+        $this->line('  <fg=yellow>chown -R www-data:www-data storage bootstrap/cache</>');
+        $this->newLine();
+
+        if (!$this->confirm('Continue installation anyway?', true)) {
+            $this->error('Installation aborted. Please fix permissions and try again.');
+            exit(1);
+        }
     }
 
     protected function runInteractiveInstall(): void
