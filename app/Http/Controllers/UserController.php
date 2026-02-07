@@ -70,8 +70,8 @@ class UserController extends Controller
             $user->roles()->sync($roleIds);
         }
 
-        return redirect()->route('cambo.users.index')
-            ->with('success', 'User created successfully.');
+        return redirect('/admin/users')
+            ->with('success', 'Utilisateur créé avec succès.');
     }
 
     /**
@@ -126,8 +126,8 @@ class UserController extends Controller
             $user->roles()->sync($roleIds);
         }
 
-        return redirect()->route('cambo.users.index')
-            ->with('success', 'User updated successfully.');
+        return redirect('/admin/users')
+            ->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     /**
@@ -142,7 +142,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('cambo.users.index')
-            ->with('success', 'User deleted successfully.');
+        return redirect('/admin/users')
+            ->with('success', 'Utilisateur supprimé avec succès.');
     }
 }
