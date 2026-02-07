@@ -2,6 +2,7 @@
 
 namespace CamboSoftware\CamboAdmin\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,7 +25,8 @@ class DashboardLayout extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        $userModel = config('cambo-admin.models.user') ?? \App\Models\User::class;
+        return $this->belongsTo($userModel);
     }
 
     /**
@@ -38,7 +40,7 @@ class DashboardLayout extends Model
     /**
      * Get the default layout for a user, creating if needed.
      */
-    public static function getOrCreateDefault(User $user): self
+    public static function getOrCreateDefault(Authenticatable $user): self
     {
         $layout = static::where('user_id', $user->id)
             ->where('is_default', true)
