@@ -2,7 +2,7 @@
 
 namespace CamboSoftware\CamboAdmin\Models\Traits;
 
-use App\Models\Activity;
+use CamboSoftware\CamboAdmin\Models\Activity;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Str;
 
@@ -102,9 +102,9 @@ trait LogsActivity
         $modelName = $this->getActivitySubjectDescription();
 
         return match ($event) {
-            'created' => "{$modelName} a été créé",
-            'updated' => "{$modelName} a été modifié",
-            'deleted' => "{$modelName} a été supprimé",
+            'created' => "{$modelName} was created",
+            'updated' => "{$modelName} was updated",
+            'deleted' => "{$modelName} was deleted",
             default => "{$modelName} - {$event}",
         };
     }
