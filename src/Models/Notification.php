@@ -32,7 +32,8 @@ class Notification extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        $userModel = config('cambo-admin.models.user') ?? \App\Models\User::class;
+        return $this->belongsTo($userModel);
     }
 
     /**
@@ -84,7 +85,7 @@ class Notification extends Model
     /**
      * Create a notification for a user.
      */
-    public static function notify(User $user, array $data): self
+    public static function notify($user, array $data): self
     {
         return static::create([
             'user_id' => $user->id,
