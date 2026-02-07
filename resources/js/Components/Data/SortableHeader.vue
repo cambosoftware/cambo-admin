@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { ChevronUpIcon, ChevronDownIcon, ChevronUpDownIcon, FunnelIcon } from '@heroicons/vue/20/solid'
 
 const props = defineProps({
@@ -48,6 +48,8 @@ const props = defineProps({
 const emit = defineEmits(['sort', 'filter'])
 
 const showFilterDropdown = ref(false)
+const filterButtonRef = ref(null)
+const dropdownStyle = ref({})
 
 const isActive = computed(() => props.currentSort === props.column)
 const isAsc = computed(() => isActive.value && props.currentDirection === 'asc')
@@ -76,6 +78,24 @@ const paddingClass = computed(() => {
     return props.compact ? 'px-3 py-2' : 'px-4 py-3'
 })
 
+const updateDropdownPosition = async () => {
+    if (!filterButtonRef.value) return
+
+    await nextTick()
+
+    const rect = filterButtonRef.value.getBoundingClientRect()
+    const scrollY = window.scrollY
+    const scrollX = window.scrollX
+
+    dropdownStyle.value = {
+        position: 'absolute',
+        zIndex: 9999,
+        top: `${rect.bottom + scrollY + 4}px`,
+        left: `${rect.left + scrollX}px`,
+        minWidth: '150px'
+    }
+}
+
 const handleSort = () => {
     let direction = 'asc'
     if (isActive.value) {
@@ -97,12 +117,40 @@ const toggleFilterDropdown = (event) => {
 const closeDropdown = () => {
     showFilterDropdown.value = false
 }
+
+const onScroll = () => {
+    if (showFilterDropdown.value) {
+        updateDropdownPosition()
+    }
+}
+
+const onResize = () => {
+    if (showFilterDropdown.value) {
+        updateDropdownPosition()
+    }
+}
+
+watch(showFilterDropdown, async (isOpen) => {
+    if (isOpen) {
+        await updateDropdownPosition()
+    }
+})
+
+onMounted(() => {
+    window.addEventListener('scroll', onScroll, true)
+    window.addEventListener('resize', onResize)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', onScroll, true)
+    window.removeEventListener('resize', onResize)
+})
 </script>
 
 <template>
     <th
         :class="[
-            'text-xs font-semibold text-gray-600 uppercase tracking-wider select-none group relative',
+            'text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider select-none group relative',
             paddingClass
         ]"
     >
@@ -110,7 +158,7 @@ const closeDropdown = () => {
             <!-- Sortable part -->
             <button
                 type="button"
-                class="flex items-center gap-1 hover:text-gray-900 transition-colors cursor-pointer"
+                class="flex items-center gap-1 hover:text-gray-900 dark:hover:text-gray-200 transition-colors cursor-pointer"
                 @click="handleSort"
             >
                 <slot />
@@ -133,10 +181,11 @@ const closeDropdown = () => {
             <!-- Filter icon -->
             <button
                 v-if="filterable"
+                ref="filterButtonRef"
                 type="button"
                 :class="[
-                    'p-0.5 rounded hover:bg-gray-200 transition-colors cursor-pointer',
-                    hasActiveFilter ? 'text-indigo-500' : 'text-gray-400 hover:text-gray-600'
+                    'p-0.5 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer',
+                    hasActiveFilter ? 'text-indigo-500' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
                 ]"
                 @click="toggleFilterDropdown"
             >
@@ -144,43 +193,57 @@ const closeDropdown = () => {
             </button>
         </div>
 
-        <!-- Filter dropdown -->
-        <div
-            v-if="filterable && showFilterDropdown"
-            class="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[150px]"
-            @click.stop
-        >
-            <div class="py-1">
-                <button
-                    type="button"
-                    :class="[
-                        'w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 transition-colors cursor-pointer',
-                        !hasActiveFilter ? 'text-indigo-600 font-medium' : 'text-gray-700'
-                    ]"
-                    @click="handleFilter('')"
-                >
-                    {{ filterPlaceholder }}
-                </button>
-                <button
-                    v-for="option in normalizedFilterOptions"
-                    :key="option.value"
-                    type="button"
-                    :class="[
-                        'w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 transition-colors cursor-pointer',
-                        filterValue === option.value ? 'text-indigo-600 font-medium bg-indigo-50' : 'text-gray-700'
-                    ]"
-                    @click="handleFilter(option.value)"
-                >
-                    {{ option.label }}
-                </button>
-            </div>
-        </div>
-
         <!-- Backdrop to close dropdown -->
-        <div
-            v-if="showFilterDropdown"
-            class="fixed inset-0 z-40"
-            @click="closeDropdown"
-        />
+        <Teleport to="body">
+            <div
+                v-if="showFilterDropdown"
+                class="fixed inset-0 z-[9998]"
+                @click="closeDropdown"
+            />
+        </Teleport>
+
+        <!-- Filter dropdown (teleported to body) -->
+        <Teleport to="body">
+            <Transition
+                enter-active-class="transition duration-150 ease-out"
+                enter-from-class="opacity-0 scale-95"
+                enter-to-class="opacity-100 scale-100"
+                leave-active-class="transition duration-100 ease-in"
+                leave-from-class="opacity-100 scale-100"
+                leave-to-class="opacity-0 scale-95"
+            >
+                <div
+                    v-if="filterable && showFilterDropdown"
+                    class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden"
+                    :style="dropdownStyle"
+                    @click.stop
+                >
+                    <div class="py-1">
+                        <button
+                            type="button"
+                            :class="[
+                                'w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer',
+                                !hasActiveFilter ? 'text-indigo-600 dark:text-indigo-400 font-medium' : 'text-gray-700 dark:text-gray-300'
+                            ]"
+                            @click="handleFilter('')"
+                        >
+                            {{ filterPlaceholder }}
+                        </button>
+                        <button
+                            v-for="option in normalizedFilterOptions"
+                            :key="option.value"
+                            type="button"
+                            :class="[
+                                'w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer',
+                                filterValue === option.value ? 'text-indigo-600 dark:text-indigo-400 font-medium bg-indigo-50 dark:bg-indigo-900/50' : 'text-gray-700 dark:text-gray-300'
+                            ]"
+                            @click="handleFilter(option.value)"
+                        >
+                            {{ option.label }}
+                        </button>
+                    </div>
+                </div>
+            </Transition>
+        </Teleport>
     </th>
 </template>
