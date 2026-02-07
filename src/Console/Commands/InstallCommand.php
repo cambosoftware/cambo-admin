@@ -555,6 +555,9 @@ class InstallCommand extends Command
         $this->updateTailwindConfig();
         $this->updatePackageJson();
         $this->updateAppJs();
+        $this->createInertiaMiddleware();
+        $this->updateBootstrapApp();
+        $this->updateWebRoutes();
 
         $this->info('✓ Configuration files updated');
     }
@@ -747,6 +750,138 @@ createInertiaApp({
 JS;
 
         $this->files->put(resource_path('js/app.js'), $appJsContent);
+    }
+
+    protected function createInertiaMiddleware(): void
+    {
+        $middlewarePath = app_path('Http/Middleware/HandleInertiaRequests.php');
+
+        // Skip if already exists
+        if ($this->files->exists($middlewarePath) && !$this->option('force')) {
+            return;
+        }
+
+        // Ensure directory exists
+        $this->files->ensureDirectoryExists(app_path('Http/Middleware'));
+
+        $middlewareContent = <<<'PHP'
+<?php
+
+namespace App\Http\Middleware;
+
+use Illuminate\Http\Request;
+use Inertia\Middleware;
+
+class HandleInertiaRequests extends Middleware
+{
+    /**
+     * The root template that is loaded on the first page visit.
+     *
+     * @var string
+     */
+    protected $rootView = 'app';
+
+    /**
+     * Determine the current asset version.
+     */
+    public function version(Request $request): ?string
+    {
+        return parent::version($request);
+    }
+
+    /**
+     * Define the props that are shared by default.
+     *
+     * @return array<string, mixed>
+     */
+    public function share(Request $request): array
+    {
+        return [
+            ...parent::share($request),
+            'auth' => [
+                'user' => $request->user(),
+                'permissions' => $request->user()?->getAllPermissions() ?? [],
+            ],
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
+                'warning' => fn () => $request->session()->get('warning'),
+                'info' => fn () => $request->session()->get('info'),
+            ],
+        ];
+    }
+}
+PHP;
+
+        $this->files->put($middlewarePath, $middlewareContent);
+        $this->info('✓ HandleInertiaRequests middleware created');
+    }
+
+    protected function updateBootstrapApp(): void
+    {
+        $bootstrapPath = base_path('bootstrap/app.php');
+
+        if (!$this->files->exists($bootstrapPath)) {
+            return;
+        }
+
+        $content = $this->files->get($bootstrapPath);
+
+        // Check if HandleInertiaRequests is already configured
+        if (Str::contains($content, 'HandleInertiaRequests')) {
+            return;
+        }
+
+        // For Laravel 11+, add middleware to withMiddleware callback
+        if (Str::contains($content, '->withMiddleware(function (Middleware $middleware)')) {
+            // Check if there's already web middleware append
+            if (Str::contains($content, '$middleware->web(append:')) {
+                // Add our middleware to existing append
+                $content = preg_replace(
+                    '/(\$middleware->web\(append:\s*\[)/',
+                    "$1\n            \\App\\Http\\Middleware\\HandleInertiaRequests::class,",
+                    $content
+                );
+            } else {
+                // Add new web middleware append
+                $content = preg_replace(
+                    '/(->withMiddleware\(function \(Middleware \$middleware\).*?{)/s',
+                    "$1\n        \$middleware->web(append: [\n            \\App\\Http\\Middleware\\HandleInertiaRequests::class,\n        ]);",
+                    $content
+                );
+            }
+
+            $this->files->put($bootstrapPath, $content);
+            $this->info('✓ HandleInertiaRequests middleware registered in bootstrap/app.php');
+        }
+    }
+
+    protected function updateWebRoutes(): void
+    {
+        $routesPath = base_path('routes/web.php');
+
+        if (!$this->files->exists($routesPath)) {
+            return;
+        }
+
+        $content = $this->files->get($routesPath);
+
+        // Check if redirect to cambo.dashboard is already set
+        if (Str::contains($content, 'cambo.dashboard')) {
+            return;
+        }
+
+        // Replace default Laravel welcome route with redirect to admin dashboard
+        if (Str::contains($content, "return view('welcome')")) {
+            $content = preg_replace(
+                "/Route::get\('\/'\s*,\s*function\s*\(\)\s*\{[\s\S]*?return view\('welcome'\);[\s\S]*?\}\);/",
+                "// Redirect home to admin dashboard\nRoute::get('/', function () {\n    return redirect()->route('cambo.dashboard');\n});",
+                $content
+            );
+
+            $this->files->put($routesPath, $content);
+            $this->info('✓ Default route redirects to admin dashboard');
+        }
     }
 
     protected function createAdminUser(): void
